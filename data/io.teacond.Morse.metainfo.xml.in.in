@@ -53,6 +53,17 @@
     </screenshot>
   </screenshots>
 
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+    <control>tablet</control>
+  </supports>
+
+  <recommends>
+    <display_length compare="ge">360</display_length>
+  </recommends>
+
   <releases>
     <release version="1.0" date="2026-01-13">
       <description translate="yes">
