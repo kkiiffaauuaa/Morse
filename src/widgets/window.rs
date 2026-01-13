@@ -197,7 +197,6 @@ mod imp {
                 .build();
                 check_button.connect_active_notify(clone!(
                     #[strong] chars_in_use,
-                    #[weak(rename_to = this)] self,
                     move |check_button| {
                         let check_button_char = check_button.label().unwrap().chars().next().unwrap();
                         let mut chars_in_use = chars_in_use.borrow_mut();
@@ -209,7 +208,6 @@ mod imp {
                                 chars_in_use.remove(index);
                             }
                         }
-                        this.generate_text_button.set_sensitive(!chars_in_use.is_empty());
                     }
                 ));
                 check_buttons_vec.push(check_button);
@@ -228,6 +226,9 @@ mod imp {
                 move |play_button| {
                     if this.random_switch.is_active() {
                         this.generate_text_clicked(word_length, &chars_in_use.borrow());
+                        if chars_in_use.borrow().is_empty() {
+                            return;
+                        }
                     }
 
                     let frequency = settings_manager::integer(Key::Frequency) as f32;
@@ -528,14 +529,23 @@ mod imp {
 
     impl MorseApplicationWindow {
         fn generate_text_clicked(&self, word_length: u64, chars_in_use: &Vec<char>) {
-            self.set_text_buffer(
-                &generate_text(
-                    Some(rand::rng().random_range(0..u64::MAX)),
-                    self.groups_spin.value() as u64 * word_length,
-                    word_length,
-                    chars_in_use.to_vec()
-                ).unwrap()
-            );
+            if chars_in_use.is_empty() {
+                self.toast_overlay.add_toast(
+                    Toast::builder()
+                    .title(&i18n("To generate text enable at least 1 character"))
+                    .build()
+                );
+            }
+            else {
+                self.set_text_buffer(
+                    &generate_text(
+                        Some(rand::rng().random_range(0..u64::MAX)),
+                        self.groups_spin.value() as u64 * word_length,
+                        word_length,
+                        chars_in_use.to_vec()
+                    ).unwrap()
+                );
+            }
         }
 
         fn set_check_buttons_grid(&self, check_buttons_vec: &Vec<CheckButton>, chars: &Vec<char>) {
