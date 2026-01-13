@@ -1,0 +1,13 @@
+target
+build
+_build
+builddir
+.vscode
+.flatpak-builder
+src/config.rs
+po/io.teacond.Morse.pot
+repo
+*.mo
+*.pot
+*.ui.in~
+*.ui~

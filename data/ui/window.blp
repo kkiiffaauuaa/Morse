@@ -1,0 +1,325 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MorseApplicationWindow: Adw.ApplicationWindow {
+  title: _("Morse");
+  default-width: 925;
+  default-height: 600;
+
+  content: Adw.NavigationView {
+    Adw.NavigationPage {
+      title: _("Morse");
+      Adw.BreakpointBin {
+        width-request: 360;
+        height-request: 294;
+
+        Adw.Breakpoint breakpoint1 {
+          condition ("max-width: 900sp")
+
+          setters {
+            split_view.collapsed: true;
+            main_header_bar.show-back-button: true;
+            main_header_bar.show-title: true;
+            main_menu_button.visible: true;
+            sidebar_back_button.visible: true;
+            sidebar_menu_button.visible: false;
+            side_header_bar.show-back-button: false;
+            side_header_bar.title-widget: side_bar_label;
+            show_sidebar_button.visible: true;
+          }
+        }
+        Adw.BreakpointBin {
+          width-request: 360;
+          height-request: 294;
+
+          Adw.Breakpoint breakpoint2 {
+            condition ("max-width: 375sp")
+
+            setters {
+              separator.visible: false;
+              timer_box.visible: false;
+            }
+          }
+
+          Adw.ToastOverlay toast_overlay {
+            Adw.OverlaySplitView split_view {
+              sidebar-width-fraction: 0.25;
+              min-sidebar-width: 360;
+              max-sidebar-width: 460;
+              sidebar: Adw.ToolbarView {
+                [top]
+                Adw.HeaderBar side_header_bar {
+                  [end]
+                  MenuButton sidebar_menu_button {
+                    primary: true;
+                    icon-name: "open-menu-symbolic";
+                    tooltip-text: _("Main Menu");
+                    menu-model: primary_menu;
+                  }
+                  [end]
+                  Button sidebar_back_button {
+                    visible: false;
+                    icon-name: "go-previous-symbolic";
+                  }
+                }
+                
+                content: Box {
+                  orientation: vertical;
+                  
+                  Adw.PreferencesPage {
+                    Adw.PreferencesGroup preferences_group_general {
+                      title: _("General");
+                      Adw.ComboRow text_type_combo {
+                        title: _("Text Type");
+                        model: StringList {
+                          strings [
+                            _("Letters"),
+                            _("Digits"),
+                            _("Mixed"),
+                          ]
+                        };
+                      }
+                      Adw.SwitchRow random_switch {
+                        title: _("Auto Generation");
+                        subtitle: _("Pressing the playback button will generate the new text");
+                        active: true;
+                      }
+                    }
+                    Adw.PreferencesGroup preferences_group_text {
+                      title: _("Text Generation");
+                      Adw.SwitchRow groups_switch {
+                        title: _("Default Words Number");
+                        subtitle: _("The words number is calculated automatically based on the text speed");
+                        active: true;
+                      }
+                      Adw.SpinRow groups_spin {
+                        title: _("Words");
+                        sensitive: false;
+                        adjustment: groups_adjustment;
+                      }
+                      Adw.ActionRow characters_row {
+                        title: _("Characters");
+                        subtitle: _("Select the characters you need");
+                        activatable: true;
+                        [suffix]
+                        Image {
+                          icon-name: "go-next-symbolic";
+                        }
+                    }
+                    }
+                    Adw.PreferencesGroup preferences_group_speed {
+                      title: _("Speed");
+                      Adw.SpinRow speed_spin {
+                        title: _("Speed");
+                        adjustment: speed_adjustment;
+                      }
+                      Adw.SpinRow delay_spin {
+                        title: _("Delay between characters");
+                        subtitle: _("The delay between groups is calculated automatically. The default value is 3.");
+                        adjustment: characters_delay_adjustment;
+                      }
+                    }
+                  }
+                  $MorseVolumeControl volume_control {
+                    vexpand: true;
+                    valign: end;
+                  }
+                };
+              };
+
+              content: Adw.ToolbarView {
+                [top]
+                Adw.HeaderBar main_header_bar {
+                  show-back-button: false;
+                  show-title: false;
+                  [start]
+                  Button show_sidebar_button {
+                    visible: false;
+                    icon-name: "dock-left-symbolic";
+                  }
+                  [end]
+                  MenuButton main_menu_button {
+                    visible: false;
+                    primary: true;
+                    icon-name: "open-menu-symbolic";
+                    tooltip-text: _("Main Menu");
+                    menu-model: primary_menu;
+                  }
+                  [end]
+                  Button play_button {
+                    styles ["success", "raised"]
+                    label: _("Play");
+                    icon-name: "media-playback-start-symbolic";
+                  }
+                  [end]
+                  Button stop_button {
+                    styles ["destructive-action", "raised"]
+                    visible: false;
+                    label: _("Stop");
+                    icon-name: "media-playback-stop-symbolic";
+                  }
+                  [end]
+                  Separator separator {
+                    margin-start: 5;
+                    margin-end: 5;
+                  }
+                  [end]
+                  Box timer_box {
+                    styles ["card"]
+                    Label timer_label {
+                      styles ["numeric"]
+                      margin-start: 10;
+                      margin-end: 10;
+                      label: "00:00";
+                    }
+                  }
+                }
+                Overlay {
+                  ScrolledWindow {
+                    margin-start: 10;
+                    margin-end: 10;
+                    margin-bottom: 10;
+                    margin-top: 5;
+                    TextView text_view {
+                      styles ["card", "view", "title-1", "monospace", "scrolled"]
+                      name: "receiving_text_view";
+                      top-margin: 15;
+                      left-margin: 15;
+                      right-margin: 15;
+                      vexpand: true;
+                      justification: left;
+                      wrap-mode: word_char;
+                      editable: true;
+                      buffer: TextBuffer text_buffer { };
+                    }
+                  }
+
+                  [overlay]
+                  Gtk.Box {
+                    styles ["control_overlay"]
+                    orientation: vertical;
+                    margin-bottom: 27;
+                    margin-end: 27;
+                    spacing: 10;
+                    halign: end;
+                    valign: end;
+                    
+                    Button copy_text_button {
+                      styles ["circular", "osd"]
+                      label: _("Copy Text");
+                      icon-name: "edit-copy-symbolic";                    
+                    }
+                    Button generate_text_button {
+                      styles ["circular", "osd"]
+                      label: _("Generate Text");
+                      icon-name: "dice-symbolic";
+                    }
+                  }
+                }
+              };
+            }
+          }
+        }
+      }
+    }
+  };
+}
+
+Popover characters_popover {
+  default-widget: characters_row;
+  Box {
+    orientation: vertical;
+    spacing: 5;
+    Grid popover_grid { }
+    Box {
+      styles ["linked"]
+      orientation: horizontal;
+      homogeneous: true;
+      Button remove_all_button {
+        styles ["destructive-action"]
+        hexpand: true;
+        label: "-";
+        icon-name: "list-remove-symbolic";
+      }
+      Button add_all_button {
+        styles ["suggested-action"]
+        hexpand: true;
+        label: "+";
+        icon-name: "list-add-symbolic";
+      }
+    }
+  }
+}
+
+Label side_bar_label {
+  styles ["title"]
+  label: _("Receiving Preferences");
+}
+
+Adjustment seed_adjustment {
+  lower: 0.0;
+  upper: 999999999.0;
+  step-increment: 1.0;
+  value: 1.0;
+}
+
+Adjustment groups_adjustment {
+  lower: 1.0;
+  upper: 1000.0;
+  step-increment: 1.0;
+  value: 20.0;
+}
+
+Adjustment speed_adjustment {
+  lower: 20.0;
+  upper: 500.0;
+  step-increment: 10.0;
+  value: 100.0;
+}
+
+Adjustment min_speed_adjustment {
+  lower: 20.0;
+  upper: 490.0;
+  step-increment: 10.0;
+  value: 100.0;
+}
+
+Adjustment max_speed_adjustment {
+  lower: 30.0;
+  upper: 500.0;
+  step-increment: 10.0;
+  value: 110.0;
+}
+
+Adjustment mode_length_adjustment {
+  lower: 5.0;
+  upper: 1000.0;
+  step-increment: 5.0;
+  value: 25.0;
+}
+
+Adjustment characters_delay_adjustment {
+  lower: 2.0;
+  upper: 50.0;
+  step-increment: 1.0;
+  value: 3.0;
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: _("_Preferences");
+      action: "app.preferences";
+    }
+
+    item {
+      label: _("_Keyboard Shortcuts");
+      action: "app.shortcuts";
+    }
+
+    item {
+      label: _("_About Morse");
+      action: "app.about";
+    }
+  }
+}

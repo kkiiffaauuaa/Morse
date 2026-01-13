@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="morse">
+	<schema path="@PATH_ID@/" id="@APP_ID@" gettext-domain="@PKGNAME@">
+		<key name="playback-volume" type="d">
+			<default>0.5</default>
+		</key>
+		<key name="additions" type="i">
+			<default>1</default>
+		</key>
+		<key name="start-delay" type="i">
+			<default>0</default>
+		</key>
+		<key name="wave-type" type="i">
+			<default>0</default>
+		</key>
+		<key name="frequency" type="i">
+			<default>750</default>
+		</key>
+	</schema>
+</schemalist>

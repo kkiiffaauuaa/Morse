@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Morse
+Exec=@PKGNAME@
+Icon=@APP_ID@
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Audio;
+Keywords=GTK;
+StartupNotify=true
+X-Purism-FormFactor=Workstation;Mobile;
+DBusActivatable=true

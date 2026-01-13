@@ -1,0 +1,56 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MorsePreferencesDialog: Adw.PreferencesDialog {
+  Adw.PreferencesPage {
+    Adw.PreferencesGroup {
+      title: _("Playback");
+      Adw.ComboRow additions_combo {
+        title: _("Additions");
+        model: StringList {
+          strings [
+            _("None"),
+            _("Default"),
+            _("Competitions"),
+          ]
+        };
+      }
+      Adw.SpinRow start_delay_spin {
+        title: _("Start Delay");
+        adjustment: start_delay_adjustment;
+      }
+    }
+    Adw.PreferencesGroup {
+      title: _("Sound");
+      Adw.ComboRow wave_type_combo {
+        title: _("Wave Type");
+        model: StringList {
+          strings [
+            _("Square"),
+            _("Triangle"),
+            _("Sawtooth"),
+            _("Sine"),
+          ]
+        };
+      }
+      Adw.SpinRow freq_spin {
+        title: _("Frequency");
+        adjustment: frequency_adjustment;
+      }
+    }
+  }
+}
+
+Adjustment frequency_adjustment {
+  lower: 300.0;
+  upper: 1200.0;
+  step-increment: 50.0;
+  value: 750.0;
+}
+
+Adjustment start_delay_adjustment {
+  lower: 0.0;
+  upper: 10.0;
+  step-increment: 1.0;
+  value: 0.0;
+}

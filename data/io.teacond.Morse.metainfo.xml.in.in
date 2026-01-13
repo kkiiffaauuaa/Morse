@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>@APP_ID@</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Morse</name>
+  <summary>Learn Morse Code</summary>
+  <description>
+    <p>Learn Morse Code and High Speed Telegraphy.</p>
+  </description>
+
+  <categories>
+    <category>Audio</category>
+    <category>Education</category>
+    <category>GNOME</category>
+    <category>GTK</category>
+  </categories>
+  
+  <!-- Translators: please do NOT translate this -->
+  <developer_name translate="no">Jaŭhien Lavonćjeŭ</developer_name>
+  <developer id="io.teacond">
+    <name translate="no">Jaŭhien Lavonćjeŭ</name>
+  </developer>
+
+  <!-- Required: Should be a link to the upstream homepage for the component -->
+  <url type="homepage">https://github.com/teacond/Morse</url>
+  <!-- Recommended: It is highly recommended for open-source projects to display the source code repository -->
+  <url type="vcs-browser">https://github.com/teacond/Morse</url>
+  <!-- Should point to the software's bug tracking system, for users to report new bugs -->
+  <url type="bugtracker">https://github.com/teacond/Morse/issues</url>
+
+  <translation type="gettext">morse</translation>
+  <!-- All graphical applications having a desktop file must have this tag in the MetaInfo.
+     If this is present, appstreamcli compose will pull icons, keywords and categories from the desktop file. -->
+  <launchable type="desktop-id">@APP_ID@.desktop</launchable>
+  <!-- Use the OARS website (https://hughsie.github.io/oars/generate.html) to generate these and make sure to use oars-1.1 -->
+  <content_rating type="oars-1.1" />
+
+  <!-- Applications should set a brand color in both light and dark variants like so -->
+  <branding>
+    <color type="primary" scheme_preference="light">#deb13e</color>
+    <color type="primary" scheme_preference="dark">##755d21</color>
+  </branding>
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/overview-light.png</image>
+      <caption>An overview</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/overview-dark.png</image>
+      <caption>An overview</caption>
+    </screenshot>
+  </screenshots>
+
+  <releases>
+    <release version="1.0" date="2026-01-13">
+      <description translate="yes">
+        <p>The initial release</p>
+      </description>
+    </release>
+  </releases>
+
+</component>

@@ -1,0 +1,17 @@
+.control_overlay button.circular {
+  padding: 3px;
+}
+
+#receiving_text_view {
+  font-size: 22pt;
+  font-weight: bold;
+}
+
+#volume>scale trough highlight {
+  min-height: 12px;
+  min-width: 12px;
+}
+
+#volume>scale trough slider {
+  opacity: 0;
+}

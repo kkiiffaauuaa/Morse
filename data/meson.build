@@ -1,0 +1,116 @@
+blueprints = custom_target('blueprints',
+  input: files(
+    'ui/window.blp',
+    'ui/preferences_dialog.blp',
+    'ui/shortcuts_dialog.blp',
+    'ui/volume_control.blp',
+  ),
+  output: '.',
+  command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],)
+
+# Desktop file
+conf = configuration_data()
+conf.set('APP_ID', app_id)
+conf.set('PKGNAME', meson.project_name())
+desktop_file = i18n.merge_file(
+  type: 'desktop',
+  input: configure_file(
+    input: '@0@.desktop.in.in'.format(base_id),
+    output: '@0@.desktop.in'.format(app_id),
+    configuration: conf
+  ),
+  output: '@0@.desktop'.format(app_id),
+  po_dir: '../po',
+  install: true,
+  install_dir: join_paths(datadir, 'applications')
+)
+
+desktop_utils = find_program('desktop-file-validate', required: false)
+if desktop_utils.found()
+  test('Validate desktop file', desktop_utils, args: [desktop_file])
+endif
+
+# Appdata
+conf = configuration_data()
+conf.set('APP_ID', app_id)
+appdata_file = i18n.merge_file(
+  input: configure_file(
+    input: '@0@.metainfo.xml.in.in'.format(base_id),
+    output: '@0@.metainfo.xml.in'.format(app_id),
+    configuration: conf
+  ),
+  output: '@0@.metainfo.xml'.format(app_id),
+  po_dir: '../po',
+  install: true,
+  install_dir: join_paths(datadir, 'metainfo')
+)
+
+# Validate Appdata
+appstreamcli = find_program('appstreamcli', required: false)
+if appstreamcli.found()
+  test(
+    'Validate appdata file', appstreamcli,
+    args: [
+      'validate', '--no-net', '--explain', appdata_file.full_path()
+    ]
+  )
+endif
+
+# GSchema
+conf = configuration_data()
+conf.set('APP_ID', app_id)
+conf.set('PATH_ID', path_id)
+conf.set('PKGNAME', meson.project_name())
+configure_file(
+  input: '@0@.gschema.xml.in'.format(base_id),
+  output: '@0@.gschema.xml'.format(app_id),
+  configuration: conf,
+  install: true,
+  install_dir: datadir / 'glib-2.0' / 'schemas'
+)
+
+# Validate GSchema
+compile_schemas = find_program('glib-compile-schemas', required: false, disabler: true)
+test('Validate schema file',
+     compile_schemas,
+     args: ['--strict', '--dry-run', meson.current_source_dir()])
+
+# Resources
+conf = configuration_data()
+conf.set('PATH_ID', path_id)
+configure_file(
+  input: '@0@.gresource.xml.in'.format(base_id),
+  output: '@0@.gresource.xml'.format(app_id),
+  configuration: conf,
+)
+
+gnome.compile_resources(
+  app_id,
+  join_paths(meson.project_build_root(), 'data', '@0@.gresource.xml'.format(app_id)),
+  gresource_bundle: true,
+  source_dir: join_paths(meson.project_build_root(), 'data'),
+  install: true,
+  install_dir: join_paths(datadir, meson.project_name()),
+  dependencies: [appdata_file, blueprints],
+)
+
+gnome.post_install(
+  gtk_update_icon_cache: true,
+  glib_compile_schemas: true,
+  update_desktop_database: true,
+)
+
+# D-Bus service file
+conf = configuration_data()
+conf.set('APP_ID', app_id)
+conf.set('PKGNAME', meson.project_name())
+conf.set('BINDIR', bindir)
+configure_file(
+    input: '@0@.service.in'.format(base_id),
+    output: '@0@.service'.format(app_id),
+    configuration: conf,
+    install: true,
+    install_dir: join_paths(datadir,'dbus-1', 'services')
+)
+
+subdir('icons')
