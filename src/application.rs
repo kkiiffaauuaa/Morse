@@ -1,5 +1,5 @@
 // Morse - application.rs
-// Copyright (C) 2025  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
+// Copyright (C) 2025-2026  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -112,9 +112,9 @@ impl MorseApplication {
             .developer_name("Jaŭhien Lavonćjeŭ")
             .version(VERSION)
             .developers(vec![
-                "Jaŭhien Lavonćjeŭ <Evgeniy_Leontyev@proton.me>",
+                "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>",
             ])
-            .copyright("© 2025 Jaŭhien Lavonćjeŭ")
+            .copyright("© 2025-2026 Jaŭhien Lavonćjeŭ")
             .issue_url("https://github.com/teacond/Morse/issues")
             .license_type(gtk::License::Gpl30)
             .translator_credits(&i18n("translator-credits"))
