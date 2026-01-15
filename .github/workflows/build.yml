@@ -41,29 +41,48 @@ jobs:
           msystem: MINGW64
           update: true
           install: >-
-            base-devel
             git
-            mingw-w64-x86_64-toolchain
-            mingw-w64-x86_64-meson
-            mingw-w64-x86_64-ninja
-            mingw-w64-x86_64-pkg-config
-            mingw-w64-x86_64-ca-certificates
-            mingw-w64-x86_64-shaderc
-            mingw-w64-x86_64-curl
-            mingw-w64-x86_64-cmake
-            mingw-w64-x86_64-libyaml
-            mingw-w64-x86_64-gperf
-            mingw-w64-x86_64-itstool
-            mingw-w64-x86_64-libxml2
-            mingw-w64-x86_64-docbook-xml
-            mingw-w64-x86_64-docbook-xsl
-            mingw-w64-x86_64-gettext
-            mingw-w64-x86_64-vulkan-headers
-            mingw-w64-x86_64-vulkan-loader
-            mingw-w64-x86_64-rust
-            mingw-w64-x86_64-python
-            mingw-w64-x86_64-python-pip
+      - name: Get Hash
+        id: get_hash
+        shell: bash
+        run: |
+          REPOS=(
+          "https://gitlab.gnome.org/GNOME/glib.git"
+          "https://gitlab.freedesktop.org/cairo/cairo.git"
+          "https://gitlab.gnome.org/GNOME/gobject-introspection.git"
+          "https://gitlab.gnome.org/GNOME/pygobject.git"
+          "https://github.com/ebassi/graphene.git"
+          "https://github.com/GNOME/gdk-pixbuf.git"
+          "https://github.com/GNOME/pango.git"
+          "https://gitlab.gnome.org/GNOME/gtk"
+          "https://gitlab.gnome.org/GNOME/libadwaita.git"
+          "https://gitlab.gnome.org/GNOME/blueprint-compiler.git"
+          )
+          SHASUMM=""
+          for repo in "${REPOS[@]}"; do
+            SHASUMM+=$(git ls-remote "$repo" HEAD | awk '{print $1}')
+          done
+          SHASUMM+=$(sha256sum .github/workflows/build.yml | awk '{print $1}')
+          echo "final_hash=$(echo "$SHASUMM" | sha256sum | cut -d' ' -f1)" >> $GITHUB_OUTPUT
+      - name: Cache mingw64
+        id: cache-mingw
+        uses: actions/cache@v4
+        with:
+          path: C:\msys64\mingw64
+          key: ${{ runner.os }}-mingw64-${{ steps.get_hash.outputs.final_hash }}
+      - name: "Install System Packages"
+        if: steps.cache-mingw.outputs.cache-hit != 'true'
+        run: |
+          pacman -S --noconfirm --needed base-devel mingw-w64-x86_64-toolchain \
+          mingw-w64-x86_64-meson mingw-w64-x86_64-ninja mingw-w64-x86_64-pkg-config \
+          mingw-w64-x86_64-ca-certificates mingw-w64-x86_64-shaderc mingw-w64-x86_64-curl \
+          mingw-w64-x86_64-cmake mingw-w64-x86_64-libyaml mingw-w64-x86_64-gperf \
+          mingw-w64-x86_64-itstool mingw-w64-x86_64-libxml2 mingw-w64-x86_64-docbook-xml \
+          mingw-w64-x86_64-docbook-xsl mingw-w64-x86_64-gettext mingw-w64-x86_64-vulkan-headers \
+          mingw-w64-x86_64-vulkan-loader mingw-w64-x86_64-rust mingw-w64-x86_64-python \
+          mingw-w64-x86_64-python-pip
       - name: "Download Dependency Sources"
+        if: steps.cache-mingw.outputs.cache-hit != 'true'
         run: |
           git clone https://gitlab.gnome.org/GNOME/glib.git --depth 1
           git clone https://gitlab.freedesktop.org/cairo/cairo.git --depth 1
@@ -77,6 +96,7 @@ jobs:
           git clone https://gitlab.gnome.org/GNOME/libadwaita.git --depth 1
           git clone https://gitlab.gnome.org/GNOME/blueprint-compiler.git --depth 1
       - name: Build Dependencies
+        if: steps.cache-mingw.outputs.cache-hit != 'true'
         run: |
           build() {
             local name=$1
@@ -110,6 +130,7 @@ jobs:
         run: |
           choco install innosetup -y
       - name: Build Installer
+        shell: powershell
         run: |
           iscc build-aux/morse_inno.iss
       - uses: actions/upload-artifact@v6
