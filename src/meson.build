@@ -4,8 +4,9 @@ conf.set_quoted('VERSION', '@0@@1@'.format(meson.project_version(), version_suff
 conf.set_quoted('APP_ID', app_id)
 conf.set_quoted('PATH_ID', path_id)
 conf.set_quoted('PROFILE', profile)
-conf.set_quoted('LOCALEDIR', localedir)
-conf.set_quoted('DATADIR', datadir)
+conf.set_quoted('PREFIX', get_option('prefix'))
+conf.set_quoted('LOCALEDIR', get_option('localedir'))
+conf.set_quoted('DATADIR', get_option('datadir'))
 
 configure_file(
   input: 'config.rs.in',

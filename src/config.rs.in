@@ -1,5 +1,5 @@
 // Morse - config.rs.in
-// Copyright (C) 2025  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
+// Copyright (C) 2025-2026  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,6 +16,7 @@
 
 pub static PKGNAME: &str = @PKGNAME@;
 pub static VERSION: &str = @VERSION@;
+pub static PREFIX: &str = @PREFIX@;
 pub static LOCALEDIR: &str = @LOCALEDIR@;
 pub static DATADIR: &str = @DATADIR@;
 pub static APP_ID: &str = @APP_ID@;

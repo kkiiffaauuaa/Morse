@@ -34,7 +34,7 @@ mod i18n;
 use self::application::MorseApplication;
 use self::widgets::window::MorseApplicationWindow;
 
-use config::{APP_ID, PKGNAME, LOCALEDIR, DATADIR};
+use config::{APP_ID, PKGNAME, PREFIX, LOCALEDIR, DATADIR};
 use gettextrs::{bind_textdomain_codeset, bindtextdomain, textdomain};
 use gtk::{gio, glib, prelude::*};
 
@@ -52,19 +52,15 @@ fn main() -> glib::ExitCode {
     }
     
     // Set up gettext translations
-    bindtextdomain(PKGNAME, LOCALEDIR).expect("Unable to bind the text domain");
+    let localepath = get_prefix().join(LOCALEDIR);
+
+    bindtextdomain(PKGNAME, localepath.to_str().unwrap()).expect("Unable to bind the text domain");
     bind_textdomain_codeset(PKGNAME, "UTF-8").expect("Unable to set the text domain encoding");
     textdomain(PKGNAME).expect("Unable to switch to the text domain");
 
     // Load resources
-    let path = &format!(
-        "{}/{}/{}.gresource",
-        DATADIR,
-        PKGNAME,
-        APP_ID
-    );
-
-    let resources = gio::Resource::load(path).expect("Could not load resources");
+    let path = get_prefix().join(DATADIR).join(PKGNAME).join(format!("{}.gresource", APP_ID));
+    let resources = gio::Resource::load(path.to_str().unwrap()).expect("Could not load resources");
     gio::resources_register(&resources);
 
     // Create a new GtkApplication. The application manages our main loop,
@@ -77,4 +73,16 @@ fn main() -> glib::ExitCode {
     // is the code you see when you do `echo $?` after running a command in a
     // terminal.
     app.run()
+}
+
+fn get_prefix() -> std::path::PathBuf {
+    if cfg!(target_os = "windows") {
+        let mut path = std::env::current_exe().unwrap();
+        path.pop();
+        path.pop();
+        path
+    }
+    else {
+        std::path::PathBuf::from(PREFIX)
+    }
 }
