@@ -79,21 +79,21 @@ jobs:
           export CC=clang
           export CXX=clang++
           cd gtk
-          meson setup build -Dprefix=/clang64 -Dintrospection=enabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dvulkan=enabled -Dsysprof=disabled -Dwin32-backend=true -Dx11-backend=false -Dwayland-backend=false
+          meson setup build -Dprefix=/${{matrix.sys}} -Dintrospection=enabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dvulkan=enabled -Dsysprof=disabled -Dwin32-backend=true -Dx11-backend=false -Dwayland-backend=false
           meson install -C build
           cd ../
           cd libadwaita
-          meson setup build -Dprefix=/clang64 -Dintrospection=enabled -Dvapi=false -Ddocumentation=false -Dtests=false
+          meson setup build -Dprefix=/${{matrix.sys}} -Dintrospection=enabled -Dvapi=false -Ddocumentation=false -Dtests=false
           meson install -C build
           cd ../
       - name: Build Package
         run: |
           meson setup build -Dprefix=$(pwd)/dist -Dprofile=default
           meson install -C build
-          ldd dist/bin/morse.exe | grep /clang64/bin | cp $(awk '{print $3}') dist/bin
-          cp /clang64/bin/gdbus.exe dist/bin
+          ldd dist/bin/morse.exe | grep /${{matrix.sys}}/bin | cp $(awk '{print $3}') dist/bin
+          cp /${{matrix.sys}}/bin/gdbus.exe dist/bin
           mkdir -p dist/lib/gdk-pixbuf-2.0
-          cp -r /clang64/lib/gdk-pixbuf-2.0/* dist/lib/gdk-pixbuf-2.0
+          cp -r /${{matrix.sys}}/lib/gdk-pixbuf-2.0/* dist/lib/gdk-pixbuf-2.0
       - name: Build Installer
         shell: powershell
         run: |
