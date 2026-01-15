@@ -14,10 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-#![windows_subsystem = "windows"]
+#![cfg_attr(target_os = "windows", windows_subsystem = "windows")]
 
 #[macro_use]
 extern crate strum_macros;
+
+#[cfg(target_os = "windows")]
+use std::env;
+#[cfg(target_os = "windows")]
+use std::process::Command;
 
 mod widgets;
 mod backend;
@@ -34,6 +39,18 @@ use gettextrs::{bind_textdomain_codeset, bindtextdomain, textdomain};
 use gtk::{gio, glib, prelude::*};
 
 fn main() -> glib::ExitCode {
+    #[cfg(target_os = "windows")] {
+        if env::var("GDK_DISABLE").unwrap_or_default() != "dcomp" {
+            let current_exe = env::current_exe().expect("Failed to get current exe path");
+            let status = Command::new(current_exe)
+                .env("GDK_DISABLE", "dcomp")
+                .args(env::args().skip(1))
+                .status()
+                .expect("Failed to restart with GDK_DISABLE");
+            std::process::exit(status.code().unwrap_or(0));
+        }
+    }
+    
     // Set up gettext translations
     bindtextdomain(PKGNAME, LOCALEDIR).expect("Unable to bind the text domain");
     bind_textdomain_codeset(PKGNAME, "UTF-8").expect("Unable to set the text domain encoding");

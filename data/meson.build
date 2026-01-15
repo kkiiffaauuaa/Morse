@@ -94,11 +94,18 @@ gnome.compile_resources(
   dependencies: [appdata_file, blueprints],
 )
 
-gnome.post_install(
-  gtk_update_icon_cache: true,
-  glib_compile_schemas: true,
-  update_desktop_database: true,
-)
+if host_machine.system() == 'windows'
+  gnome.post_install(
+    gtk_update_icon_cache: true,
+    glib_compile_schemas: true,
+  )
+else
+  gnome.post_install(
+    gtk_update_icon_cache: true,
+    glib_compile_schemas: true,
+    update_desktop_database: true,
+  )
+endif
 
 # D-Bus service file
 conf = configuration_data()

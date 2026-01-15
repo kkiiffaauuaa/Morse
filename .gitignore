@@ -2,6 +2,8 @@ target
 build
 _build
 builddir
+dist
+Output
 .vscode
 .flatpak-builder
 src/config.rs

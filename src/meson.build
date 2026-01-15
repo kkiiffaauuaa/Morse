@@ -20,6 +20,12 @@ run_command(
   check: true
 )
 
+if host_machine.system() == 'windows'
+  target_name = meson.project_name() + '.exe'
+else
+  target_name = meson.project_name()
+endif
+
 cargo_options = [ '--manifest-path', meson.project_source_root() / 'Cargo.toml' ]
 cargo_options += [ '--target-dir', meson.project_build_root() / 'src' ]
 
@@ -34,17 +40,26 @@ endif
 
 cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
 
+cargo_compile = custom_target(
+  'cargo-compile',
+  build_by_default: true,
+  build_always_stale: true,
+  output: 'compiledfile',
+  console: true,
+  env: cargo_env,
+  command: [cargo, 'build', cargo_options]
+)
+
 cargo_build = custom_target(
   'cargo-build',
   build_by_default: true,
-  build_always_stale: true,
-  output: meson.project_name(),
-  console: true,
+  output: target_name,
+  depends: cargo_compile,
   install: true,
   install_dir: bindir,
   command: [
-    'env', cargo_env,
-    cargo, 'build',
-    cargo_options, '&&', 'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
+    'cp', 
+    meson.project_build_root() / 'src' / rust_target / target_name,
+    '@OUTPUT@',
   ]
 )
