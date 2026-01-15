@@ -30,19 +30,21 @@ jobs:
   
   windows:
     name: Windows
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
     strategy:
       matrix:
         include:
           - sys: clang64
             env: clang-x86_64
+            runner: windows-11-arm 
             arch: x64
           - sys: clangarm64
             env: clang-aarch64
+            runner: windows-latest
             arch: arm64
+    runs-on: ${{matrix.runner}}
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
       - uses: actions/checkout@v6
       - name: "Setup MSYS2"
