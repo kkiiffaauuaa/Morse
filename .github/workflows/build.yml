@@ -34,71 +34,69 @@ jobs:
     defaults:
       run:
         shell: msys2 {0}
+    strategy:
+      matrix:
+        include:
+          - sys: clang64
+            env: clang-x86_64
+            arch: x64
+          - sys: clangarm64
+            env: clang-aarch64
+            arch: arm64
     steps:
       - uses: actions/checkout@v6
       - name: "Setup MSYS2"
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
+          msystem: ${{matrix.sys}}
           update: true
           install: >-
-            git base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-meson mingw-w64-x86_64-ninja
-            mingw-w64-x86_64-pkg-config mingw-w64-x86_64-ca-certificates mingw-w64-x86_64-shaderc
-            mingw-w64-x86_64-curl mingw-w64-x86_64-cmake mingw-w64-x86_64-libyaml mingw-w64-x86_64-gperf
-            mingw-w64-x86_64-itstool mingw-w64-x86_64-libxml2 mingw-w64-x86_64-docbook-xml
-            mingw-w64-x86_64-docbook-xsl mingw-w64-x86_64-gettext mingw-w64-x86_64-vulkan-headers
-            mingw-w64-x86_64-vulkan-loader mingw-w64-x86_64-rust mingw-w64-x86_64-python
-            mingw-w64-x86_64-python-pip
+            base-devel git mingw-w64-${{matrix.env}}-toolchain mingw-w64-${{matrix.env}}-cc
+            mingw-w64-${{matrix.env}}-meson mingw-w64-${{matrix.env}}-ninja
+            mingw-w64-${{matrix.env}}-pkg-config mingw-w64-${{matrix.env}}-ca-certificates
+            mingw-w64-${{matrix.env}}-shaderc mingw-w64-${{matrix.env}}-curl
+            mingw-w64-${{matrix.env}}-cmake mingw-w64-${{matrix.env}}-libxml2
+            mingw-w64-${{matrix.env}}-gettext mingw-w64-${{matrix.env}}-vulkan
+            mingw-w64-${{matrix.env}}-vulkan-headers mingw-w64-${{matrix.env}}-rust
+            mingw-w64-${{matrix.env}}-python mingw-w64-${{matrix.env}}-python-pip
+            mingw-w64-${{matrix.env}}-appstream mingw-w64-${{matrix.env}}-glib2
+            mingw-w64-${{matrix.env}}-ccache mingw-w64-${{matrix.env}}-gobject-introspection
+            mingw-w64-${{matrix.env}}-cairo mingw-w64-${{matrix.env}}-directx-headers
+            mingw-w64-${{matrix.env}}-gdk-pixbuf2 mingw-w64-${{matrix.env}}-graphene
+            mingw-w64-${{matrix.env}}-json-glib mingw-w64-${{matrix.env}}-libepoxy
+            mingw-w64-${{matrix.env}}-fribidi mingw-w64-${{matrix.env}}-gst-plugins-bad-libs
+            mingw-w64-${{matrix.env}}-shared-mime-info mingw-w64-${{matrix.env}}-python-gobject
+            mingw-w64-${{matrix.env}}-sassc mingw-w64-${{matrix.env}}-pango
+            mingw-w64-${{matrix.env}}-blueprint-compiler mingw-w64-${{matrix.env}}-python-setuptools
       - name: "Download Dependency Sources"
         run: |
-          git clone https://gitlab.gnome.org/GNOME/glib.git --depth 1
-          git clone https://gitlab.freedesktop.org/cairo/cairo.git --depth 1
-          git clone https://gitlab.gnome.org/GNOME/gobject-introspection.git --depth 1
-          git clone https://gitlab.gnome.org/GNOME/pygobject.git --depth 1
-          git clone https://github.com/ebassi/graphene.git --depth 1
-          git clone https://github.com/GNOME/gdk-pixbuf.git --depth 1
-          git clone https://github.com/GNOME/pango.git --depth 1
-          git clone https://gitlab.gnome.org/GNOME/gtk.git --depth 1
-          git clone https://github.com/ximion/appstream.git --branch v1.0.6 --depth 1
-          git clone https://gitlab.gnome.org/GNOME/libadwaita.git --depth 1
-          git clone https://gitlab.gnome.org/GNOME/blueprint-compiler.git --depth 1
+          git clone https://gitlab.gnome.org/GNOME/gtk --depth 1
+          git clone https://gitlab.gnome.org/GNOME/libadwaita --depth 1
       - name: Build Dependencies
         run: |
-          build() {
-            local name=$1
-            local opts=$2
-            echo "::group::Building $name"
-            cd "$name"
-            meson setup build --prefix=/mingw64 --reconfigure $opts
-            meson install -C build
-            cd ..
-            echo "::endgroup::"
-          }
-          build "glib" "-Dtests=false -Dsysprof=disabled -Dintrospection=disabled"
-          build "gobject-introspection" "-Dtests=false"
-          build "pygobject" "-Dtests=false"
-          build "glib" "-Dtests=false -Dsysprof=disabled -Dintrospection=enabled"
-          build "cairo" "-Dtests=disabled"
-          build "graphene" "-Dintrospection=enabled -Dtests=false"
-          build "gdk-pixbuf" "-Dintrospection=enabled -Dtests=false -Dman=false"
-          build "pango" "-Dintrospection=enabled"
-          build "gtk" "-Dintrospection=enabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dwin32-backend=true -Dvulkan=enabled -Dsysprof=disabled"
-          build "appstream" "-Dsystemd=false -Dgir=true -Dstemming=false -Dzstd-support=false -Dapidocs=false -Dinstall-docs=false"
-          build "libadwaita" "-Dintrospection=enabled -Dvapi=false -Ddocumentation=false -Dtests=false"
-          build "blueprint-compiler" ""
+          export CC=clang
+          export CXX=clang++
+          cd gtk
+          meson setup build -Dprefix=/clang64 -Dintrospection=enabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dvulkan=enabled -Dsysprof=disabled -Dwin32-backend=true -Dx11-backend=false -Dwayland-backend=false
+          meson install -C build
+          cd ../
+          cd libadwaita
+          meson setup build -Dprefix=/clang64 -Dintrospection=enabled -Dvapi=false -Ddocumentation=false -Dtests=false
+          meson install -C build
+          cd ../
       - name: Build Package
         run: |
           meson setup build -Dprefix=$(pwd)/dist -Dprofile=default
           meson install -C build
-          ldd dist/bin/morse.exe | grep /mingw64/bin | cp $(awk '{print $3}') dist/bin
-          cp /mingw64/bin/gdbus.exe dist/bin
+          ldd dist/bin/morse.exe | grep /clang64/bin | cp $(awk '{print $3}') dist/bin
+          cp /clang64/bin/gdbus.exe dist/bin
           mkdir -p dist/lib/gdk-pixbuf-2.0
-          cp -r /mingw64/lib/gdk-pixbuf-2.0/* dist/lib/gdk-pixbuf-2.0
+          cp -r /clang64/lib/gdk-pixbuf-2.0/* dist/lib/gdk-pixbuf-2.0
       - name: Build Installer
         shell: powershell
         run: |
-          iscc build-aux/morse_inno.iss
+          iscc /DCPUType=${{matrix.arch}} build-aux/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
-          name: Morse_Installer_x64_v${{ github.run_number }}
+          name: Morse_Installer_${{matrix.arch}}
           path: Output/*.exe

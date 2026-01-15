@@ -40,10 +40,11 @@ use gtk::{gio, glib, prelude::*};
 
 fn main() -> glib::ExitCode {
     #[cfg(target_os = "windows")] {
-        if env::var("GDK_DISABLE").unwrap_or_default() != "dcomp" {
+        if env::var("GDK_DISABLE").unwrap_or_default() != "dcomp" || env::var("GSK_RENDERER").unwrap_or_default() != "vulkan" {
             let current_exe = env::current_exe().expect("Failed to get current exe path");
             let status = Command::new(current_exe)
                 .env("GDK_DISABLE", "dcomp")
+                .env("GSK_RENDERER", "vulkan")
                 .args(env::args().skip(1))
                 .status()
                 .expect("Failed to restart with GDK_DISABLE");
