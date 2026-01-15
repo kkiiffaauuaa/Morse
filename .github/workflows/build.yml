@@ -22,13 +22,14 @@ jobs:
       - uses: actions/checkout@v6
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: morse_${{ matrix.variant.arch }}.flatpak
+          bundle: morse.flatpak
           manifest-path: build-aux/io.teacond.Morse.Devel.json
           cache-key: flatpak-builder-${{ github.sha }}
           arch: ${{ matrix.variant.arch }}
           verbose: true
   
   windows:
+    name: Windows
     runs-on: windows-latest
     defaults:
       run:
@@ -54,7 +55,7 @@ jobs:
           "https://github.com/ebassi/graphene.git"
           "https://github.com/GNOME/gdk-pixbuf.git"
           "https://github.com/GNOME/pango.git"
-          "https://gitlab.gnome.org/GNOME/gtk"
+          "https://gitlab.gnome.org/GNOME/gtk.git"
           "https://gitlab.gnome.org/GNOME/libadwaita.git"
           "https://gitlab.gnome.org/GNOME/blueprint-compiler.git"
           )
@@ -124,7 +125,10 @@ jobs:
         run: |
           meson setup build -Dprefix=$(pwd)/dist -Dprofile=default
           meson install -C build
-          ldd dist/bin/morse.exe | grep /mingw64/bin | cp $(awk '{print $3}') dist/bin/
+          ldd dist/bin/morse.exe | grep /mingw64/bin | cp $(awk '{print $3}') dist/bin
+          cp /mingw64/bin/gdbus.exe dist/bin
+          mkdir -p dist/lib/gdk-pixbuf-2.0
+          cp -r /mingw64/lib/gdk-pixbuf-2.0/* dist/lib/gdk-pixbuf-2.0
       - name: Install Inno Setup
         shell: powershell
         run: |
