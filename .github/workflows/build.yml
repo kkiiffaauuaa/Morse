@@ -111,8 +111,8 @@ jobs:
         run: |
           brew install meson ninja rust glib cmake pkgconf gettext appstream \
           ccache gobject-introspection cairo gdk-pixbuf graphene json-glib \
-          librsvg libepoxy fribidi gstreamer sassc pango blueprint-compiler \
-          python python-setuptools vulkan-loader shaderc molten-vk dylibbundler \
+          librsvg libepoxy fribidi sassc pango blueprint-compiler python \
+          python-setuptools vulkan-loader shaderc molten-vk dylibbundler \
           create-dmg
       - name: "Download Dependency Sources"
         run: |
@@ -143,8 +143,9 @@ jobs:
           cp build-aux/Info.plist Morse.app/Contents/Info.plist
       - name: Build Installer
         run: |
-          create-dmg --volname "Morse Installer" --skip-jenkins \
-          --icon-size 100 --format UDZO "Morse.dmg" "./Morse.app"
+          create-dmg --volname "Morse Installer" --volicon "morse.icns" --window-pos 200 120 \
+          --window-size 800 400 --icon-size 100 --icon "Morse.app" 200 190 --hide-extension "Morse.app" \
+          --app-drop-link 600 185 --skip-jenkins "Morse.dmg" "./Morse.app"
       - uses: actions/upload-artifact@v6
         with:
           name: Morse_Installer_MacOS_arm64
