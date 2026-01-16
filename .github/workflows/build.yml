@@ -100,5 +100,52 @@ jobs:
           iscc /DCPUType=${{matrix.arch}} build-aux/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
-          name: Morse_Installer_${{matrix.arch}}
+          name: Morse_Installer_Windows_${{matrix.arch}}
           path: Output/*.exe
+  macos:
+    name: MacOS
+    runs-on: macos-26-arm
+    steps:
+      - uses: actions/checkout@v6
+      - name: "Install System Packages"
+        run: |
+          brew install meson ninja rust glib cmake pkgconf gettext appstream \
+          ccache gobject-introspection cairo gdk-pixbuf graphene json-glib \
+          librsvg libepoxy fribidi gstreamer sassc pango blueprint-compiler \
+          python python-setuptools vulkan-loader shaderc molten-vk dylibbundler \
+          create-dmg
+      - name: "Download Dependency Sources"
+        run: |
+          git clone https://gitlab.gnome.org/GNOME/gtk --depth 1
+          git clone https://gitlab.gnome.org/GNOME/libadwaita --depth 1
+      - name: Build Dependencies
+        run: |
+          cd gtk
+          meson setup build -Dintrospection=enabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dvulkan=enabled -Dsysprof=disabled -Dx11-backend=false -Dwayland-backend=false -Dmacos-backend=true
+          meson install -C build
+          cd ../
+          cd libadwaita
+          meson setup build -Dintrospection=enabled -Dvapi=false -Ddocumentation=false -Dtests=false
+          meson install -C build
+          cd ../
+      - name: Build Package
+        run: |
+          meson setup build -Dprefix=$(pwd)/Morse.app -Ddatadir=Contents/Resources -Dbindir=Contents/MacOS -Dlocaledir=Contents/Resources/locale -Dprofile=default
+          meson install -C build
+          dylibbundler -od -b -x Morse.app/Contents/MacOS/morse -d Morse.app/Contents/Frameworks/
+          mkdir morse.iconset
+          for size in 16 32 128 256 512; do
+              rsvg-convert -w $size -h $size data/icons/hicolor/scalable/apps/io.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}.png
+              rsvg-convert -w $((size*2)) -h $((size*2)) data/icons/hicolor/scalable/apps/io.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}@2x.png
+          done
+          iconutil -c icns morse.iconset
+          cp morse.icns Morse.app/Contents/Resources
+          cp build-aux/Info.plist Morse.app/Contents/Info.plist
+      - name: Build Installer
+        run: |
+          create-dmg --volname "Morse Installer" --skip-jenkins \
+          --icon-size 100 --format UDZO "Morse.dmg" "./Morse.app"
+      - uses: actions/upload-artifact@v6
+        with:
+          name: Morse_Installer_MacOS_arm64
+          path: Morse.dmg

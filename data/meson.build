@@ -94,16 +94,16 @@ gnome.compile_resources(
   dependencies: [appdata_file, blueprints],
 )
 
-if host_machine.system() == 'windows'
+if host_machine.system() == 'linux'
   gnome.post_install(
     gtk_update_icon_cache: true,
     glib_compile_schemas: true,
+    update_desktop_database: true,
   )
 else
   gnome.post_install(
     gtk_update_icon_cache: true,
     glib_compile_schemas: true,
-    update_desktop_database: true,
   )
 endif
 
