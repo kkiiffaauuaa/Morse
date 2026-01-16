@@ -104,7 +104,7 @@ jobs:
           path: Output/*.exe
   macos:
     name: MacOS
-    runs-on: macos-26-arm
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v6
       - name: "Install System Packages"
