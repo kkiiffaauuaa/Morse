@@ -83,6 +83,13 @@ fn get_prefix() -> std::path::PathBuf {
         path.pop();
         path
     }
+    else if cfg!(target_os = "macos") {
+        let mut path = std::env::current_exe().unwrap();
+        path.pop();
+        path.pop();
+        path.pop();
+        path
+    }
     else {
         std::path::PathBuf::from(PREFIX)
     }
