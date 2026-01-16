@@ -100,7 +100,7 @@ jobs:
           iscc /DCPUType=${{matrix.arch}} build-aux/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
-          name: Morse_Installer_Windows_${{matrix.arch}}
+          name: Morse_Installer_${{matrix.arch}}.exe
           path: Output/*.exe
   macos:
     name: MacOS
@@ -132,7 +132,7 @@ jobs:
         run: |
           meson setup build -Dprefix=$(pwd)/Morse.app -Ddatadir=Contents/Resources -Dbindir=Contents/MacOS -Dlocaledir=Contents/Resources/locale -Dprofile=default
           meson install -C build
-          dylibbundler -od -b -x Morse.app/Contents/MacOS/morse -d Morse.app/Contents/Frameworks/
+          dylibbundler -od -b -x Morse.app/Contents/MacOS/morse -d Morse.app/Contents/Frameworks/ -p @executable_path/../Frameworks/
           mkdir morse.iconset
           for size in 16 32 128 256 512; do
               rsvg-convert -w $size -h $size data/icons/hicolor/scalable/apps/io.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}.png
@@ -141,6 +141,8 @@ jobs:
           iconutil -c icns morse.iconset
           cp morse.icns Morse.app/Contents/Resources
           cp build-aux/Info.plist Morse.app/Contents/Info.plist
+      - name: Sign Package
+        run: codesign --force --deep -s - Morse.app
       - name: Build Installer
         run: |
           create-dmg --volname "Morse Installer" --volicon "morse.icns" --window-pos 200 120 \
@@ -148,5 +150,5 @@ jobs:
           --app-drop-link 600 185 --skip-jenkins "Morse.dmg" "./Morse.app"
       - uses: actions/upload-artifact@v6
         with:
-          name: Morse_Installer_MacOS_arm64
+          name: Morse_Installer_arm64.dmg
           path: Morse.dmg
