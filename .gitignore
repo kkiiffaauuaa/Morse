@@ -10,6 +10,5 @@ src/config.rs
 po/io.teacond.Morse.pot
 repo
 *.mo
-*.pot
 *.ui.in~
 *.ui~
