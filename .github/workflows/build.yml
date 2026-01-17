@@ -56,36 +56,18 @@ jobs:
             base-devel git mingw-w64-${{matrix.env}}-toolchain mingw-w64-${{matrix.env}}-cc
             mingw-w64-${{matrix.env}}-meson mingw-w64-${{matrix.env}}-ninja
             mingw-w64-${{matrix.env}}-pkg-config mingw-w64-${{matrix.env}}-ca-certificates
-            mingw-w64-${{matrix.env}}-shaderc mingw-w64-${{matrix.env}}-curl
-            mingw-w64-${{matrix.env}}-cmake mingw-w64-${{matrix.env}}-libxml2
             mingw-w64-${{matrix.env}}-gettext mingw-w64-${{matrix.env}}-vulkan
             mingw-w64-${{matrix.env}}-vulkan-headers mingw-w64-${{matrix.env}}-rust
             mingw-w64-${{matrix.env}}-python mingw-w64-${{matrix.env}}-python-pip
             mingw-w64-${{matrix.env}}-appstream mingw-w64-${{matrix.env}}-glib2
-            mingw-w64-${{matrix.env}}-ccache mingw-w64-${{matrix.env}}-gobject-introspection
-            mingw-w64-${{matrix.env}}-cairo mingw-w64-${{matrix.env}}-directx-headers
-            mingw-w64-${{matrix.env}}-gdk-pixbuf2 mingw-w64-${{matrix.env}}-graphene
-            mingw-w64-${{matrix.env}}-json-glib mingw-w64-${{matrix.env}}-libepoxy
-            mingw-w64-${{matrix.env}}-fribidi mingw-w64-${{matrix.env}}-gst-plugins-bad-libs
-            mingw-w64-${{matrix.env}}-shared-mime-info mingw-w64-${{matrix.env}}-python-gobject
-            mingw-w64-${{matrix.env}}-sassc mingw-w64-${{matrix.env}}-pango
-            mingw-w64-${{matrix.env}}-blueprint-compiler mingw-w64-${{matrix.env}}-python-setuptools
-      - name: "Download Dependency Sources"
-        run: |
-          git clone https://gitlab.gnome.org/GNOME/gtk --depth 1
-          git clone https://gitlab.gnome.org/GNOME/libadwaita --depth 1
-      - name: Build Dependencies
-        run: |
-          export CC=clang
-          export CXX=clang++
-          cd gtk
-          meson setup build -Dprefix=/${{matrix.sys}} -Dintrospection=enabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dvulkan=enabled -Dsysprof=disabled -Dwin32-backend=true -Dx11-backend=false -Dwayland-backend=false
-          meson install -C build
-          cd ../
-          cd libadwaita
-          meson setup build -Dprefix=/${{matrix.sys}} -Dintrospection=enabled -Dvapi=false -Ddocumentation=false -Dtests=false
-          meson install -C build
-          cd ../
+            mingw-w64-${{matrix.env}}-gobject-introspection mingw-w64-${{matrix.env}}-cairo
+            mingw-w64-${{matrix.env}}-directx-headers mingw-w64-${{matrix.env}}-gdk-pixbuf2
+            mingw-w64-${{matrix.env}}-graphene mingw-w64-${{matrix.env}}-json-glib
+            mingw-w64-${{matrix.env}}-libepoxy mingw-w64-${{matrix.env}}-fribidi
+            mingw-w64-${{matrix.env}}-python-gobject mingw-w64-${{matrix.env}}-sassc
+            mingw-w64-${{matrix.env}}-pango mingw-w64-${{matrix.env}}-blueprint-compiler
+            mingw-w64-${{matrix.env}}-python-setuptools mingw-w64-${{matrix.env}}-gtk4
+            mingw-w64-${{matrix.env}}-libadwaita
       - name: Build Package
         run: |
           meson setup build -Dprefix=$(pwd)/dist -Dprofile=default
@@ -110,24 +92,10 @@ jobs:
       - name: "Install System Packages"
         run: |
           brew install meson ninja rust glib cmake pkgconf gettext appstream \
-          ccache gobject-introspection cairo gdk-pixbuf graphene json-glib \
+          gobject-introspection cairo gdk-pixbuf graphene json-glib \
           librsvg libepoxy fribidi sassc pango blueprint-compiler python \
           python-setuptools vulkan-loader shaderc molten-vk dylibbundler \
-          create-dmg
-      - name: "Download Dependency Sources"
-        run: |
-          git clone https://gitlab.gnome.org/GNOME/gtk --depth 1
-          git clone https://gitlab.gnome.org/GNOME/libadwaita --depth 1
-      - name: Build Dependencies
-        run: |
-          cd gtk
-          meson setup build -Dintrospection=enabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dvulkan=enabled -Dsysprof=disabled -Dx11-backend=false -Dwayland-backend=false -Dmacos-backend=true
-          meson install -C build
-          cd ../
-          cd libadwaita
-          meson setup build -Dintrospection=enabled -Dvapi=false -Ddocumentation=false -Dtests=false
-          meson install -C build
-          cd ../
+          create-dmg gtk4 libadwaita
       - name: Build Package
         run: |
           meson setup build -Dprefix=$(pwd)/Morse.app -Ddatadir=Contents/Resources -Dbindir=Contents/MacOS -Dlocaledir=Contents/Resources/locale -Dprofile=default
