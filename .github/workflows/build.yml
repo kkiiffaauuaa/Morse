@@ -2,6 +2,8 @@ name: CI
 on:
   push:
     branches: [main]
+    tags:
+    - 'v*'
   pull_request:
 
 jobs:
@@ -82,7 +84,7 @@ jobs:
           iscc /DCPUType=${{matrix.arch}} build-aux/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
-          name: Morse_Installer_${{matrix.arch}}.exe
+          name: morse-win-installer-${{matrix.arch}}.exe
           path: Output/*.exe
   macos:
     name: MacOS
@@ -118,5 +120,23 @@ jobs:
           --app-drop-link 600 185 --skip-jenkins "Morse.dmg" "./Morse.app"
       - uses: actions/upload-artifact@v6
         with:
-          name: Morse_Installer_arm64.dmg
+          name: morse-macos-installer-arm64.dmg
           path: Morse.dmg
+  publish:
+    name: Publish Release
+    needs: [flatpak, windows, macos]
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v7
+        with:
+          path: ./binaries
+          merge-multiple: true
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./binaries/*
