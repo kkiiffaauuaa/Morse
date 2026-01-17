@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the morse package.
 # Jaŭhien Lavonćjeŭ <Evgeniy_Leontyev@proton.me>, 2026.
+# Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-16 17:49+0100\n"
-"PO-Revision-Date: 2026-01-17 16:07+0000\n"
-"Last-Translator: Jaŭhien Lavonćjeŭ <Evgeniy_Leontyev@proton.me>\n"
+"PO-Revision-Date: 2026-01-18 02:33+0000\n"
+"Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/"
 "ru/>\n"
 "Language: ru\n"
@@ -154,8 +155,7 @@ msgstr "Задержка между символами"
 msgid ""
 "The delay between words is calculated automatically. The default value is 3."
 msgstr ""
-"Задержка между словами рассчитывается автоматически. Стандартное значение — "
-"3."
+"Задержка между словами считается автоматически. Стандартное значение — 3."
 
 msgid "Play"
 msgstr "Играть"
@@ -191,4 +191,4 @@ msgid "Copied to clipboard"
 msgstr "Скопировано в буфер обмена"
 
 msgid "To generate text enable at least 1 character"
-msgstr "Чтобы сгенерировать текст введите хотя-бы 1 символ"
+msgstr "Чтобы сгенерировать текст выберите хотя-бы 1 символ"
