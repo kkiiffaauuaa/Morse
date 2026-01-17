@@ -20,16 +20,21 @@ jobs:
             runner: ubuntu-24.04
           - arch: aarch64
             runner: ubuntu-24.04-arm
-    runs-on: ${{ matrix.variant.runner }}
+    runs-on: ${{matrix.variant.runner}}
     steps:
       - uses: actions/checkout@v6
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: morse.flatpak
+          bundle: morse-${{matrix.variant.arch}}.flatpak
           manifest-path: build-aux/io.teacond.Morse.Devel.json
-          cache-key: flatpak-builder-${{ github.sha }}
-          arch: ${{ matrix.variant.arch }}
+          cache-key: flatpak-builder-${{github.sha}}
+          arch: ${{matrix.variant.arch}}
           verbose: true
+          upload-artifact: false
+      - uses: actions/upload-artifact@v6
+        with:
+          name: morse-${{matrix.variant.arch}}.flatpak
+          path: morse-${{matrix.variant.arch}}.flatpak
   
   windows:
     name: Windows
@@ -118,11 +123,11 @@ jobs:
         run: |
           create-dmg --volname "Morse Installer" --volicon "morse.icns" --window-pos 200 120 \
           --window-size 800 400 --icon-size 100 --icon "Morse.app" 200 190 --hide-extension "Morse.app" \
-          --app-drop-link 600 185 --skip-jenkins "Morse.dmg" "./Morse.app"
+          --app-drop-link 600 185 --skip-jenkins "morse-macos-installer-arm64.dmg" "./Morse.app"
       - uses: actions/upload-artifact@v6
         with:
           name: morse-macos-installer-arm64.dmg
-          path: Morse.dmg
+          path: morse-macos-installer-arm64.dmg
   publish:
     name: Publish Release
     needs: [flatpak, windows, macos]

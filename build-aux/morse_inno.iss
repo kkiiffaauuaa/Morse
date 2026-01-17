@@ -29,7 +29,7 @@ LicenseFile=COPYING.md
 ; Remove the following line to run in administrative install mode (install for all users).
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=commandline
-OutputBaseFilename=Morse_Installer_{#CPUType}
+OutputBaseFilename=morse-win-installer-{#CPUType}
 SetupIconFile=data\icons\morse.ico
 SolidCompression=yes
 WizardStyle=modern dynamic windows11
