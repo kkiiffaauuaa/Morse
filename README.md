@@ -16,7 +16,7 @@ Morse is an open-source program for learning Morse code and training High Speed 
 Add the `flathub` repo:
 
 ```bash
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo
 ```
 
 Build and install a Flatpak package:
