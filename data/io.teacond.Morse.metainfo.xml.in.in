@@ -16,18 +16,15 @@
     <category>GTK</category>
   </categories>
   
-  <!-- Translators: please do NOT translate this -->
   <developer_name translate="no">Jaŭhien Lavonćjeŭ</developer_name>
   <developer id="io.teacond">
     <name translate="no">Jaŭhien Lavonćjeŭ</name>
   </developer>
 
-  <!-- Required: Should be a link to the upstream homepage for the component -->
   <url type="homepage">https://github.com/teacond/Morse</url>
-  <!-- Recommended: It is highly recommended for open-source projects to display the source code repository -->
   <url type="vcs-browser">https://github.com/teacond/Morse</url>
-  <!-- Should point to the software's bug tracking system, for users to report new bugs -->
   <url type="bugtracker">https://github.com/teacond/Morse/issues</url>
+  <url type="translate">https://hosted.weblate.org/projects/morse-app</url>
 
   <translation type="gettext">morse</translation>
   <!-- All graphical applications having a desktop file must have this tag in the MetaInfo.
