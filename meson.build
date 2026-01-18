@@ -12,8 +12,8 @@ fs = import('fs')
 cargo = find_program('cargo', required: true)
 gettext_package = meson.project_name()
 
-base_id = 'io.teacond.Morse'
-path_id = '/io/teacond/Morse'
+base_id = 'com.github.teacond.Morse'
+path_id = '/com/github/teacond/Morse'
 app_id  = base_id
 vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD', check: false).stdout().strip()
 profile = get_option('profile')

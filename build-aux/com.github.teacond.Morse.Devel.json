@@ -1,5 +1,5 @@
 {
-    "id" : "io.teacond.Morse.Devel",
+    "id" : "com.github.teacond.Morse.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "49",
     "sdk" : "org.gnome.Sdk",
