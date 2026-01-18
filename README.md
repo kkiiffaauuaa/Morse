@@ -1,10 +1,20 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/teacond/Morse/main/data/icons/hicolor/scalable/apps/io.teacond.Morse.svg" width="300"></img>
+<img src="https://raw.githubusercontent.com/teacond/Morse/main/data/icons/hicolor/scalable/apps/com.github.teacond.Morse.svg" width="300"></img>
 </div><br><br>
 
 # Morse
 
 Morse is an open-source program for learning Morse code and training High Speed Telegraphy skills written in Rust language using GTK4 and Adwaita.
+
+## Installation
+
+### Arch (AUR)
+
+Currently you can install Morse only with AUR package
+
+- [![AUR badge](https://img.shields.io/aur/version/morse-git?style=flat&label=morse)](https://aur.archlinux.org/packages/morse-git)
+
+Please see [the Arch Wiki](https://wiki.archlinux.org/title/Arch_User_Repository#Installing_and_upgrading_packages) for more information
 
 ## Building
 
@@ -22,13 +32,13 @@ flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flath
 Build and install a Flatpak package:
 
 ```bash
-flatpak-builder --force-clean --user --install-deps-from=flathub --repo=repo --install builddir build-aux/io.teacond.Morse.Devel.json
+flatpak-builder --force-clean --user --install-deps-from=flathub --repo=repo --install builddir build-aux/com.github.teacond.Morse.Devel.json
 ```
 
 Run the app:
 
 ```bash
-flatpak run io.teacond.Morse.Devel
+flatpak run com.github.teacond.Morse.Devel
 ```
 
 ## Translations
