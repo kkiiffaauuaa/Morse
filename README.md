@@ -1,6 +1,14 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/teacond/Morse/main/data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg" width="300"></img>
-</div><br><br>
+    <img src="https://raw.githubusercontent.com/teacond/Morse/main/data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg" width="300"></img>
+</div>
+<br>
+<br>
+
+<div align="center">
+    <a href="https://github.com/teacond/Morse/actions/workflows/build.yml">
+        <img alt="CI" src="https://github.com/teacond/Morse/actions/workflows/build.yml/badge.svg"></img>
+    </a>
+</div>
 
 # Morse
 
