@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-16 17:49+0100\n"
-"PO-Revision-Date: 2026-01-18 02:33+0000\n"
+"PO-Revision-Date: 2026-01-18 03:05+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/"
 "ru/>\n"
@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.15.2\n"
 
 #: data/com.github.teacond.Morse.desktop.in.in:2
@@ -28,7 +28,7 @@ msgstr "Морзе"
 
 #: data/com.github.teacond.Morse.desktop.in.in:8
 msgid "morse;code;telegraph;cw;"
-msgstr ""
+msgstr "morse;code;telegraph;cw;морзе;код;телеграф;ключ;"
 
 #: data/com.github.teacond.Morse.metainfo.xml.in.in:7
 msgid "Learn Morse Code"
@@ -239,7 +239,7 @@ msgstr "_О Морзе"
 
 #: src/application.rs:120
 msgid "translator-credits"
-msgstr "Евгений Леонтьев <jauhien.lavoncjeu@gmail.com>"
+msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
 #: src/widgets/window.rs:292
 msgid "The text doesn't contain any allowed characters"
