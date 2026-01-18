@@ -1,7 +1,7 @@
 project(
   'morse', 'rust', 
   license: 'GPLv3',
-  version: '1.0.2',
+  version: '1.0.3',
   meson_version: '>= 1.0.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
@@ -12,8 +12,8 @@ fs = import('fs')
 cargo = find_program('cargo', required: true)
 gettext_package = meson.project_name()
 
-base_id = 'com.github.teacond.Morse'
-path_id = '/com/github/teacond/Morse'
+base_id = 'io.github.teacond.Morse'
+path_id = '/io/github/teacond/Morse'
 app_id  = base_id
 vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD', check: false).stdout().strip()
 profile = get_option('profile')

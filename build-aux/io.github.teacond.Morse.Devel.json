@@ -1,5 +1,5 @@
 {
-    "id" : "com.github.teacond.Morse.Devel",
+    "id" : "io.github.teacond.Morse.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "49",
     "sdk" : "org.gnome.Sdk",
@@ -8,7 +8,6 @@
     ],
     "command" : "morse",
     "finish-args" : [
-        "--share=network",
         "--share=ipc",
         "--socket=fallback-x11",
         "--device=dri",

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-18 03:29+0100\n"
+"POT-Creation-Date: 2026-01-18 06:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,30 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/com.github.teacond.Morse.desktop.in.in:2
-#: data/com.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
+#: data/io.github.teacond.Morse.desktop.in.in:2
+#: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
 #: data/ui/window.blp:11 src/application.rs:111
 msgid "Morse"
 msgstr ""
 
-#: data/com.github.teacond.Morse.desktop.in.in:8
+#: data/io.github.teacond.Morse.desktop.in.in:8
 msgid "morse;code;telegraph;cw;"
 msgstr ""
 
-#: data/com.github.teacond.Morse.metainfo.xml.in.in:7
+#: data/io.github.teacond.Morse.metainfo.xml.in.in:7
 msgid "Learn Morse Code"
 msgstr ""
 
-#: data/com.github.teacond.Morse.metainfo.xml.in.in:9
+#: data/io.github.teacond.Morse.metainfo.xml.in.in:9
 msgid "Learn Morse Code and High Speed Telegraphy."
 msgstr ""
 
-#: data/com.github.teacond.Morse.metainfo.xml.in.in:45
-#: data/com.github.teacond.Morse.metainfo.xml.in.in:49
+#: data/io.github.teacond.Morse.metainfo.xml.in.in:45
+#: data/io.github.teacond.Morse.metainfo.xml.in.in:49
 msgid "An overview"
 msgstr ""
 
-#: data/com.github.teacond.Morse.metainfo.xml.in.in:67
+#: data/io.github.teacond.Morse.metainfo.xml.in.in:67
 msgid "The initial release"
 msgstr ""
 

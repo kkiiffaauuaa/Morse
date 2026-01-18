@@ -23,7 +23,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/com/github/teacond/Morse/ui/preferences_dialog.ui")]
+    #[template(resource = "/io/github/teacond/Morse/ui/preferences_dialog.ui")]
     pub struct MorsePreferencesDialog {
         #[template_child]
         additions_combo: TemplateChild<ComboRow>,

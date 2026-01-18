@@ -26,7 +26,7 @@ jobs:
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: morse-${{matrix.variant.arch}}.flatpak
-          manifest-path: build-aux/com.github.teacond.Morse.Devel.json
+          manifest-path: build-aux/io.github.teacond.Morse.Devel.json
           cache-key: flatpak-builder-${{github.sha}}
           arch: ${{matrix.variant.arch}}
           verbose: true
@@ -111,8 +111,8 @@ jobs:
           dylibbundler -od -b -x Morse.app/Contents/MacOS/morse -d Morse.app/Contents/Frameworks/ -p @executable_path/../Frameworks/
           mkdir morse.iconset
           for size in 16 32 128 256 512; do
-              rsvg-convert -w $size -h $size data/icons/hicolor/scalable/apps/com.github.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}.png
-              rsvg-convert -w $((size*2)) -h $((size*2)) data/icons/hicolor/scalable/apps/com.github.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}@2x.png
+              rsvg-convert -w $size -h $size data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}.png
+              rsvg-convert -w $((size*2)) -h $((size*2)) data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}@2x.png
           done
           iconutil -c icns morse.iconset
           cp morse.icns Morse.app/Contents/Resources

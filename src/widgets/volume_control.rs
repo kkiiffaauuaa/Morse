@@ -27,7 +27,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate, Properties)]
-    #[template(resource = "/com/github/teacond/Morse/ui/volume_control.ui")]
+    #[template(resource = "/io/github/teacond/Morse/ui/volume_control.ui")]
     #[properties(wrapper_type = super::MorseVolumeControl)]
     pub struct MorseVolumeControl {
         #[template_child]

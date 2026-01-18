@@ -74,7 +74,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/com/github/teacond/Morse/ui/window.ui")]
+    #[template(resource = "/io/github/teacond/Morse/ui/window.ui")]
     pub struct MorseApplicationWindow {
         #[template_child]
         toast_overlay: TemplateChild<ToastOverlay>,

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleExecutable</key> <string>morse</string>
-    <key>CFBundleIdentifier</key> <string>com.github.teacond.Morse</string>
+    <key>CFBundleIdentifier</key> <string>io.github.teacond.Morse</string>
     <key>CFBundleName</key> <string>Morse</string>
     <key>CFBundleIconFile</key> <string>morse.icns</string>
     <key>CFBundlePackageType</key> <string>APPL</string>

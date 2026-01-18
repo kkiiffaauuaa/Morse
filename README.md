@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/teacond/Morse/main/data/icons/hicolor/scalable/apps/com.github.teacond.Morse.svg" width="300"></img>
+<img src="https://raw.githubusercontent.com/teacond/Morse/main/data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg" width="300"></img>
 </div><br><br>
 
 # Morse
@@ -32,13 +32,13 @@ flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flath
 Build and install a Flatpak package:
 
 ```bash
-flatpak-builder --force-clean --user --install-deps-from=flathub --repo=repo --install builddir build-aux/com.github.teacond.Morse.Devel.json
+flatpak-builder --force-clean --user --install-deps-from=flathub --repo=repo --install builddir build-aux/io.github.teacond.Morse.Devel.json
 ```
 
 Run the app:
 
 ```bash
-flatpak run com.github.teacond.Morse.Devel
+flatpak run io.github.teacond.Morse.Devel
 ```
 
 ## Translations
