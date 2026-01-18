@@ -7,7 +7,6 @@ Output
 .vscode
 .flatpak-builder
 src/config.rs
-po/io.teacond.Morse.pot
 repo
 *.mo
 *.ui.in~
