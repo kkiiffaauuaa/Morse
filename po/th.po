@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-18 06:54+0100\n"
-"PO-Revision-Date: 2026-01-20 18:49+0000\n"
+"PO-Revision-Date: 2026-01-20 19:20+0000\n"
 "Last-Translator: Putthimedh Jarusirisoonthorn <toto.jaru@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/morse-app/app/th/>\n"
 "Language: th\n"
@@ -25,7 +25,7 @@ msgstr "มอร์ส"
 
 #: data/io.github.teacond.Morse.desktop.in.in:8
 msgid "morse;code;telegraph;cw;"
-msgstr ""
+msgstr "รหัส;มอร์ส;โทรเลข;คลื่นต่อเนื่อง;"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:7
 msgid "Learn Morse Code"
@@ -38,11 +38,11 @@ msgstr "เรียนรู้รหัสมอร์สและการส
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:45
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:49
 msgid "An overview"
-msgstr ""
+msgstr "ภาพรวม"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:67
 msgid "The initial release"
-msgstr ""
+msgstr "เวอร์ชันแรก"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:26
 msgid "Playback"
@@ -66,7 +66,7 @@ msgstr "การแข่งขัน"
 
 #: data/ui/preferences_dialog.blp:19
 msgid "Start Delay"
-msgstr ""
+msgstr "หน่วงเวลาเริ่มต้น"
 
 #: data/ui/preferences_dialog.blp:24
 msgid "Sound"
@@ -74,7 +74,7 @@ msgstr "เสียง"
 
 #: data/ui/preferences_dialog.blp:26
 msgid "Wave Type"
-msgstr ""
+msgstr "ประเภทคลื่นเสียง"
 
 #: data/ui/preferences_dialog.blp:29
 msgid "Square"
@@ -90,7 +90,7 @@ msgstr "ฟันเลื่อย"
 
 #: data/ui/preferences_dialog.blp:32
 msgid "Sine"
-msgstr ""
+msgstr "คลื่นไซน์"
 
 #: data/ui/preferences_dialog.blp:37
 msgid "Frequency"
@@ -110,7 +110,7 @@ msgstr "เปิดเมนู"
 
 #: data/ui/shortcuts_dialog.blp:16
 msgid "Open Preferences"
-msgstr ""
+msgstr "เปิดการตั้งค่า"
 
 #: data/ui/shortcuts_dialog.blp:20
 msgid "Quit"
@@ -118,11 +118,11 @@ msgstr "ออก"
 
 #: data/ui/shortcuts_dialog.blp:28
 msgid "Toggle Playback"
-msgstr ""
+msgstr "เล่น/หยุด"
 
 #: data/ui/shortcuts_dialog.blp:32 data/ui/volume_control.blp:13
 msgid "Toggle Mute"
-msgstr ""
+msgstr "เปิด/ปิดเสียง"
 
 #: data/ui/shortcuts_dialog.blp:36
 msgid "Increase Volume"
@@ -142,39 +142,39 @@ msgstr "หน้าหลัก"
 
 #: data/ui/window.blp:73
 msgid "Text Type"
-msgstr ""
+msgstr "ประเภทข้อความ"
 
 #: data/ui/window.blp:76
 msgid "Letters"
-msgstr ""
+msgstr "ตัวอักษร"
 
 #: data/ui/window.blp:77
 msgid "Digits"
-msgstr ""
+msgstr "ตัวเลข"
 
 #: data/ui/window.blp:78
 msgid "Mixed"
-msgstr ""
+msgstr "ผสม"
 
 #: data/ui/window.blp:83
 msgid "Auto Generation"
-msgstr ""
+msgstr "สร้างอัตโนมัติ"
 
 #: data/ui/window.blp:84
 msgid "Pressing the playback button will generate the new text"
-msgstr ""
+msgstr "การกดปุ่มเล่นจะสร้างข้อความใหม่ขึ้นมา"
 
 #: data/ui/window.blp:89
 msgid "Text Generation"
-msgstr ""
+msgstr "การสร้างข้อความ"
 
 #: data/ui/window.blp:91
 msgid "Default Words Number"
-msgstr ""
+msgstr "จำนวนคำเริ่มต้น"
 
 #: data/ui/window.blp:92
 msgid "The words number is calculated automatically based on the text speed"
-msgstr ""
+msgstr "จำนวนคำจะถูกคำนวณอัตโนมัติโดยอิงจากความเร็วของข้อความ"
 
 #: data/ui/window.blp:96
 msgid "Words"
@@ -182,11 +182,11 @@ msgstr "คำ"
 
 #: data/ui/window.blp:101
 msgid "Characters"
-msgstr ""
+msgstr "ตัวอักษร"
 
 #: data/ui/window.blp:102
 msgid "Select the characters you need"
-msgstr ""
+msgstr "เลือกตัวอักษรที่ต้องการ"
 
 #: data/ui/window.blp:111 data/ui/window.blp:113
 msgid "Speed"
@@ -194,12 +194,12 @@ msgstr "ความเร็ว"
 
 #: data/ui/window.blp:117
 msgid "Delay between characters"
-msgstr ""
+msgstr "หน่วงเวลาระหว่างตัวอักษร"
 
 #: data/ui/window.blp:118
 msgid ""
 "The delay between words is calculated automatically. The default value is 3."
-msgstr ""
+msgstr "ระยะหน่วงเวลาระหว่างตัวอักษรจะถูกคำนวณโดยอัตโนมัติ ค่าเริ่มต้นคือ 3"
 
 #: data/ui/window.blp:151
 msgid "Play"
@@ -211,27 +211,27 @@ msgstr "หยุด"
 
 #: data/ui/window.blp:209
 msgid "Copy Text"
-msgstr ""
+msgstr "คัดลอกข้อความ"
 
 #: data/ui/window.blp:214
 msgid "Generate Text"
-msgstr ""
+msgstr "สร้างข้อความ"
 
 #: data/ui/window.blp:256
 msgid "Receiving Preferences"
-msgstr ""
+msgstr "การตั้งค่าการรับ"
 
 #: data/ui/window.blp:311
 msgid "_Preferences"
-msgstr ""
+msgstr "_การตั้งค่า"
 
 #: data/ui/window.blp:316
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_ปุ่มลัดแป้นพิมพ์"
 
 #: data/ui/window.blp:321
 msgid "_About Morse"
-msgstr ""
+msgstr "_เกี่ยวกับ มอร์ส"
 
 #: src/application.rs:120
 msgid "translator-credits"
@@ -239,7 +239,7 @@ msgstr "เครดิตผู้แปล"
 
 #: src/widgets/window.rs:292
 msgid "The text doesn't contain any allowed characters"
-msgstr ""
+msgstr "ข้อความไม่มีตัวอักษรที่อนุญาตให้ใช้งาน"
 
 #: src/widgets/window.rs:493
 msgid "Copied to clipboard"
@@ -247,4 +247,4 @@ msgstr "คัดลอกไปยังคลิปบอร์ดแล้ว
 
 #: src/widgets/window.rs:535
 msgid "To generate text enable at least 1 character"
-msgstr ""
+msgstr "เปิดใช้งานตัวอักษรอย่าน้อย 1 ตัวเพื่อสร้างข้อความ"
