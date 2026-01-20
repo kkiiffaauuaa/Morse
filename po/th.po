@@ -7,20 +7,21 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-18 06:54+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-01-20 18:49+0000\n"
+"Last-Translator: Putthimedh Jarusirisoonthorn <toto.jaru@gmail.com>\n"
+"Language-Team: Thai <https://hosted.weblate.org/projects/morse-app/app/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
 #: data/ui/window.blp:11 src/application.rs:111
 msgid "Morse"
-msgstr ""
+msgstr "มอร์ส"
 
 #: data/io.github.teacond.Morse.desktop.in.in:8
 msgid "morse;code;telegraph;cw;"
@@ -28,11 +29,11 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:7
 msgid "Learn Morse Code"
-msgstr ""
+msgstr "เรียนรู้รหัสมอร์ส"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:9
 msgid "Learn Morse Code and High Speed Telegraphy."
-msgstr ""
+msgstr "เรียนรู้รหัสมอร์สและการส่งโทรเลขด้วยความเร็วสูง"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:45
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:49
@@ -45,23 +46,23 @@ msgstr ""
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:26
 msgid "Playback"
-msgstr ""
+msgstr "เล่นซ้ำ"
 
 #: data/ui/preferences_dialog.blp:9
 msgid "Additions"
-msgstr ""
+msgstr "เพิ่มเติม"
 
 #: data/ui/preferences_dialog.blp:12
 msgid "None"
-msgstr ""
+msgstr "ไม่มี"
 
 #: data/ui/preferences_dialog.blp:13
 msgid "Default"
-msgstr ""
+msgstr "ค่าเริ่มต้น"
 
 #: data/ui/preferences_dialog.blp:14
 msgid "Competitions"
-msgstr ""
+msgstr "การแข่งขัน"
 
 #: data/ui/preferences_dialog.blp:19
 msgid "Start Delay"
@@ -69,7 +70,7 @@ msgstr ""
 
 #: data/ui/preferences_dialog.blp:24
 msgid "Sound"
-msgstr ""
+msgstr "เสียง"
 
 #: data/ui/preferences_dialog.blp:26
 msgid "Wave Type"
@@ -77,15 +78,15 @@ msgstr ""
 
 #: data/ui/preferences_dialog.blp:29
 msgid "Square"
-msgstr ""
+msgstr "สี่เหลี่ยม"
 
 #: data/ui/preferences_dialog.blp:30
 msgid "Triangle"
-msgstr ""
+msgstr "สามเหลี่ยม"
 
 #: data/ui/preferences_dialog.blp:31
 msgid "Sawtooth"
-msgstr ""
+msgstr "ฟันเลื่อย"
 
 #: data/ui/preferences_dialog.blp:32
 msgid "Sine"
@@ -93,19 +94,19 @@ msgstr ""
 
 #: data/ui/preferences_dialog.blp:37
 msgid "Frequency"
-msgstr ""
+msgstr "ความถี่"
 
 #: data/ui/shortcuts_dialog.blp:6 data/ui/window.blp:71
 msgid "General"
-msgstr ""
+msgstr "ทั่วไป"
 
 #: data/ui/shortcuts_dialog.blp:8
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "แสดงปุ่มลัด"
 
 #: data/ui/shortcuts_dialog.blp:12
 msgid "Open Menu"
-msgstr ""
+msgstr "เปิดเมนู"
 
 #: data/ui/shortcuts_dialog.blp:16
 msgid "Open Preferences"
@@ -113,7 +114,7 @@ msgstr ""
 
 #: data/ui/shortcuts_dialog.blp:20
 msgid "Quit"
-msgstr ""
+msgstr "ออก"
 
 #: data/ui/shortcuts_dialog.blp:28
 msgid "Toggle Playback"
@@ -125,19 +126,19 @@ msgstr ""
 
 #: data/ui/shortcuts_dialog.blp:36
 msgid "Increase Volume"
-msgstr ""
+msgstr "เพิ่มเสียง"
 
 #: data/ui/shortcuts_dialog.blp:40
 msgid "Decrease Volume"
-msgstr ""
+msgstr "ลดเสียง"
 
 #: data/ui/volume_control.blp:29
 msgid "Volume"
-msgstr ""
+msgstr "ระดับเสียง"
 
 #: data/ui/window.blp:56 data/ui/window.blp:145
 msgid "Main Menu"
-msgstr ""
+msgstr "หน้าหลัก"
 
 #: data/ui/window.blp:73
 msgid "Text Type"
@@ -177,7 +178,7 @@ msgstr ""
 
 #: data/ui/window.blp:96
 msgid "Words"
-msgstr ""
+msgstr "คำ"
 
 #: data/ui/window.blp:101
 msgid "Characters"
@@ -189,7 +190,7 @@ msgstr ""
 
 #: data/ui/window.blp:111 data/ui/window.blp:113
 msgid "Speed"
-msgstr ""
+msgstr "ความเร็ว"
 
 #: data/ui/window.blp:117
 msgid "Delay between characters"
@@ -202,11 +203,11 @@ msgstr ""
 
 #: data/ui/window.blp:151
 msgid "Play"
-msgstr ""
+msgstr "เล่น"
 
 #: data/ui/window.blp:158
 msgid "Stop"
-msgstr ""
+msgstr "หยุด"
 
 #: data/ui/window.blp:209
 msgid "Copy Text"
@@ -234,7 +235,7 @@ msgstr ""
 
 #: src/application.rs:120
 msgid "translator-credits"
-msgstr ""
+msgstr "เครดิตผู้แปล"
 
 #: src/widgets/window.rs:292
 msgid "The text doesn't contain any allowed characters"
@@ -242,7 +243,7 @@ msgstr ""
 
 #: src/widgets/window.rs:493
 msgid "Copied to clipboard"
-msgstr ""
+msgstr "คัดลอกไปยังคลิปบอร์ดแล้ว"
 
 #: src/widgets/window.rs:535
 msgid "To generate text enable at least 1 character"
