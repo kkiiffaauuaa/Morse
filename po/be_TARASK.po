@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-18 06:54+0100\n"
+"POT-Creation-Date: 2026-01-20 21:11+0100\n"
 "PO-Revision-Date: 2026-01-20 19:23+0000\n"
 "Last-Translator: Reality Preparator <kmkkttrht1141460@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/morse-app/app/"
@@ -26,7 +26,8 @@ msgstr ""
 msgid "Morse"
 msgstr "Морзэ"
 
-#: data/io.github.teacond.Morse.desktop.in.in:8
+#. Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
+#: data/io.github.teacond.Morse.desktop.in.in:9
 msgid "morse;code;telegraph;cw;"
 msgstr "morse;code;telegraph;cw;морзэ;код;тэлеграф;"
 
@@ -42,10 +43,6 @@ msgstr "Навучыцеся коду Морзэ і хуткаснае рады�
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:49
 msgid "An overview"
 msgstr "Выгляд праграмы"
-
-#: data/io.github.teacond.Morse.metainfo.xml.in.in:67
-msgid "The initial release"
-msgstr "Зыходны рэліз"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:26
 msgid "Playback"
@@ -236,7 +233,8 @@ msgstr "_Скарачэньні клявішаў"
 msgid "_About Morse"
 msgstr "_Аб Морзэ"
 
-#: src/application.rs:120
+#. # Translator: Leave there your name
+#: src/application.rs:121
 msgid "translator-credits"
 msgstr "Aleś Pryjmak"
 
@@ -251,3 +249,6 @@ msgstr "Скапіявана да буфэру абмену"
 #: src/widgets/window.rs:535
 msgid "To generate text enable at least 1 character"
 msgstr "Каб згенэраваць тэкст, абярыце хоць-бы 1 знак"
+
+#~ msgid "The initial release"
+#~ msgstr "Зыходны рэліз"

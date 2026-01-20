@@ -117,6 +117,7 @@ impl MorseApplication {
             .copyright("© 2025-2026 Jaŭhien Lavonćjeŭ")
             .issue_url("https://github.com/teacond/Morse/issues")
             .license_type(gtk::License::Gpl30)
+            // # Translator: Leave there your name
             .translator_credits(&i18n("translator-credits"))
             .build();
 

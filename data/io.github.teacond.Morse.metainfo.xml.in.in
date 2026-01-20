@@ -17,7 +17,7 @@
   </categories>
   
   <developer_name translate="no">Jaŭhien Lavonćjeŭ</developer_name>
-  <developer id="com.github.teacond">
+  <developer id="io.github.teacond">
     <name translate="no">Jaŭhien Lavonćjeŭ</name>
   </developer>
 
@@ -62,8 +62,24 @@
   </recommends>
 
   <releases>
-    <release version="1.0" date="2026-01-13">
-      <description translate="yes">
+    <release version="1.0.4" date="2026-01-20">
+      <description translate="no">
+        <ul>
+          <li>Added Belarusian (Taraškievica) translation</li>
+          <li>Added Polish translation</li>
+          <li>Added Thai translation</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.0.1" date="2026-01-18">
+      <description translate="no">
+        <ul>
+          <li>Added Russian translation</li>
+        </ul>
+      </description>
+    </release>
+    <release version="1.0.0" date="2026-01-13">
+      <description translate="no">
         <p>The initial release</p>
       </description>
     </release>

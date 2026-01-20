@@ -5,6 +5,7 @@ Icon=@APP_ID@
 Terminal=false
 Type=Application
 Categories=GNOME;GTK;Audio;
+# Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
 Keywords=morse;code;telegraph;cw;
 StartupNotify=true
 X-Purism-FormFactor=Workstation;Mobile;

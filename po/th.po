@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-18 06:54+0100\n"
+"POT-Creation-Date: 2026-01-20 21:11+0100\n"
 "PO-Revision-Date: 2026-01-20 19:20+0000\n"
 "Last-Translator: Putthimedh Jarusirisoonthorn <toto.jaru@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/morse-app/app/th/>\n"
@@ -23,7 +23,8 @@ msgstr ""
 msgid "Morse"
 msgstr "มอร์ส"
 
-#: data/io.github.teacond.Morse.desktop.in.in:8
+#. Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
+#: data/io.github.teacond.Morse.desktop.in.in:9
 msgid "morse;code;telegraph;cw;"
 msgstr "รหัส;มอร์ส;โทรเลข;คลื่นต่อเนื่อง;"
 
@@ -39,10 +40,6 @@ msgstr "เรียนรู้รหัสมอร์สและการส
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:49
 msgid "An overview"
 msgstr "ภาพรวม"
-
-#: data/io.github.teacond.Morse.metainfo.xml.in.in:67
-msgid "The initial release"
-msgstr "เวอร์ชันแรก"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:26
 msgid "Playback"
@@ -233,7 +230,8 @@ msgstr "_ปุ่มลัดแป้นพิมพ์"
 msgid "_About Morse"
 msgstr "_เกี่ยวกับ มอร์ส"
 
-#: src/application.rs:120
+#. # Translator: Leave there your name
+#: src/application.rs:121
 msgid "translator-credits"
 msgstr "เครดิตผู้แปล"
 
@@ -248,3 +246,6 @@ msgstr "คัดลอกไปยังคลิปบอร์ดแล้ว
 #: src/widgets/window.rs:535
 msgid "To generate text enable at least 1 character"
 msgstr "เปิดใช้งานตัวอักษรอย่าน้อย 1 ตัวเพื่อสร้างข้อความ"
+
+#~ msgid "The initial release"
+#~ msgstr "เวอร์ชันแรก"

@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-18 06:54+0100\n"
+"POT-Creation-Date: 2026-01-20 21:11+0100\n"
 "PO-Revision-Date: 2026-01-20 18:17+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/morse-app/app/pl/>"
-"\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/morse-app/app/pl/"
+">\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,8 @@ msgstr ""
 msgid "Morse"
 msgstr "Morse"
 
-#: data/io.github.teacond.Morse.desktop.in.in:8
+#. Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
+#: data/io.github.teacond.Morse.desktop.in.in:9
 msgid "morse;code;telegraph;cw;"
 msgstr "morse;code;telegraph;cw;kod;telegraf;"
 
@@ -41,10 +42,6 @@ msgstr "Naucz się kodu Morse'a i szybkiej telegrafii."
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:49
 msgid "An overview"
 msgstr "Widok główny"
-
-#: data/io.github.teacond.Morse.metainfo.xml.in.in:67
-msgid "The initial release"
-msgstr "Pierwsze wydanie"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:26
 msgid "Playback"
@@ -164,7 +161,8 @@ msgstr "Generowanie automatyczne"
 
 #: data/ui/window.blp:84
 msgid "Pressing the playback button will generate the new text"
-msgstr "Naciśnięcie przycisku odtwarzania spowoduje wygenerowanie nowego tekstu"
+msgstr ""
+"Naciśnięcie przycisku odtwarzania spowoduje wygenerowanie nowego tekstu"
 
 #: data/ui/window.blp:89
 msgid "Text Generation"
@@ -237,7 +235,8 @@ msgstr "_Skróty klawiszowe"
 msgid "_About Morse"
 msgstr "_O Morse"
 
-#: src/application.rs:120
+#. # Translator: Leave there your name
+#: src/application.rs:121
 msgid "translator-credits"
 msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
@@ -252,3 +251,6 @@ msgstr "Skopiowane do schowka"
 #: src/widgets/window.rs:535
 msgid "To generate text enable at least 1 character"
 msgstr "Aby wygenerować tekst, wybierz co najmniej jeden znak"
+
+#~ msgid "The initial release"
+#~ msgstr "Pierwsze wydanie"

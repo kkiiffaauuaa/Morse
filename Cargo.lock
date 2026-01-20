@@ -790,7 +790,7 @@ dependencies = [
 
 [[package]]
 name = "morse"
-version = "1.0.3"
+version = "1.0.4"
 dependencies = [
  "anyhow",
  "gettext-rs",

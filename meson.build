@@ -1,7 +1,7 @@
 project(
   'morse', 'rust', 
   license: 'GPLv3',
-  version: '1.0.3',
+  version: '1.0.4',
   meson_version: '>= 1.0.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
