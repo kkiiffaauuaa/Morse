@@ -7,244 +7,248 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-18 06:54+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-01-20 18:17+0000\n"
+"Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/morse-app/app/pl/>"
+"\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
 #: data/ui/window.blp:11 src/application.rs:111
 msgid "Morse"
-msgstr ""
+msgstr "Morse"
 
 #: data/io.github.teacond.Morse.desktop.in.in:8
 msgid "morse;code;telegraph;cw;"
-msgstr ""
+msgstr "morse;code;telegraph;cw;kod;telegraf;"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:7
 msgid "Learn Morse Code"
-msgstr ""
+msgstr "Naucz się kodu Morse'a"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:9
 msgid "Learn Morse Code and High Speed Telegraphy."
-msgstr ""
+msgstr "Naucz się kodu Morse'a i szybkiej telegrafii."
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:45
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:49
 msgid "An overview"
-msgstr ""
+msgstr "Widok główny"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:67
 msgid "The initial release"
-msgstr ""
+msgstr "Pierwsze wydanie"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:26
 msgid "Playback"
-msgstr ""
+msgstr "Odtwarzanie"
 
 #: data/ui/preferences_dialog.blp:9
 msgid "Additions"
-msgstr ""
+msgstr "Dodatki"
 
 #: data/ui/preferences_dialog.blp:12
 msgid "None"
-msgstr ""
+msgstr "Nic"
 
 #: data/ui/preferences_dialog.blp:13
 msgid "Default"
-msgstr ""
+msgstr "Standardowe"
 
 #: data/ui/preferences_dialog.blp:14
 msgid "Competitions"
-msgstr ""
+msgstr "Zawody"
 
 #: data/ui/preferences_dialog.blp:19
 msgid "Start Delay"
-msgstr ""
+msgstr "Opóźnienie startu"
 
 #: data/ui/preferences_dialog.blp:24
 msgid "Sound"
-msgstr ""
+msgstr "Dźwięk"
 
 #: data/ui/preferences_dialog.blp:26
 msgid "Wave Type"
-msgstr ""
+msgstr "Typ fali"
 
 #: data/ui/preferences_dialog.blp:29
 msgid "Square"
-msgstr ""
+msgstr "Kwadrat"
 
 #: data/ui/preferences_dialog.blp:30
 msgid "Triangle"
-msgstr ""
+msgstr "Trójkąt"
 
 #: data/ui/preferences_dialog.blp:31
 msgid "Sawtooth"
-msgstr ""
+msgstr "Piła"
 
 #: data/ui/preferences_dialog.blp:32
 msgid "Sine"
-msgstr ""
+msgstr "Sinusoida"
 
 #: data/ui/preferences_dialog.blp:37
 msgid "Frequency"
-msgstr ""
+msgstr "Częstotliwość"
 
 #: data/ui/shortcuts_dialog.blp:6 data/ui/window.blp:71
 msgid "General"
-msgstr ""
+msgstr "Podstawowe"
 
 #: data/ui/shortcuts_dialog.blp:8
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "Pokaż skróty klawiszowe"
 
 #: data/ui/shortcuts_dialog.blp:12
 msgid "Open Menu"
-msgstr ""
+msgstr "Otwórz menu"
 
 #: data/ui/shortcuts_dialog.blp:16
 msgid "Open Preferences"
-msgstr ""
+msgstr "Otwórz ustawienia"
 
 #: data/ui/shortcuts_dialog.blp:20
 msgid "Quit"
-msgstr ""
+msgstr "Zamknij"
 
 #: data/ui/shortcuts_dialog.blp:28
 msgid "Toggle Playback"
-msgstr ""
+msgstr "Włącz/wyłącz odtwarzanie"
 
 #: data/ui/shortcuts_dialog.blp:32 data/ui/volume_control.blp:13
 msgid "Toggle Mute"
-msgstr ""
+msgstr "Włącz/wyłącz wyciszenie"
 
 #: data/ui/shortcuts_dialog.blp:36
 msgid "Increase Volume"
-msgstr ""
+msgstr "Zwiększ głosność"
 
 #: data/ui/shortcuts_dialog.blp:40
 msgid "Decrease Volume"
-msgstr ""
+msgstr "Zmniejsz głosność"
 
 #: data/ui/volume_control.blp:29
 msgid "Volume"
-msgstr ""
+msgstr "Głosność"
 
 #: data/ui/window.blp:56 data/ui/window.blp:145
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu główne"
 
 #: data/ui/window.blp:73
 msgid "Text Type"
-msgstr ""
+msgstr "Typ tekstu"
 
 #: data/ui/window.blp:76
 msgid "Letters"
-msgstr ""
+msgstr "Litery"
 
 #: data/ui/window.blp:77
 msgid "Digits"
-msgstr ""
+msgstr "Cyfry"
 
 #: data/ui/window.blp:78
 msgid "Mixed"
-msgstr ""
+msgstr "Mieszane"
 
 #: data/ui/window.blp:83
 msgid "Auto Generation"
-msgstr ""
+msgstr "Generowanie automatyczne"
 
 #: data/ui/window.blp:84
 msgid "Pressing the playback button will generate the new text"
-msgstr ""
+msgstr "Naciśnięcie przycisku odtwarzania spowoduje wygenerowanie nowego tekstu"
 
 #: data/ui/window.blp:89
 msgid "Text Generation"
-msgstr ""
+msgstr "Generowanie tekstu"
 
 #: data/ui/window.blp:91
 msgid "Default Words Number"
-msgstr ""
+msgstr "Standardowa liczba słów"
 
 #: data/ui/window.blp:92
 msgid "The words number is calculated automatically based on the text speed"
-msgstr ""
+msgstr "Liczba słów liczy się automatycznie na podstawie prędkości"
 
 #: data/ui/window.blp:96
 msgid "Words"
-msgstr ""
+msgstr "Słowa"
 
 #: data/ui/window.blp:101
 msgid "Characters"
-msgstr ""
+msgstr "Znaki"
 
 #: data/ui/window.blp:102
 msgid "Select the characters you need"
-msgstr ""
+msgstr "Wybierz żądane znaki"
 
 #: data/ui/window.blp:111 data/ui/window.blp:113
 msgid "Speed"
-msgstr ""
+msgstr "Prędkość"
 
 #: data/ui/window.blp:117
 msgid "Delay between characters"
-msgstr ""
+msgstr "Opóźnienie między znakami"
 
 #: data/ui/window.blp:118
 msgid ""
 "The delay between words is calculated automatically. The default value is 3."
 msgstr ""
+"Opóźnienie między znakami liczy się automatycznie. Standardowe znaczenie to "
+"3."
 
 #: data/ui/window.blp:151
 msgid "Play"
-msgstr ""
+msgstr "Odtwórz"
 
 #: data/ui/window.blp:158
 msgid "Stop"
-msgstr ""
+msgstr "Zatrzymaj"
 
 #: data/ui/window.blp:209
 msgid "Copy Text"
-msgstr ""
+msgstr "Kopiuj tekst"
 
 #: data/ui/window.blp:214
 msgid "Generate Text"
-msgstr ""
+msgstr "Generuj tekst"
 
 #: data/ui/window.blp:256
 msgid "Receiving Preferences"
-msgstr ""
+msgstr "Ustawienia odbioru"
 
 #: data/ui/window.blp:311
 msgid "_Preferences"
-msgstr ""
+msgstr "_Ustawienia"
 
 #: data/ui/window.blp:316
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Skróty klawiszowe"
 
 #: data/ui/window.blp:321
 msgid "_About Morse"
-msgstr ""
+msgstr "_O Morse"
 
 #: src/application.rs:120
 msgid "translator-credits"
-msgstr ""
+msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
 #: src/widgets/window.rs:292
 msgid "The text doesn't contain any allowed characters"
-msgstr ""
+msgstr "Tekst nie zawiera dozwolonych znaków"
 
 #: src/widgets/window.rs:493
 msgid "Copied to clipboard"
-msgstr ""
+msgstr "Skopiowane do schowka"
 
 #: src/widgets/window.rs:535
 msgid "To generate text enable at least 1 character"
-msgstr ""
+msgstr "Aby wygenerować tekst, wybierz co najmniej jeden znak"
