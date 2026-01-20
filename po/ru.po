@@ -8,17 +8,17 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-18 06:54+0100\n"
-"PO-Revision-Date: 2026-01-18 03:05+0000\n"
+"PO-Revision-Date: 2026-01-20 18:17+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/ru/"
-">\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/"
+"ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
@@ -251,4 +251,4 @@ msgstr "Скопировано в буфер обмена"
 
 #: src/widgets/window.rs:535
 msgid "To generate text enable at least 1 character"
-msgstr "Чтобы сгенерировать текст выберите хотя-бы 1 символ"
+msgstr "Чтобы сгенерировать текст, выберите хотя-бы 1 символ"
