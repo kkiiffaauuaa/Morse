@@ -64,7 +64,7 @@ If you'd like to help translating Morse into your language, please head over
 to [Weblate](https://hosted.weblate.org/projects/morse-app/).
 
 <a href="https://hosted.weblate.org/engage/morse-app/">
-<img src="https://hosted.weblate.org/widget/morse-app/app/multi-auto.svg" alt="Translation status" />
+<img src="https://hosted.weblate.org/widget/morse-app/app/svg-badge.svg" alt="Translation status" />
 </a>
 
 ## License
