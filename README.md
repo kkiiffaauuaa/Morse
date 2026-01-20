@@ -16,11 +16,20 @@ Morse is an open-source program for learning Morse code and training High Speed 
 
 ## Installation
 
-### Arch (AUR)
+### Linux (Flathub)
 
-Currently you can install Morse only with AUR package
+The recommended way to install Morse is using the flatpak package
 
-- [![AUR badge](https://img.shields.io/aur/version/morse-git?style=flat&label=morse-git)](https://aur.archlinux.org/packages/morse-git)
+<a href="https://flathub.org/apps/io.github.teacond.Morse">
+  <img src="https://flathub.org/api/badge?locale=en" alt="Download on Flathub" width="200">
+</a>
+<br>
+
+### Arch Linux (AUR)
+
+You can also install Morse with the AUR package
+
+[![AUR badge](https://img.shields.io/aur/version/morse-git?style=flat&label=morse-git)](https://aur.archlinux.org/packages/morse-git)
 
 Please see [the Arch Wiki](https://wiki.archlinux.org/title/Arch_User_Repository#Installing_and_upgrading_packages) for more information
 
