@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-18 06:54+0100\n"
-"PO-Revision-Date: 2026-01-20 19:20+0000\n"
+"PO-Revision-Date: 2026-01-20 19:23+0000\n"
 "Last-Translator: Reality Preparator <kmkkttrht1141460@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/morse-app/app/"
 "be_TARASK/>\n"
@@ -238,7 +238,7 @@ msgstr "_Аб Морзэ"
 
 #: src/application.rs:120
 msgid "translator-credits"
-msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
+msgstr "Aleś Pryjmak"
 
 #: src/widgets/window.rs:292
 msgid "The text doesn't contain any allowed characters"
