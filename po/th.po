@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the morse package.
 # Putthimedh Jarusirisoonthorn <toto.jaru@gmail.com>, 2026.
+# Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-20 21:11+0100\n"
-"PO-Revision-Date: 2026-01-20 19:20+0000\n"
-"Last-Translator: Putthimedh Jarusirisoonthorn <toto.jaru@gmail.com>\n"
+"PO-Revision-Date: 2026-01-21 20:26+0000\n"
+"Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/morse-app/app/th/>\n"
 "Language: th\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,7 @@ msgstr "มอร์ส"
 
 #. Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
 #: data/io.github.teacond.Morse.desktop.in.in:9
+#, fuzzy
 msgid "morse;code;telegraph;cw;"
 msgstr "รหัส;มอร์ส;โทรเลข;คลื่นต่อเนื่อง;"
 
@@ -232,6 +234,7 @@ msgstr "_เกี่ยวกับ มอร์ส"
 
 #. # Translator: Leave there your name
 #: src/application.rs:121
+#, fuzzy
 msgid "translator-credits"
 msgstr "เครดิตผู้แปล"
 
