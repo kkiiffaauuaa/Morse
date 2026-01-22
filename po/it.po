@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the morse package.
 # albanobattistella <albano_battistella@hotmail.com>, 2026.
+# Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-20 21:11+0100\n"
 "PO-Revision-Date: 2026-01-22 17:44+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
+"Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/morse-app/app/"
 "it/>\n"
 "Language: it\n"
@@ -26,6 +27,7 @@ msgstr "Morse"
 
 #. Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
 #: data/io.github.teacond.Morse.desktop.in.in:9
+#, fuzzy
 msgid "morse;code;telegraph;cw;"
 msgstr "codice morse;telegrafo;cw;"
 
