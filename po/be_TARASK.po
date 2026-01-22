@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-20 21:11+0100\n"
-"PO-Revision-Date: 2026-01-22 23:08+0000\n"
+"PO-Revision-Date: 2026-01-22 23:38+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/morse-app/app/"
 "be_TARASK/>\n"
@@ -90,7 +90,7 @@ msgstr "Піла"
 
 #: data/ui/preferences_dialog.blp:32
 msgid "Sine"
-msgstr "Сінусойда"
+msgstr "Сынусойда"
 
 #: data/ui/preferences_dialog.blp:37
 msgid "Frequency"
