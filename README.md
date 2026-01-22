@@ -21,7 +21,7 @@ Morse is an open-source program for learning Morse code and training High Speed 
 The recommended way to install Morse is using the flatpak package
 
 <a href="https://flathub.org/apps/io.github.teacond.Morse">
-  <img src="hhttps://flathub.org/api/badge?svg&locale=en" alt="Download on Flathub">
+  <img src="https://flathub.org/api/badge?svg&locale=en" alt="Download on Flathub">
 </a>
 <br>
 
