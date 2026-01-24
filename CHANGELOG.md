@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.0.6] - 2026-01-24
+
+### Changed
+
+"Auto Generation" switch is now disabled by default
+ 
+### Added
+
+- Added Finnish translation
+- Added Belarusian translation
+- Added Belarusian (Latin script) translation
+
 ## [1.0.5] - 2026-01-22
  
 ### Added
