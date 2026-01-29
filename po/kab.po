@@ -7,29 +7,31 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-20 21:11+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-01-30 11:01+0000\n"
+"Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Kabyle <https://hosted.weblate.org/projects/morse-app/app/"
+"kab/>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
 #: data/ui/window.blp:11 src/application.rs:111
 msgid "Morse"
-msgstr ""
+msgstr "Morse"
 
 #. Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
 #: data/io.github.teacond.Morse.desktop.in.in:9
 msgid "morse;code;telegraph;cw;"
-msgstr ""
+msgstr "morse;code;telegraph;cw;angal;murṣ;"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:7
 msgid "Learn Morse Code"
-msgstr ""
+msgstr "Lmed angal n Morse"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:9
 msgid "Learn Morse Code and High Speed Telegraphy."
@@ -94,23 +96,23 @@ msgstr ""
 
 #: data/ui/shortcuts_dialog.blp:6 data/ui/window.blp:71
 msgid "General"
-msgstr ""
+msgstr "Amatu"
 
 #: data/ui/shortcuts_dialog.blp:8
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "Sken-d inegzumen"
 
 #: data/ui/shortcuts_dialog.blp:12
 msgid "Open Menu"
-msgstr ""
+msgstr "Ldi umuɣ"
 
 #: data/ui/shortcuts_dialog.blp:16
 msgid "Open Preferences"
-msgstr ""
+msgstr "Ldi ismenyifen"
 
 #: data/ui/shortcuts_dialog.blp:20
 msgid "Quit"
-msgstr ""
+msgstr "Ffeɣ"
 
 #: data/ui/shortcuts_dialog.blp:28
 msgid "Toggle Playback"
@@ -134,19 +136,19 @@ msgstr ""
 
 #: data/ui/window.blp:56 data/ui/window.blp:145
 msgid "Main Menu"
-msgstr ""
+msgstr "Umuɣ agejdan"
 
 #: data/ui/window.blp:73
 msgid "Text Type"
-msgstr ""
+msgstr "Anaw n uḍris"
 
 #: data/ui/window.blp:76
 msgid "Letters"
-msgstr ""
+msgstr "Isekkilen"
 
 #: data/ui/window.blp:77
 msgid "Digits"
-msgstr ""
+msgstr "Uṭṭunen"
 
 #: data/ui/window.blp:78
 msgid "Mixed"
@@ -154,7 +156,7 @@ msgstr ""
 
 #: data/ui/window.blp:83
 msgid "Auto Generation"
-msgstr ""
+msgstr "Turwin tawurmant"
 
 #: data/ui/window.blp:84
 msgid "Pressing the playback button will generate the new text"
@@ -162,7 +164,7 @@ msgstr ""
 
 #: data/ui/window.blp:89
 msgid "Text Generation"
-msgstr ""
+msgstr "Turwin n uḍris"
 
 #: data/ui/window.blp:91
 msgid "Default Words Number"
@@ -174,11 +176,11 @@ msgstr ""
 
 #: data/ui/window.blp:96
 msgid "Words"
-msgstr ""
+msgstr "Awalen"
 
 #: data/ui/window.blp:101
 msgid "Characters"
-msgstr ""
+msgstr "Isekkilen"
 
 #: data/ui/window.blp:102
 msgid "Select the characters you need"
@@ -186,7 +188,7 @@ msgstr ""
 
 #: data/ui/window.blp:111 data/ui/window.blp:113
 msgid "Speed"
-msgstr ""
+msgstr "Arured"
 
 #: data/ui/window.blp:117
 msgid "Delay between characters"
@@ -199,19 +201,19 @@ msgstr ""
 
 #: data/ui/window.blp:151
 msgid "Play"
-msgstr ""
+msgstr "Ɣeṛ"
 
 #: data/ui/window.blp:158
 msgid "Stop"
-msgstr ""
+msgstr "Seḥbes"
 
 #: data/ui/window.blp:209
 msgid "Copy Text"
-msgstr ""
+msgstr "Nɣel aḍris"
 
 #: data/ui/window.blp:214
 msgid "Generate Text"
-msgstr ""
+msgstr "Sarew-d aḍris"
 
 #: data/ui/window.blp:256
 msgid "Receiving Preferences"
@@ -219,20 +221,20 @@ msgstr ""
 
 #: data/ui/window.blp:311
 msgid "_Preferences"
-msgstr ""
+msgstr "Imenyafen (_P)"
 
 #: data/ui/window.blp:316
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "Inegzumen n unasiw (_K)"
 
 #: data/ui/window.blp:321
 msgid "_About Morse"
-msgstr ""
+msgstr "Ɣef Morse (_A)"
 
 #. # Translator: Leave there your name
 #: src/application.rs:121
 msgid "translator-credits"
-msgstr ""
+msgstr "Athmane MOKRAOUI"
 
 #: src/widgets/window.rs:292
 msgid "The text doesn't contain any allowed characters"
