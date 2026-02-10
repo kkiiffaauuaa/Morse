@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-20 21:11+0100\n"
-"PO-Revision-Date: 2026-01-30 11:01+0000\n"
+"PO-Revision-Date: 2026-02-11 10:09+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/morse-app/app/"
 "kab/>\n"
@@ -35,7 +35,7 @@ msgstr "Lmed angal n Morse"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:9
 msgid "Learn Morse Code and High Speed Telegraphy."
-msgstr ""
+msgstr "Lmed angal n Morse akked Tiligrafit s tazzla tameqrant."
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:45
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:49
@@ -52,11 +52,11 @@ msgstr ""
 
 #: data/ui/preferences_dialog.blp:12
 msgid "None"
-msgstr ""
+msgstr "Ula yiwen"
 
 #: data/ui/preferences_dialog.blp:13
 msgid "Default"
-msgstr ""
+msgstr "Amezwer"
 
 #: data/ui/preferences_dialog.blp:14
 msgid "Competitions"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: data/ui/preferences_dialog.blp:24
 msgid "Sound"
-msgstr ""
+msgstr "Imesli"
 
 #: data/ui/preferences_dialog.blp:26
 msgid "Wave Type"
@@ -76,11 +76,11 @@ msgstr ""
 
 #: data/ui/preferences_dialog.blp:29
 msgid "Square"
-msgstr ""
+msgstr "Amkuẓ"
 
 #: data/ui/preferences_dialog.blp:30
 msgid "Triangle"
-msgstr ""
+msgstr "Akerḍis"
 
 #: data/ui/preferences_dialog.blp:31
 msgid "Sawtooth"
@@ -132,7 +132,7 @@ msgstr ""
 
 #: data/ui/volume_control.blp:29
 msgid "Volume"
-msgstr ""
+msgstr "Ableɣ"
 
 #: data/ui/window.blp:56 data/ui/window.blp:145
 msgid "Main Menu"
@@ -152,7 +152,7 @@ msgstr "Uṭṭunen"
 
 #: data/ui/window.blp:78
 msgid "Mixed"
-msgstr ""
+msgstr "Xelḍen"
 
 #: data/ui/window.blp:83
 msgid "Auto Generation"
@@ -172,7 +172,7 @@ msgstr ""
 
 #: data/ui/window.blp:92
 msgid "The words number is calculated automatically based on the text speed"
-msgstr ""
+msgstr "Amḍan n wawalen yettwassiḍen s wudem awurman ɣef urured n uḍris"
 
 #: data/ui/window.blp:96
 msgid "Words"
@@ -184,7 +184,7 @@ msgstr "Isekkilen"
 
 #: data/ui/window.blp:102
 msgid "Select the characters you need"
-msgstr ""
+msgstr "Fren isekkilen i teḥwaǧeḍ"
 
 #: data/ui/window.blp:111 data/ui/window.blp:113
 msgid "Speed"
@@ -192,7 +192,7 @@ msgstr "Arured"
 
 #: data/ui/window.blp:117
 msgid "Delay between characters"
-msgstr ""
+msgstr "Amenḍar gar isekkilen"
 
 #: data/ui/window.blp:118
 msgid ""
@@ -242,8 +242,8 @@ msgstr ""
 
 #: src/widgets/window.rs:493
 msgid "Copied to clipboard"
-msgstr ""
+msgstr "Yettwanɣel ɣer ufus"
 
 #: src/widgets/window.rs:535
 msgid "To generate text enable at least 1 character"
-msgstr ""
+msgstr "Iwakken ad d-sarewḍ aḍris, sermed xerṣum 1 n usekkil"
