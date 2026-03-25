@@ -1,10 +1,22 @@
 # Change Log
 
+## [1.1.0] - 2026-03-25
+
+### Changed
+
+- Updated dependencies
+
+### Added
+
+- Added Czech translation
+- Added Kabyle translation
+- Added Portuguese (Brazil) translation
+
 ## [1.0.6] - 2026-01-24
 
 ### Changed
 
-"Auto Generation" switch is now disabled by default
+- "Auto Generation" switch is now disabled by default
  
 ### Added
 

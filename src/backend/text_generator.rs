@@ -1,5 +1,5 @@
 // Morse - text_generator.rs
-// Copyright (C) 2025  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
+// Copyright (C) 2025-2026  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,6 +15,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use rand::prelude::*;
+use rand::rngs::{StdRng, SysRng};
 use anyhow::{anyhow, Result};
 
 pub fn generate_text(seed: Option<u64>, chars_count: u64, word_length: u64, chars_in_use: Vec<char>) -> Result<String> {
@@ -22,7 +23,7 @@ pub fn generate_text(seed: Option<u64>, chars_count: u64, word_length: u64, char
 
     match seed {
         Some(value) => rng = StdRng::seed_from_u64(value),
-        None => rng = StdRng::from_os_rng(),
+        None => rng = StdRng::try_from_rng(&mut SysRng).unwrap(),
     }
 
     if word_length == 0 {

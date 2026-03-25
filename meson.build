@@ -1,7 +1,7 @@
 project(
   'morse', 'rust', 
   license: 'GPLv3',
-  version: '1.0.6',
+  version: '1.1.0',
   meson_version: '>= 1.0.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
@@ -21,8 +21,8 @@ datadir = join_paths(get_option('prefix'), get_option('datadir'))
 localedir = join_paths(get_option('prefix'), get_option('localedir'))
 bindir = join_paths(get_option('prefix'), get_option('bindir'))
 
-dependency('gtk4', version: '>= 4.19.2')
-dependency('libadwaita-1', version: '>= 1.8.beta')
+dependency('gtk4', version: '>= 4.22')
+dependency('libadwaita-1', version: '>= 1.9')
 
 cargo_sources = files(
   'Cargo.toml',

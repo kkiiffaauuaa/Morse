@@ -3,7 +3,7 @@
 ; Non-commercial use only
 
 #define MyAppName "Morse"
-#define MyAppVersion "1.0.3"
+#define MyAppVersion "1.1.0"
 #define MyAppPublisher "Jaŭhien Lavonćjeŭ"
 #define MyAppURL "https://github.com/teacond/Morse"
 #define MyAppExeName "morse.exe"

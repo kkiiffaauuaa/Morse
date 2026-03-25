@@ -11,7 +11,7 @@ jobs:
   flatpak:
     name: "Flatpak"
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-49
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
       options: --privileged
     strategy:
       matrix:
@@ -35,7 +35,6 @@ jobs:
         with:
           name: morse-${{matrix.variant.arch}}.flatpak
           path: morse-${{matrix.variant.arch}}.flatpak
-  
   windows:
     name: Windows
     strategy:
@@ -61,21 +60,10 @@ jobs:
           msystem: ${{matrix.sys}}
           update: true
           install: >-
-            base-devel git mingw-w64-${{matrix.env}}-toolchain mingw-w64-${{matrix.env}}-cc
-            mingw-w64-${{matrix.env}}-meson mingw-w64-${{matrix.env}}-ninja
-            mingw-w64-${{matrix.env}}-pkg-config mingw-w64-${{matrix.env}}-ca-certificates
-            mingw-w64-${{matrix.env}}-gettext mingw-w64-${{matrix.env}}-vulkan
-            mingw-w64-${{matrix.env}}-vulkan-headers mingw-w64-${{matrix.env}}-rust
-            mingw-w64-${{matrix.env}}-python mingw-w64-${{matrix.env}}-python-pip
-            mingw-w64-${{matrix.env}}-appstream mingw-w64-${{matrix.env}}-glib2
-            mingw-w64-${{matrix.env}}-gobject-introspection mingw-w64-${{matrix.env}}-cairo
-            mingw-w64-${{matrix.env}}-directx-headers mingw-w64-${{matrix.env}}-gdk-pixbuf2
-            mingw-w64-${{matrix.env}}-graphene mingw-w64-${{matrix.env}}-json-glib
-            mingw-w64-${{matrix.env}}-libepoxy mingw-w64-${{matrix.env}}-fribidi
-            mingw-w64-${{matrix.env}}-python-gobject mingw-w64-${{matrix.env}}-sassc
-            mingw-w64-${{matrix.env}}-pango mingw-w64-${{matrix.env}}-blueprint-compiler
-            mingw-w64-${{matrix.env}}-python-setuptools mingw-w64-${{matrix.env}}-gtk4
-            mingw-w64-${{matrix.env}}-libadwaita
+            mingw-w64-${{matrix.env}}-git mingw-w64-${{matrix.env}}-meson
+            mingw-w64-${{matrix.env}}-gettext mingw-w64-${{matrix.env}}-rust
+            mingw-w64-${{matrix.env}}-gtk4 mingw-w64-${{matrix.env}}-libadwaita
+            mingw-w64-${{matrix.env}}-blueprint-compiler
       - name: Build Package
         run: |
           meson setup build -Dprefix=$(pwd)/dist -Dprofile=default
@@ -99,11 +87,7 @@ jobs:
       - uses: actions/checkout@v6
       - name: "Install System Packages"
         run: |
-          brew install meson ninja rust glib cmake pkgconf gettext appstream \
-          gobject-introspection cairo gdk-pixbuf graphene json-glib \
-          librsvg libepoxy fribidi sassc pango blueprint-compiler python \
-          python-setuptools vulkan-loader shaderc molten-vk dylibbundler \
-          create-dmg gtk4 libadwaita
+          brew install meson gettext rust gtk4 libadwaita blueprint-compiler create-dmg dylibbundler librsvg
       - name: Build Package
         run: |
           meson setup build -Dprefix=$(pwd)/Morse.app -Ddatadir=Contents/Resources -Dbindir=Contents/MacOS -Dlocaledir=Contents/Resources/locale -Dprofile=default
