@@ -87,6 +87,7 @@ jobs:
       - uses: actions/checkout@v6
       - name: "Install System Packages"
         run: |
+          brew update
           brew install meson gettext rust gtk4 libadwaita blueprint-compiler create-dmg dylibbundler librsvg
       - name: Build Package
         run: |
