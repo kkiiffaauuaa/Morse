@@ -23,7 +23,6 @@ use gtk::{prelude::*, glib, Grid, DropDown, Box, Label, Orientation, Align};
 use std::{cell::{OnceCell, RefCell}};
 
 mod imp {
-
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
@@ -32,7 +31,11 @@ mod imp {
         #[template_child]
         alphabets_combo: TemplateChild<DropDown>,
         #[template_child]
-        alphabet_grid: TemplateChild<Grid>,
+        letters_grid: TemplateChild<Grid>,
+        #[template_child]
+        digits_grid: TemplateChild<Grid>,
+        #[template_child]
+        symbols_grid: TemplateChild<Grid>,
         grid_items: OnceCell<RefCell<Vec<Box>>>,
         player: OnceCell<RefCell<MorsePlayer>>,
     }
@@ -87,13 +90,20 @@ mod imp {
                             (ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone(), Alphabet::Latin)
                         }
                     };
-
                     this.player.get().unwrap().borrow().set_alphabet(alphabet_type);
-                    this.construct_alphabet(alphabet);
+                    this.construct_alphabet(
+                        alphabet,
+                        ALPHABETS.get("digits").unwrap().clone(),
+                        ALPHABETS.get("symbols").unwrap().clone()
+                    );
                 }
             ));
             
-            self.construct_alphabet(ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone());
+            self.construct_alphabet(
+                ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone(),
+                ALPHABETS.get("digits").unwrap().clone(),
+                ALPHABETS.get("symbols").unwrap().clone()
+            );
             self.player.get().unwrap().borrow().set_alphabet(Alphabet::Latin);
             self.alphabets_combo.set_selected(settings_manager.integer(Key::Alphabet) as u32);
         }
@@ -102,7 +112,7 @@ mod imp {
     impl AdwDialogImpl for MorseAlphabetDialog {}
 
     impl MorseAlphabetDialog {
-        fn construct_alphabet(&self, chars: Vec<char>) {
+        fn construct_alphabet(&self, letters: Vec<char>, digits: Vec<char>, symbols: Vec<char>) {
             let mut grid_items = self.grid_items.get().unwrap().borrow_mut();
 
             for el in grid_items.iter() {
@@ -111,39 +121,45 @@ mod imp {
 
             grid_items.clear();
 
-            for (i, el) in chars.iter().enumerate() {
-                let alphabet_item = Box::builder()
-                .orientation(Orientation::Horizontal)
-                .hexpand(true)
-                .css_classes(["card"])
-                .build();
+            for (grid, chars) in [
+                (self.letters_grid.clone(), letters),
+                (self.digits_grid.clone(), digits),
+                (self.symbols_grid.clone(), symbols)
+                ] {
+                for (i, el) in chars.iter().enumerate() {
+                    let alphabet_item = Box::builder()
+                    .orientation(Orientation::Horizontal)
+                    .hexpand(true)
+                    .css_classes(["card"])
+                    .build();
 
-                let char_widget = Label::builder()
-                .label(&el.to_string())
-                .margin_start(20)
-                .margin_top(10)
-                .margin_bottom(10)
-                .build();
-                let morse_widget = Label::builder()
-                .label(self.player.get().unwrap().borrow().get_morse(el))
-                .margin_end(20)
-                .margin_top(10)
-                .margin_bottom(10)
-                .hexpand(true)
-                .halign(Align::Center)
-                .build();
-                alphabet_item.append(&char_widget);
-                alphabet_item.append(&morse_widget);
-                
-                self.alphabet_grid.attach(
-                    &alphabet_item,
-                    (i % 2) as i32,
-                    (i / 2) as i32,
-                    1,
-                    1
-                );
+                    let char_widget = Label::builder()
+                    .label(&el.to_string())
+                    .margin_start(20)
+                    .margin_top(10)
+                    .margin_bottom(10)
+                    .build();
+                    let morse_widget = Label::builder()
+                    .label(self.player.get().unwrap().borrow().get_morse(el))
+                    .margin_end(20)
+                    .margin_top(10)
+                    .margin_bottom(10)
+                    .hexpand(true)
+                    .halign(Align::Center)
+                    .build();
+                    alphabet_item.append(&char_widget);
+                    alphabet_item.append(&morse_widget);
+                    
+                    grid.attach(
+                        &alphabet_item,
+                        (i % 2) as i32,
+                        (i / 2) as i32,
+                        1,
+                        1
+                    );
 
-                grid_items.push(alphabet_item);
+                    grid_items.push(alphabet_item);
+                }
             }
         }
     }

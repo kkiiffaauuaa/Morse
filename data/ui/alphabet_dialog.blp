@@ -28,13 +28,50 @@ template $MorseAlphabetDialog: Adw.Dialog {
       vexpand: true;
       valign: fill;
 
-      Gtk.Grid alphabet_grid {
-        row-spacing: 10;
-        column-spacing: 15;
+      Gtk.Box {
+        orientation: vertical;
         margin-start: 20;
         margin-end: 20;
         margin-top: 20;
-        margin-bottom: 20;
+
+        Gtk.Label {
+          styles ["title-4"]
+          label: _("Letters");
+          halign: start;
+          margin-start: 5;
+        }
+        Gtk.Grid letters_grid {
+          row-spacing: 10;
+          column-spacing: 15;
+          margin-top: 20;
+          margin-bottom: 20;
+        }
+        Gtk.Label {
+          styles ["title-4"]
+          label: _("Digits");
+          halign: start;
+          margin-start: 5;
+          margin-top: 10;
+        }
+        Gtk.Grid digits_grid {
+          row-spacing: 10;
+          column-spacing: 15;
+          margin-top: 20;
+          margin-bottom: 20;
+        }
+        Gtk.Label {
+          styles ["title-4"]
+          label: _("Symbols");
+          halign: start;
+          margin-start: 5;
+          margin-top: 10;
+        }
+        Gtk.Grid symbols_grid {
+          row-spacing: 10;
+          column-spacing: 15;
+          margin-top: 20;
+          margin-bottom: 20;
+        }
       }
     };
   }
