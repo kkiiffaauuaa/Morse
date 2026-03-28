@@ -60,6 +60,12 @@ template $MorseApplicationWindow: Adw.ApplicationWindow {
                   Button sidebar_back_button {
                     visible: false;
                     icon-name: "go-previous-symbolic";
+                    tooltip-text: _("Back");
+                  }
+                  [end]
+                  Button alphabets_button {
+                    icon-name: "info-outline-symbolic";
+                    tooltip-text: _("Alphabet");
                   }
                 }
                 
