@@ -14,7 +14,7 @@ winresource = "0.1.31"
 anyhow = { version = "1.0.102", default-features = false }
 rand = { version = "0.10.0", features = ["std_rng"] }
 gettext-rs = { version = "0.7.7", features = ["gettext-system"] }
-gtk = { package = "gtk4", version = "0.11.1", features = ["gnome_49"] }
+gtk = { package = "gtk4", version = "0.11.1", features = ["v4_22"] }
 adw = { package = "libadwaita", version = "0.9.1", features = ["v1_9"] }
 strum = "0.28.0"
 strum_macros = "0.28.0"
