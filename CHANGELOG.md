@@ -5,6 +5,7 @@
 - Support for non-Latin Morse code alphabets
 - Added in-app Morse cheatsheet
 - Better audio playback
+- Update translations
 
 ## [1.1.0] - 2026-03-25
 
