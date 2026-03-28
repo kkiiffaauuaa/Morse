@@ -17,6 +17,7 @@
 use crate::config::{APP_ID, PATH_ID, VERSION};
 use crate::i18n::i18n;
 use crate::widgets::preferences_dialog::MorsePreferencesDialog;
+use crate::widgets::alphabet_dialog::MorseAlphabetDialog;
 use crate::MorseApplicationWindow;
 use crate::backend::settings::settings_manager::SettingsManager;
 
@@ -54,10 +55,11 @@ mod imp {
             obj.setup_gactions();
             obj.set_accels_for_action("app.quit", &["<primary>q"]);
             obj.set_accels_for_action("app.preferences", &["<primary>comma"]);
-            obj.set_accels_for_action("win.toggle-playback", &["<ctrl>p"]);
-            obj.set_accels_for_action("volume.toggle-mute", &["<ctrl>m"]);
-            obj.set_accels_for_action("volume.increase", &["<ctrl>plus"]);
-            obj.set_accels_for_action("volume.decrease", &["<ctrl>minus"]);
+            obj.set_accels_for_action("app.alphabet", &["<primary>i"]);
+            obj.set_accels_for_action("win.toggle-playback", &["<primary>p"]);
+            obj.set_accels_for_action("volume.toggle-mute", &["<primary>m"]);
+            obj.set_accels_for_action("volume.increase", &["<primary>plus"]);
+            obj.set_accels_for_action("volume.decrease", &["<primary>minus"]);
         }
     }
 
@@ -102,7 +104,10 @@ impl MorseApplication {
         let preferences_action = gio::ActionEntry::builder("preferences")
             .activate(move |app: &Self, _, _| app.show_preferences())
             .build();
-        self.add_action_entries([quit_action, about_action, preferences_action]);
+        let alphabet_action = gio::ActionEntry::builder("alphabet")
+            .activate(move |app: &Self, _, _| app.show_alphabet())
+            .build();
+        self.add_action_entries([quit_action, about_action, preferences_action, alphabet_action]);
     }
 
     fn show_about(&self) {
@@ -128,6 +133,11 @@ impl MorseApplication {
     fn show_preferences(&self) {
         let window = self.active_window().unwrap();
         MorsePreferencesDialog::new().present(Some(&window));
+    }
+
+    fn show_alphabet(&self) {
+        let window = self.active_window().unwrap();
+        MorseAlphabetDialog::new().present(Some(&window));
     }
 
     pub fn player(&self) -> MorsePlayer {

@@ -1,5 +1,5 @@
 // Morse - mod.rs
-// Copyright (C) 2025  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
+// Copyright (C) 2025-2026  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,3 +17,4 @@
 pub mod window;
 pub mod preferences_dialog;
 pub mod volume_control;
+pub mod alphabet_dialog;

@@ -200,6 +200,7 @@ mod imp {
                 #[weak(rename_to = this)] self,
                 move |_, _| {
                     this.set_check_buttons_grid();
+                    this.generate_text_clicked(word_length);
                 }
             ));
 
@@ -235,6 +236,7 @@ mod imp {
                         1 => TextType::Digits,
                         _ => TextType::Mixed,
                     };
+                    this.player.get().unwrap().borrow().set_alphabet(this.get_selected_alphabet().1);
                     let text: String = match this.settings_manager.get().unwrap().borrow().integer(Key::Additions) {
                         0 => base_text.clone(),
                         1 => {
@@ -557,7 +559,7 @@ mod imp {
         }
 
         fn set_check_buttons_grid(&self) {
-            let (base_alphabet, alphabet_type) = self.get_selected_alphabet();
+            let (base_alphabet, _) = self.get_selected_alphabet();
 
             let chars: Vec<char> = match self.text_type_combo.selected() {
                 0 => base_alphabet,
@@ -575,7 +577,6 @@ mod imp {
                 check_button.unparent();
             }
             check_buttons_vec.clear();
-            self.player.get().unwrap().borrow().set_alphabet(alphabet_type);
 
             for (i, char) in chars.iter().enumerate() {
                 let check_button = CheckButton::builder()

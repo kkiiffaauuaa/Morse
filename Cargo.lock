@@ -873,8 +873,8 @@ dependencies = [
 
 [[package]]
 name = "morse_player"
-version = "0.1.1"
-source = "git+https://github.com/teacond/morse_player?rev=47b848085f4cdafdddf3a0cbf9f7aef91083056f#47b848085f4cdafdddf3a0cbf9f7aef91083056f"
+version = "0.1.2"
+source = "git+https://github.com/teacond/morse_player?rev=db54291039ca36d09e2e9621eb59374d86c5a9a5#db54291039ca36d09e2e9621eb59374d86c5a9a5"
 dependencies = [
  "derive_more",
  "rodio",

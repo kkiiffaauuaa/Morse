@@ -4,6 +4,7 @@ blueprints = custom_target('blueprints',
     'ui/preferences_dialog.blp',
     'ui/shortcuts_dialog.blp',
     'ui/volume_control.blp',
+    'ui/alphabet_dialog.blp',
   ),
   output: '.',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],)

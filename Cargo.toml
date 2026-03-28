@@ -21,4 +21,4 @@ strum_macros = "0.28.0"
 regex = "1.12.3"
 serde_json = "1.0"
 
-morse_player = { git = "https://github.com/teacond/morse_player", rev="47b848085f4cdafdddf3a0cbf9f7aef91083056f" }
+morse_player = { git = "https://github.com/teacond/morse_player", rev="db54291039ca36d09e2e9621eb59374d86c5a9a5" }

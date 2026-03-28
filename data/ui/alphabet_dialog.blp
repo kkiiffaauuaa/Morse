@@ -1,0 +1,41 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MorseAlphabetDialog: Adw.Dialog {
+  title: _("Alphabet");
+  content-width: 550;
+  content-height: 450;
+
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [end]
+      Gtk.DropDown alphabets_combo {
+        model: StringList {
+          strings [
+            _("Latin"),
+            _("Cyrillic"),
+            _("Greek"),
+            _("Hebrew"),
+            _("Arabic"),
+            _("Persian"),
+            _("Korean")
+          ]
+        };
+      }
+    }
+    content: Gtk.ScrolledWindow {
+      vexpand: true;
+      valign: fill;
+
+      Gtk.Grid alphabet_grid {
+        row-spacing: 10;
+        column-spacing: 15;
+        margin-start: 20;
+        margin-end: 20;
+        margin-top: 20;
+        margin-bottom: 20;
+      }
+    };
+  }
+}
