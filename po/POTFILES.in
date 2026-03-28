@@ -4,12 +4,14 @@
 data/io.github.teacond.Morse.desktop.in.in
 data/io.github.teacond.Morse.gschema.xml.in
 data/io.github.teacond.Morse.metainfo.xml.in.in
+data/ui/alphabet_dialog.blp
 data/ui/preferences_dialog.blp
 data/ui/shortcuts_dialog.blp
 data/ui/volume_control.blp
 data/ui/window.blp
 src/application.rs
 src/main.rs
+src/widgets/alphabet_dialog.rs
 src/widgets/mod.rs
 src/widgets/preferences_dialog.rs
 src/widgets/volume_control.rs
