@@ -18,6 +18,7 @@ use crate::config::{APP_ID, PATH_ID, VERSION};
 use crate::i18n::i18n;
 use crate::widgets::preferences_dialog::MorsePreferencesDialog;
 use crate::MorseApplicationWindow;
+use crate::backend::settings::settings_manager::SettingsManager;
 
 use morse_player::MorsePlayer;
 use adw::{prelude::*, subclass::prelude::*};
@@ -29,6 +30,7 @@ mod imp {
     #[derive(Debug, Default)]
     pub struct MorseApplication {
         pub player: MorsePlayer,
+        pub settings_manager: SettingsManager
     }
 
     #[glib::object_subclass]
@@ -37,11 +39,10 @@ mod imp {
         type Type = super::MorseApplication;
         type ParentType = adw::Application;
 
-        fn new() -> Self {
-            let morse_player = MorsePlayer::new();
-            
+        fn new() -> Self { 
             Self {
-                player: morse_player,
+                player: MorsePlayer::new(),
+                settings_manager: SettingsManager::new()
             }
         }
     }
@@ -131,6 +132,10 @@ impl MorseApplication {
 
     pub fn player(&self) -> MorsePlayer {
         self.imp().player.clone()
+    }
+
+    pub fn settings_manager(&self) -> SettingsManager {
+        self.imp().settings_manager.clone()
     }
 }
 

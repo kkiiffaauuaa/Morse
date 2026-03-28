@@ -15,16 +15,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use std::cell::{RefCell, OnceCell};
-use std::rc::Rc;
 use std::time::{Duration, Instant};
 
 use rand::prelude::*;
 
 use crate::constants::{
-    LETTERS,
-    DIGITS,
-    MIXED,
-    ALLOWED_CHARS,
+    ALPHABETS,
     START_TEXT,
     START_TEXT_COMPETITIONS_LETTERS,
     START_TEXT_COMPETITIONS_DIGITS,
@@ -37,8 +33,8 @@ use crate::i18n::i18n;
 use crate::application::MorseApplication;
 use crate::widgets::volume_control::MorseVolumeControl;
 use crate::backend::text_generator::generate_text;
-use crate::backend::settings::{settings_manager, Key};
-use morse_player::{TextType, WaveType};
+use crate::backend::settings::{Key, settings_manager::SettingsManager};
+use morse_player::{TextType, WaveType, Alphabet};
 
 use adw::{
     ActionRow, 
@@ -71,6 +67,8 @@ use gio::{SimpleAction};
 use glib::{clone, ControlFlow, MainContext, SourceId};
 
 mod imp {
+    use morse_player::MorsePlayer;
+
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
@@ -130,6 +128,9 @@ mod imp {
         volume_control: TemplateChild<MorseVolumeControl>,
         pref_action: OnceCell<SimpleAction>,
         timeouts_vec: OnceCell<RefCell<Vec<SourceId>>>,
+        check_buttons_vec: OnceCell<RefCell<Vec<CheckButton>>>,
+        settings_manager: OnceCell<RefCell<SettingsManager>>,
+        player: OnceCell<RefCell<MorsePlayer>>,
     }
 
     #[glib::object_subclass]
@@ -163,10 +164,7 @@ mod imp {
 
             // Setting variables
             let word_length: u64 = 5;
-            let chars_in_use = Rc::new(RefCell::new(LETTERS.to_vec())); // vector of characters for generator
-            let mut check_buttons_vec = Vec::<CheckButton>::new(); // vector of check buttons (characters)
             let style_manager = StyleManager::default(); // just a style manager
-            let morse_player = MorseApplication::default().player(); // morse player
             let text_tag = TextTag::builder() // highlighting playable char
             .foreground_rgba(&style_manager.accent_color_rgba())
             .name("accent_tag")
@@ -180,59 +178,43 @@ mod imp {
                 .clone()
             ).unwrap();
 
-            let _ = self.timeouts_vec.set(RefCell::new(Vec::new()));
-            
+            self.timeouts_vec.set(RefCell::new(Vec::new())).unwrap();
+            self.check_buttons_vec.set(RefCell::new(Vec::new())).unwrap();
+            self.settings_manager.set(RefCell::new(MorseApplication::default().settings_manager())).unwrap();
+            self.player.set(RefCell::new(MorseApplication::default().player())).unwrap();
+
+            // Other interface settings
+            self.text_buffer.set_text(DEFAULT_TEXT);
+            self.text_buffer.tag_table().add(&text_tag);
+            self.set_check_buttons_grid();
+            self.characters_popover.set_parent(&self.characters_row.get());
+
             // Binding property
-            settings_manager::bind_property::<MorseVolumeControl>(
+            self.settings_manager.get().unwrap().borrow().bind_property::<MorseVolumeControl>(
                 Key::PlaybackVolume,
                 self.volume_control.as_ref(),
                 "volume"
             );
 
-            // Creating check_buttons_vec & setting a grid of them
-            for char in MIXED {
-                let check_button = CheckButton::builder()
-                .label(char.to_string())
-                .active(true)
-                .build();
-                check_button.connect_active_notify(clone!(
-                    #[strong] chars_in_use,
-                    move |check_button| {
-                        let check_button_char = check_button.label().unwrap().chars().next().unwrap();
-                        let mut chars_in_use = chars_in_use.borrow_mut();
-                        if check_button.is_active() == true {
-                            chars_in_use.push(check_button_char);
-                        }
-                        else {
-                            if let Some(index) = chars_in_use.iter().position(|&x| x == check_button_char) {
-                                chars_in_use.remove(index);
-                            }
-                        }
-                    }
-                ));
-                check_buttons_vec.push(check_button);
-            }
-
-            // Other interface settings
-            self.text_buffer.set_text(DEFAULT_TEXT);
-            self.text_buffer.tag_table().add(&text_tag);
-            self.set_check_buttons_grid(&check_buttons_vec, &LETTERS.to_vec());
-            self.characters_popover.set_parent(&self.characters_row.get());
+            self.settings_manager.get().unwrap().borrow().connect_changed(Key::Alphabet, clone!(
+                #[weak(rename_to = this)] self,
+                move |_, _| {
+                    this.set_check_buttons_grid();
+                }
+            ));
 
             self.play_button.connect_clicked(clone!(
                 #[weak(rename_to = this)] self,
-                #[strong] chars_in_use,
-                #[strong] morse_player,
                 move |play_button| {
                     if this.random_switch.is_active() {
-                        this.generate_text_clicked(word_length, &chars_in_use.borrow());
-                        if chars_in_use.borrow().is_empty() {
+                        this.generate_text_clicked(word_length);
+                        if this.check_buttons_vec.get().unwrap().borrow().is_empty() {
                             return;
                         }
                     }
 
-                    let frequency = settings_manager::integer(Key::Frequency) as f32;
-                    let start_delay = settings_manager::integer(Key::StartDelay);
+                    let frequency = this.settings_manager.get().unwrap().borrow().integer(Key::Frequency) as f32;
+                    let start_delay = this.settings_manager.get().unwrap().borrow().integer(Key::StartDelay);
                     let mut start_text_duration = Duration::from_secs(0);
                     let mut end_text_duration = Duration::from_secs(0);
                     let speed = this.speed_spin.value() as u32;
@@ -240,8 +222,9 @@ mod imp {
                     let start_iter = this.text_buffer.start_iter();
                     let end_iter = this.text_buffer.end_iter();
                     let text_buffer_string = this.text_buffer.text(&start_iter, &end_iter, true).to_uppercase();
-                    let base_text: String = text_buffer_string.chars().filter(|c| ALLOWED_CHARS.contains(c)).collect();
-                    let wave_type = match settings_manager::integer(Key::WaveType) {
+                    let allowed_chars = this.get_allowed_chars();
+                    let base_text: String = text_buffer_string.chars().filter(|c| allowed_chars.contains(c)).collect();
+                    let wave_type = match this.settings_manager.get().unwrap().borrow().integer(Key::WaveType) {
                         0 => WaveType::Square,
                         1 => WaveType::Triangle,
                         2 => WaveType::Sawtooth,
@@ -252,11 +235,11 @@ mod imp {
                         1 => TextType::Digits,
                         _ => TextType::Mixed,
                     };
-                    let text: String = match settings_manager::integer(Key::Additions) {
+                    let text: String = match this.settings_manager.get().unwrap().borrow().integer(Key::Additions) {
                         0 => base_text.clone(),
                         1 => {
-                            start_text_duration = morse_player.timings(START_TEXT, text_type, speed, delay).0;
-                            end_text_duration = morse_player.timings(END_TEXT, text_type, speed, delay).0;
+                            start_text_duration = this.player.get().unwrap().borrow().timings(START_TEXT, text_type, speed, delay).0;
+                            end_text_duration = this.player.get().unwrap().borrow().timings(END_TEXT, text_type, speed, delay).0;
                             START_TEXT.to_string() + &base_text + &END_TEXT
                         }
                         _ => {
@@ -268,13 +251,13 @@ mod imp {
                                 start_string = START_TEXT_COMPETITIONS_DIGITS.to_string();
                             }
                             start_string += &(speed.to_string() + " " + START_TEXT);
-                            start_text_duration = morse_player.timings(
+                            start_text_duration = this.player.get().unwrap().borrow().timings(
                                 &start_string,
                                 text_type,
                                 speed,
                                 delay,
                             ).0;
-                            end_text_duration = morse_player.timings(
+                            end_text_duration = this.player.get().unwrap().borrow().timings(
                                 END_TEXT,
                                 text_type,
                                 speed,
@@ -284,7 +267,7 @@ mod imp {
                         },
                     };
 
-                    let (base_duration, timings) = morse_player.timings(&base_text, text_type, speed, delay);
+                    let (base_duration, timings) = this.player.get().unwrap().borrow().timings(&base_text, text_type, speed, delay);
 
                     if base_text.is_empty() {
                         this.toast_overlay.add_toast(
@@ -296,7 +279,7 @@ mod imp {
                     }
 
                     // Interface changes
-                    morse_player.set_volume(this.volume_control.volume() as f32);
+                    this.player.get().unwrap().borrow().set_volume(this.volume_control.volume() as f32);
                     this.set_timer_label(base_duration);
                     play_button.set_visible(false);
                     this.stop_button.set_visible(true);
@@ -309,9 +292,8 @@ mod imp {
 
                     let start_delay_timeout = glib::timeout_add_local_once(Duration::from_secs(start_delay as u64), clone!(
                         #[weak] this,
-                        #[strong] morse_player,
                         move || {
-                            morse_player.play(&text, text_type, speed, delay, frequency, wave_type, 48000);
+                            this.player.get().unwrap().borrow().play(&text, text_type, speed, delay, frequency, wave_type, 48000);
                             let text_start_instant = Instant::now();
                                 
                             let timer_timeout = glib::timeout_add_local(Duration::from_millis(250), clone!(
@@ -337,7 +319,7 @@ mod imp {
 
                             let mut ids_for_iter: Vec<i32> = Vec::new();
                             for (i, text_buffer_char) in text_buffer_string.chars().into_iter().enumerate() {
-                                if ALLOWED_CHARS.contains(&text_buffer_char) {
+                                if allowed_chars.contains(&text_buffer_char) {
                                     ids_for_iter.push(i as i32);
                                 }
                             }
@@ -376,25 +358,16 @@ mod imp {
 
             self.stop_button.connect_clicked(clone!(
                 #[weak(rename_to = this)] self,
-                #[strong] morse_player,
                 move |_| {
-                    morse_player.stop();
+                    this.player.get().unwrap().borrow().stop();
                     this.set_default_state();
                 }
             ));
 
             self.text_type_combo.connect_selected_notify(clone!(
-                #[strong] chars_in_use,
-                #[strong] check_buttons_vec,
                 #[weak(rename_to = this)] self,
-                move |text_type_combo| {
-                    let selected_chars: Vec<char> = match text_type_combo.selected() {
-                        0 => LETTERS.to_vec(),
-                        1 => DIGITS.to_vec(),
-                        _ => MIXED.to_vec(),
-                    };
-                    this.set_check_buttons_grid(&check_buttons_vec, &selected_chars.clone());
-                    *chars_in_use.borrow_mut() = selected_chars.clone();
+                move |_| {
+                    this.set_check_buttons_grid();
                 }
             ));
 
@@ -428,22 +401,19 @@ mod imp {
             ));
 
             self.remove_all_button.connect_clicked(clone!(
-                #[strong] check_buttons_vec,
+                #[weak(rename_to = this)] self,
                 move |_| {
-                    for check_button in check_buttons_vec.iter() {
+                    for check_button in this.check_buttons_vec.get().unwrap().borrow().to_vec() {
                         check_button.set_active(false);
                     }
                 }
             ));
 
             self.add_all_button.connect_clicked(clone!(
-                #[strong] check_buttons_vec,
+                #[weak(rename_to = this)] self,
                 move |_| {
-                    for check_button in check_buttons_vec.iter() {
-                        match check_button.parent() {
-                            Some(_) => check_button.set_active(true),
-                            _none => { },
-                        }
+                    for check_button in this.check_buttons_vec.get().unwrap().borrow().to_vec() {
+                        check_button.set_active(true);
                     }
                 }
             ));
@@ -458,9 +428,9 @@ mod imp {
             ));
 
             self.volume_control.connect_volume_notify(clone!(
-                #[strong] morse_player,
+                #[weak(rename_to = this)] self,
                 move |volume_control| {
-                    morse_player.set_volume(volume_control.volume() as f32);
+                    this.player.get().unwrap().borrow().set_volume(volume_control.volume() as f32);
                 }
             ));
 
@@ -497,7 +467,7 @@ mod imp {
             self.generate_text_button.connect_clicked(clone!(
                 #[weak(rename_to = this)] self,
                 move |_| {
-                    this.generate_text_clicked(word_length, &chars_in_use.borrow());
+                    this.generate_text_clicked(word_length);
                 }
             ));
 
@@ -528,7 +498,8 @@ mod imp {
     impl AdwApplicationWindowImpl for MorseApplicationWindow {}
 
     impl MorseApplicationWindow {
-        fn generate_text_clicked(&self, word_length: u64, chars_in_use: &Vec<char>) {
+        fn generate_text_clicked(&self, word_length: u64) {
+            let chars_in_use = self.get_enabled_chars();
             if chars_in_use.is_empty() {
                 self.toast_overlay.add_toast(
                     Toast::builder()
@@ -548,34 +519,102 @@ mod imp {
             }
         }
 
-        fn set_check_buttons_grid(&self, check_buttons_vec: &Vec<CheckButton>, chars: &Vec<char>) {
-            for check_button in check_buttons_vec.clone() {
-                check_button.unparent();
+        fn get_allowed_chars(&self) -> Vec<char> {
+            let (mut allowed_chars, alphabet) = self.get_selected_alphabet();
+            allowed_chars.extend(ALPHABETS.get("digits").unwrap().clone());
+            allowed_chars.extend(ALPHABETS.get("symbols").unwrap().clone());
+            allowed_chars.extend(ALPHABETS.get("other").unwrap().clone());
+            if alphabet != Alphabet::Latin {
+                allowed_chars.extend(ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone())
             }
+            allowed_chars
+        }
 
-            for (i, check_button) in check_buttons_vec.iter().enumerate() {
-                if chars.contains(&check_button.label().unwrap().chars().next().unwrap()) {
-                    check_button.set_active(true);
-                    if chars.len() <= 10 {
-                        self.popover_grid.attach(
-                            check_button,
-                            (i / 2) as i32,
-                            (i % 2) as i32,
-                            1,
-                            1
-                        )
-                    }
-                    else {
-                        self.popover_grid.attach(
-                            check_button,
-                            (i / 6) as i32,
-                            (i % 6) as i32,
-                            1,
-                            1
-                        )
-                    }
+        fn get_selected_alphabet(&self) -> (Vec<char>, Alphabet) {
+            match self.settings_manager.get().unwrap().borrow().integer(Key::Alphabet) {
+                1 => {
+                    (ALPHABETS.get(&Alphabet::Cyrillic.to_string()).unwrap().clone(), Alphabet::Cyrillic)
+                },
+                2 => {
+                    (ALPHABETS.get(&Alphabet::Greek.to_string()).unwrap().clone(), Alphabet::Greek)
+                },
+                3 => {
+                    (ALPHABETS.get(&Alphabet::Hebrew.to_string()).unwrap().clone(), Alphabet::Hebrew)
+                },
+                4 => {
+                    (ALPHABETS.get(&Alphabet::Arabic.to_string()).unwrap().clone(), Alphabet::Arabic)
+                },
+                5 => {
+                    (ALPHABETS.get(&Alphabet::Persian.to_string()).unwrap().clone(), Alphabet::Persian)
+                },
+                6 => {
+                    (ALPHABETS.get(&Alphabet::Korean.to_string()).unwrap().clone(), Alphabet::Korean)
+                },
+                _ => {
+                    (ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone(), Alphabet::Latin)
                 }
             }
+        }
+
+        fn set_check_buttons_grid(&self) {
+            let (base_alphabet, alphabet_type) = self.get_selected_alphabet();
+
+            let chars: Vec<char> = match self.text_type_combo.selected() {
+                0 => base_alphabet,
+                1 => ALPHABETS.get("digits").unwrap().clone(),
+                _ => {
+                    let mut mixed: Vec<char> = base_alphabet;
+                    mixed.extend(ALPHABETS.get("digits").unwrap().clone().clone());
+                    mixed.extend(ALPHABETS.get("symbols").unwrap().clone().clone());
+                    mixed
+                },
+            };
+
+            let mut check_buttons_vec = self.check_buttons_vec.get().unwrap().borrow_mut();
+            for check_button in check_buttons_vec.iter() {
+                check_button.unparent();
+            }
+            check_buttons_vec.clear();
+            self.player.get().unwrap().borrow().set_alphabet(alphabet_type);
+
+            for (i, char) in chars.iter().enumerate() {
+                let check_button = CheckButton::builder()
+                .label(char.to_string())
+                .active(true)
+                .build();
+                check_button.set_active(true);
+
+                if chars.len() <= 10 {
+                    self.popover_grid.attach(
+                        &check_button,
+                        (i / 2) as i32,
+                        (i % 2) as i32,
+                        1,
+                        1
+                    )
+                }
+                else {
+                    self.popover_grid.attach(
+                        &check_button,
+                        (i / 6) as i32,
+                        (i % 6) as i32,
+                        1,
+                        1
+                    )
+                }
+
+                check_buttons_vec.push(check_button);
+            }
+        }
+
+        fn get_enabled_chars(&self) -> Vec<char> {
+            let mut enabled_chars: Vec<char> = Vec::new();
+            for check_button in self.check_buttons_vec.get().unwrap().borrow().to_vec() {
+                if check_button.is_active() {
+                    enabled_chars.push(check_button.label().unwrap().chars().next().unwrap());
+                }
+            }
+            enabled_chars
         }
 
         fn set_default_state(&self) {
@@ -643,17 +682,18 @@ mod imp {
                     else {
                         output.push(ZERO_WIDTH_NO_JOINER);
                     }
-                }
-        
-                output.push(c);
-        
-                if punctuation.contains(&c) {
+                    
+                    output.push(c);
+
                     if i + 1 < chars_vec_len && chars_vec[i + 1] != ' ' {
                         output.push(WORD_JOINER);
                     }
                     else {
                         output.push(ZERO_WIDTH_NO_JOINER);
                     }
+                }
+                else {
+                    output.push(c);
                 }
             }
             self.text_buffer.set_text(&output);

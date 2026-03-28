@@ -14,7 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use crate::backend::settings::{Key, settings_manager};
+use crate::backend::settings::Key;
+use crate::application::MorseApplication;
 
 use adw::{ComboRow, SpinRow, subclass::prelude::*};
 use gtk::glib;
@@ -33,6 +34,8 @@ mod imp {
         wave_type_combo: TemplateChild<ComboRow>,
         #[template_child]
         freq_spin: TemplateChild<SpinRow>,
+        #[template_child]
+        alphabets_combo: TemplateChild<ComboRow>
     }
 
     #[glib::object_subclass]
@@ -54,28 +57,36 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
-            settings_manager::bind_property::<ComboRow>(
+            let settings_manager = MorseApplication::default().settings_manager();
+
+            settings_manager.bind_property::<ComboRow>(
                 Key::Additions,
-                self.additions_combo.as_ref(),
+                &self.additions_combo,
                 "selected"
             );
 
-            settings_manager::bind_property::<SpinRow>(
+            settings_manager.bind_property::<SpinRow>(
                 Key::StartDelay,
-                self.start_delay_spin.as_ref(),
+                &self.start_delay_spin,
                 "value"
             );
 
-            settings_manager::bind_property::<ComboRow>(
+            settings_manager.bind_property::<ComboRow>(
                 Key::WaveType,
-                self.wave_type_combo.as_ref(),
+                &self.wave_type_combo,
                 "selected"
             );
 
-            settings_manager::bind_property::<SpinRow>(
+            settings_manager.bind_property::<SpinRow>(
                 Key::Frequency,
-                self.freq_spin.as_ref(),
+                &self.freq_spin,
                 "value"
+            );
+            
+            settings_manager.bind_property::<ComboRow>(
+                Key::Alphabet,
+                &self.alphabets_combo,
+                "selected"
             );
         }
     }

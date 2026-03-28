@@ -1,5 +1,5 @@
 // Morse - settings_manager.rs
-// Copyright (C) 2025  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
+// Copyright (C) 2025-2026  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
 //               2021-2022  Felix Häcker (Original Author, Shortwave)
 //
 // This program is free software: you can redistribute it and/or modify
@@ -21,67 +21,80 @@ use gtk::{gio, glib};
 use crate::config;
 use crate::backend::settings::Key;
 
-pub fn settings() -> gio::Settings {
-    gio::Settings::new(config::APP_ID)
+#[derive(Clone, Debug)]
+pub struct SettingsManager {
+    settings: gio::Settings
 }
 
-pub fn bind_property<P: IsA<glib::Object>>(key: Key, object: &P, property: &str) {
-    let settings = settings();
-    settings
-        .bind(key.to_string().as_str(), object, property)
-        .flags(gio::SettingsBindFlags::DEFAULT)
-        .build();
+impl SettingsManager {
+    pub fn new() -> Self {
+        SettingsManager {
+            settings: gio::Settings::new(config::APP_ID)
+        }
+    }
+
+    #[allow(dead_code)]
+    pub fn connect_changed<F>(&self, key: Key, callback: F)
+    where F: Fn(&gio::Settings, &str) + 'static {
+        self.settings.connect_changed(Some(key.to_string().as_str()), callback);
+    }
+
+    #[allow(dead_code)]
+    pub fn bind_property<P: IsA<glib::Object>>(&self, key: Key, object: &P, property: &str) {
+        self.settings
+            .bind(key.to_string().as_str(), object, property)
+            .flags(gio::SettingsBindFlags::DEFAULT)
+            .build();
+    }
+
+    #[allow(dead_code)]
+    pub fn create_action(&self, key: Key) -> gio::Action {
+        self.settings.create_action(key.to_string().as_str())
+    }
+
+    #[allow(dead_code)]
+    pub fn string(&self, key: Key) -> String {
+        self.settings.string(&key.to_string()).to_string()
+    }
+
+    #[allow(dead_code)]
+    pub fn set_string(&self, key: Key, value: String) {
+        self.settings.set_string(&key.to_string(), &value).unwrap();
+    }
+
+    #[allow(dead_code)]
+    pub fn boolean(&self, key: Key) -> bool {
+        self.settings.boolean(&key.to_string())
+    }
+
+    #[allow(dead_code)]
+    pub fn set_boolean(&self, key: Key, value: bool) {
+        self.settings.set_boolean(&key.to_string(), value).unwrap();
+    }
+
+    #[allow(dead_code)]
+    pub fn integer(&self, key: Key) -> i32 {
+        self.settings.int(&key.to_string())
+    }
+
+    #[allow(dead_code)]
+    pub fn set_integer(&self, key: Key, value: i32) {
+        self.settings.set_int(&key.to_string(), value).unwrap();
+    }
+
+    #[allow(dead_code)]
+    pub fn double(&self, key: Key) -> f64 {
+        self.settings.double(&key.to_string())
+    }
+
+    #[allow(dead_code)]
+    pub fn set_double(&self, key: Key, value: f64) {
+        self.settings.set_double(&key.to_string(), value).unwrap();
+    }
 }
 
-pub fn create_action(key: Key) -> gio::Action {
-    let settings = settings();
-    settings.create_action(key.to_string().as_str())
-}
-
-#[allow(dead_code)]
-pub fn string(key: Key) -> String {
-    let settings = settings();
-    settings.string(&key.to_string()).to_string()
-}
-
-#[allow(dead_code)]
-pub fn set_string(key: Key, value: String) {
-    let settings = settings();
-    settings.set_string(&key.to_string(), &value).unwrap();
-}
-
-#[allow(dead_code)]
-pub fn boolean(key: Key) -> bool {
-    let settings = settings();
-    settings.boolean(&key.to_string())
-}
-
-#[allow(dead_code)]
-pub fn set_boolean(key: Key, value: bool) {
-    let settings = settings();
-    settings.set_boolean(&key.to_string(), value).unwrap();
-}
-
-#[allow(dead_code)]
-pub fn integer(key: Key) -> i32 {
-    let settings = settings();
-    settings.int(&key.to_string())
-}
-
-#[allow(dead_code)]
-pub fn set_integer(key: Key, value: i32) {
-    let settings = settings();
-    settings.set_int(&key.to_string(), value).unwrap();
-}
-
-#[allow(dead_code)]
-pub fn double(key: Key) -> f64 {
-    let settings = settings();
-    settings.double(&key.to_string())
-}
-
-#[allow(dead_code)]
-pub fn set_double(key: Key, value: f64) {
-    let settings = settings();
-    settings.set_double(&key.to_string(), value).unwrap();
+impl Default for SettingsManager {
+    fn default() -> Self {
+        Self::new()
+    }
 }

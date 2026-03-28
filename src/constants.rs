@@ -1,5 +1,5 @@
 // Morse - constants.rs
-// Copyright (C) 2025  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
+// Copyright (C) 2025-2026  Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,23 +14,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+use std::{collections::HashMap, sync::LazyLock};
+
 // GENERATION
-pub const LETTERS: [char; 26] = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-];
-pub const DIGITS: [char; 10] = [
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-];
-pub const MIXED: [char; 41] = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-    '/', '?', '.', ',', '='
-];
-pub const ALLOWED_CHARS: [char; 43] = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-    '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-    '/', '?', '.', ',', '=', '+', ' ',
-];
+pub static ALPHABETS: LazyLock<HashMap<String, Vec<char>>> = LazyLock::new(|| {
+    serde_json::from_str(include_str!("alphabets.json")).unwrap()
+});
 
 // PLAYING
 pub const START_TEXT: &str = "VVV = ";

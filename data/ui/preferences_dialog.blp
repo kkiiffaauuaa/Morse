@@ -4,6 +4,23 @@ using Adw 1;
 template $MorsePreferencesDialog: Adw.PreferencesDialog {
   Adw.PreferencesPage {
     Adw.PreferencesGroup {
+      title: _("General");
+      Adw.ComboRow alphabets_combo {
+        title: _("Alphabet");
+        model: StringList {
+          strings [
+            _("Latin"),
+            _("Russian"),
+            _("Greek"),
+            _("Hebrew"),
+            _("Arabic"),
+            _("Persian"),
+            _("Korean")
+          ]
+        };
+      }
+    }
+    Adw.PreferencesGroup {
       title: _("Playback");
       Adw.ComboRow additions_combo {
         title: _("Additions");
@@ -44,13 +61,13 @@ template $MorsePreferencesDialog: Adw.PreferencesDialog {
 Adjustment frequency_adjustment {
   lower: 300.0;
   upper: 1200.0;
-  step-increment: 50.0;
   value: 750.0;
+  step-increment: 50.0;
 }
 
 Adjustment start_delay_adjustment {
   lower: 0.0;
   upper: 10.0;
-  step-increment: 1.0;
   value: 0.0;
+  step-increment: 1.0;
 }
