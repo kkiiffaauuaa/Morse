@@ -1,0 +1,78 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MorseAlphabetDialog: Adw.Dialog {
+  title: _("Alphabet");
+  content-width: 550;
+  content-height: 450;
+
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [end]
+      Gtk.DropDown alphabets_combo {
+        model: StringList {
+          strings [
+            _("Latin"),
+            _("Cyrillic"),
+            _("Greek"),
+            _("Hebrew"),
+            _("Arabic"),
+            _("Persian"),
+            _("Korean")
+          ]
+        };
+      }
+    }
+    content: Gtk.ScrolledWindow {
+      vexpand: true;
+      valign: fill;
+
+      Gtk.Box {
+        orientation: vertical;
+        margin-start: 20;
+        margin-end: 20;
+        margin-top: 20;
+
+        Gtk.Label {
+          styles ["title-4"]
+          label: _("Letters");
+          halign: start;
+          margin-start: 5;
+        }
+        Gtk.Grid letters_grid {
+          row-spacing: 10;
+          column-spacing: 15;
+          margin-top: 20;
+          margin-bottom: 20;
+        }
+        Gtk.Label {
+          styles ["title-4"]
+          label: _("Digits");
+          halign: start;
+          margin-start: 5;
+          margin-top: 10;
+        }
+        Gtk.Grid digits_grid {
+          row-spacing: 10;
+          column-spacing: 15;
+          margin-top: 20;
+          margin-bottom: 20;
+        }
+        Gtk.Label {
+          styles ["title-4"]
+          label: _("Symbols");
+          halign: start;
+          margin-start: 5;
+          margin-top: 10;
+        }
+        Gtk.Grid symbols_grid {
+          row-spacing: 10;
+          column-spacing: 15;
+          margin-top: 20;
+          margin-bottom: 20;
+        }
+      }
+    };
+  }
+}

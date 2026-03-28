@@ -41,12 +41,12 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/overview-light.png</image>
+      <image xml:lang="en">https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/overview.png</image>
       <caption>An overview</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/overview-dark.png</image>
-      <caption>An overview</caption>
+      <image xml:lang="en">https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/alphabet.png</image>
+      <caption>Alphabet window</caption>
     </screenshot>
   </screenshots>
 
@@ -62,8 +62,20 @@
   </recommends>
 
   <releases>
+    <release version="1.2.0" date="2026-03-29">
+      <description translate="no">
+        <p>
+          Improvements:
+        </p>
+        <ul>
+          <li>Support for non-Latin Morse code alphabets</li>
+          <li>In-app Morse cheatsheet</li>
+          <li>Better audio playback</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.1.0" date="2026-03-25">
-      <description>
+      <description translate="no">
         <p>
           Improvements:
         </p>

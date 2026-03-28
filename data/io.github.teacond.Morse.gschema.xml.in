@@ -16,5 +16,8 @@
 		<key name="frequency" type="i">
 			<default>750</default>
 		</key>
+		<key name="alphabet" type="i">
+			<default>0</default>
+		</key>
 	</schema>
 </schemalist>
