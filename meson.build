@@ -1,9 +1,9 @@
 project(
   'morse', 'rust', 
   license: 'GPLv3',
-  version: '1.2.0',
   meson_version: '>= 1.0.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
+  version: '1.2.0',
 )
 
 i18n = import('i18n')

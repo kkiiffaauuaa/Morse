@@ -1,0 +1,22 @@
+Index: Morse/meson.build
+===================================================================
+--- Morse.orig/meson.build
++++ Morse/meson.build
+@@ -15,7 +15,7 @@ gettext_package = meson.project_name()
+ base_id = 'io.github.teacond.Morse'
+ path_id = '/io/github/teacond/Morse'
+ app_id  = base_id
+-vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD', check: false).stdout().strip()
++#vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD', check: false).stdout().strip()
+ profile = get_option('profile')
+ datadir = join_paths(get_option('prefix'), get_option('datadir'))
+ localedir = join_paths(get_option('prefix'), get_option('localedir'))
+@@ -29,7 +29,7 @@ cargo_sources = files(
+   'Cargo.lock',
+ )
+ 
+-if profile == 'development'
++if 1 == 0
+   if fs.is_dir('.git')
+     vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD', check: true).stdout().strip()
+     if vcs_tag == ''

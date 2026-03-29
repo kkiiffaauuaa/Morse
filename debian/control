@@ -1,0 +1,26 @@
+Source: morse-gtk
+Section: hamradio
+Maintainer: Dawid Kulas <sp9ska@op.pl>
+Vcs-Browser: https://github.com/teacond/Morse
+Vcs-Git: https://github.com/teacond/Morse.git
+Build-Depends:
+ debhelper (>= 10.0.0),
+ debhelper-compat (= 13),
+ rust-all,
+ libglib2.0-dev,
+ libgtk-4-dev,
+ libadwaita-1-dev,
+ librust-alsa-sys-dev,
+ blueprint-compiler,
+ meson,
+ desktop-file-utils
+Standards-Version: 4.7.2
+Homepage: https://github.com/teacond/Morse
+
+Package: morse-gtk
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: GTK4 and Adwaita based program for learning Morse code
+ and High Speed Telegraphy skills written in Rust.
