@@ -7,17 +7,17 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-28 23:40+0100\n"
-"PO-Revision-Date: 2026-03-28 23:37+0000\n"
+"PO-Revision-Date: 2026-03-29 16:51+0200\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/morse-app/app/pl/>"
-"\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/morse-app/app/pl/"
+">\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
@@ -28,7 +28,7 @@ msgstr "Morse"
 #. Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
 #: data/io.github.teacond.Morse.desktop.in.in:9
 msgid "morse;code;telegraph;cw;"
-msgstr "morse;code;telegraph;cw;kod;telegraf;"
+msgstr "morse;code;telegraph;cw;kod;telegrafia;"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:7
 msgid "Learn Morse Code"
@@ -36,7 +36,7 @@ msgstr "Naucz się kodu Morse'a"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:9
 msgid "Learn Morse Code and High Speed Telegraphy."
-msgstr "Naucz się kodu Morse'a i szybkiej telegrafii."
+msgstr "Naucz się kodu Morse'a i telegrafii szybkiej."
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:45
 msgid "An overview"
@@ -57,7 +57,7 @@ msgstr "Łaciński"
 
 #: data/ui/alphabet_dialog.blp:17 data/ui/preferences_dialog.blp:13
 msgid "Cyrillic"
-msgstr "Cyryliczny"
+msgstr "Cyrlica"
 
 #: data/ui/alphabet_dialog.blp:18 data/ui/preferences_dialog.blp:14
 msgid "Greek"
@@ -89,7 +89,7 @@ msgstr "Cyfry"
 
 #: data/ui/alphabet_dialog.blp:64
 msgid "Symbols"
-msgstr "Znaki"
+msgstr "Symbole"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -110,7 +110,7 @@ msgstr "Nic"
 
 #: data/ui/preferences_dialog.blp:30
 msgid "Default"
-msgstr "Standardowe"
+msgstr "Domyślne"
 
 #: data/ui/preferences_dialog.blp:31
 msgid "Competitions"
@@ -162,7 +162,7 @@ msgstr "Otwórz menu"
 
 #: data/ui/shortcuts_dialog.blp:20
 msgid "Open Preferences"
-msgstr "Otwórz ustawienia"
+msgstr "Otwórz preference"
 
 #: data/ui/shortcuts_dialog.blp:24
 msgid "Quit"
@@ -235,7 +235,7 @@ msgstr "Znaki"
 
 #: data/ui/window.blp:109
 msgid "Select the characters you need"
-msgstr "Wybierz żądane znaki"
+msgstr "Wybierz znaki"
 
 #: data/ui/window.blp:118 data/ui/window.blp:120
 msgid "Speed"
@@ -274,7 +274,7 @@ msgstr "Ustawienia odbioru"
 
 #: data/ui/window.blp:318
 msgid "_Preferences"
-msgstr "_Ustawienia"
+msgstr "_Preferencje"
 
 #: data/ui/window.blp:323
 msgid "_Keyboard Shortcuts"
@@ -287,11 +287,13 @@ msgstr "_O Morse"
 #. # Translator: Leave there your name
 #: src/application.rs:127
 msgid "translator-credits"
-msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
+msgstr ""
+"Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
+"dawkagaming <https://github.com/dawkagaming>"
 
 #: src/widgets/window.rs:277
 msgid "The text doesn't contain any allowed characters"
-msgstr "Tekst nie zawiera dozwolonych znaków"
+msgstr "Tekst nie zawiera żadnych dozwolonych znaków"
 
 #: src/widgets/window.rs:465
 msgid "Copied to clipboard"
