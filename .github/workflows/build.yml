@@ -1,11 +1,11 @@
 name: CI
+
 on:
   push:
-    branches:
-      - main
-    tags:
-      - v*
+    branches: [ main ]
+    tags: [ 'v*' ]
   pull_request:
+    branches: [ main ]
 
 jobs:
   flatpak:
@@ -15,28 +15,29 @@ jobs:
       options: --privileged
     strategy:
       matrix:
-        variant:
-          - arch: x86_64
-            runner: ubuntu-24.04
-          - arch: aarch64
-            runner: ubuntu-24.04-arm
-    runs-on: ${{matrix.variant.runner}}
+        include:
+          - runner: ubuntu-24.04
+            arch: x86_64
+          - runner: ubuntu-24.04-arm
+            arch: aarch64
+    runs-on: ${{matrix.runner}}
     steps:
       - uses: actions/checkout@v6
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: morse-${{matrix.variant.arch}}.flatpak
+          bundle: morse-${{matrix.arch}}.flatpak
           manifest-path: build-aux/io.github.teacond.Morse.Devel.json
           cache-key: flatpak-builder-${{github.sha}}
-          arch: ${{matrix.variant.arch}}
+          arch: ${{matrix.arch}}
           verbose: true
           upload-artifact: false
       - uses: actions/upload-artifact@v6
         with:
-          name: morse-${{matrix.variant.arch}}.flatpak
-          path: morse-${{matrix.variant.arch}}.flatpak
+          name: morse-${{matrix.arch}}.flatpak
+          path: morse-${{matrix.arch}}.flatpak
   windows:
     name: Windows
+    if: startsWith(github.ref, 'refs/tags/v')
     strategy:
       matrix:
         include:
@@ -83,6 +84,7 @@ jobs:
   macos:
     name: MacOS
     runs-on: macos-26
+    if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v6
       - name: "Install System Packages"
@@ -113,9 +115,35 @@ jobs:
         with:
           name: morse-macos-installer-arm64.dmg
           path: morse-macos-installer-arm64.dmg
+  debian:
+    name: "Debian"
+    continue-on-error: true
+    if: startsWith(github.ref, 'refs/tags/v')
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: x86_64
+          - runner: ubuntu-24.04-arm
+            arch: aarch64
+    runs-on: ${{matrix.runner}}
+    container: debian:sid
+    steps:
+      - uses: actions/checkout@v6
+      - name: Build Package
+        run: |
+          apt update
+          apt install -y debhelper devscripts
+          apt build-dep -y .
+          dpkg-buildpackage -b -uc -us
+          mv ../morse-gtk_*.deb ./
+      - uses: actions/upload-artifact@v6
+        with:
+          name: morse-${{matrix.arch}}.deb
+          path: morse-gtk_*.deb
   publish:
     name: Publish Release
-    needs: [flatpak, windows, macos]
+    needs: [flatpak, windows, macos, debian]
     if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     permissions:
