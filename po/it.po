@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-28 23:40+0100\n"
-"PO-Revision-Date: 2026-01-24 11:09+0000\n"
+"PO-Revision-Date: 2026-03-29 15:37+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/morse-app/app/it/"
-">\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/morse-app/app/"
+"it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
@@ -44,40 +44,40 @@ msgstr "Una panoramica"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:49
 msgid "Alphabet window"
-msgstr ""
+msgstr "Finestra dell'alfabeto"
 
 #: data/ui/alphabet_dialog.blp:5 data/ui/preferences_dialog.blp:9
 #: data/ui/window.blp:68
 msgid "Alphabet"
-msgstr ""
+msgstr "Alfabeto"
 
 #: data/ui/alphabet_dialog.blp:16 data/ui/preferences_dialog.blp:12
 msgid "Latin"
-msgstr ""
+msgstr "Latino"
 
 #: data/ui/alphabet_dialog.blp:17 data/ui/preferences_dialog.blp:13
 msgid "Cyrillic"
-msgstr ""
+msgstr "Cirillico"
 
 #: data/ui/alphabet_dialog.blp:18 data/ui/preferences_dialog.blp:14
 msgid "Greek"
-msgstr ""
+msgstr "Greco"
 
 #: data/ui/alphabet_dialog.blp:19 data/ui/preferences_dialog.blp:15
 msgid "Hebrew"
-msgstr ""
+msgstr "Ebraico"
 
 #: data/ui/alphabet_dialog.blp:20 data/ui/preferences_dialog.blp:16
 msgid "Arabic"
-msgstr ""
+msgstr "Arabo"
 
 #: data/ui/alphabet_dialog.blp:21 data/ui/preferences_dialog.blp:17
 msgid "Persian"
-msgstr ""
+msgstr "Persiano"
 
 #: data/ui/alphabet_dialog.blp:22 data/ui/preferences_dialog.blp:18
 msgid "Korean"
-msgstr ""
+msgstr "Koreano"
 
 #: data/ui/alphabet_dialog.blp:39 data/ui/window.blp:83
 msgid "Letters"
@@ -89,7 +89,7 @@ msgstr "Cifre"
 
 #: data/ui/alphabet_dialog.blp:64
 msgid "Symbols"
-msgstr ""
+msgstr "Simboli"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -154,7 +154,7 @@ msgstr "Mostra scorciatoie"
 
 #: data/ui/shortcuts_dialog.blp:12
 msgid "Show Alphabet"
-msgstr ""
+msgstr "Mostra alfabeto"
 
 #: data/ui/shortcuts_dialog.blp:16
 msgid "Open Menu"
@@ -194,7 +194,7 @@ msgstr "Menu principale"
 
 #: data/ui/window.blp:63
 msgid "Back"
-msgstr ""
+msgstr "Indietro"
 
 #: data/ui/window.blp:80
 msgid "Text Type"
