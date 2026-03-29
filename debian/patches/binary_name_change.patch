@@ -1,0 +1,23 @@
+Index: Morse/Cargo.toml
+===================================================================
+--- Morse.orig/Cargo.toml
++++ Morse/Cargo.toml
+@@ -1,5 +1,5 @@
+ [package]
+-name = "morse"
++name = "morse-gtk"
+ license = "GPL-3.0-or-later"
+ authors = [ "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>" ]
+ repository = "https://github.com/teacond/Morse"
+Index: Morse/meson.build
+===================================================================
+--- Morse.orig/meson.build
++++ Morse/meson.build
+@@ -1,5 +1,5 @@
+ project(
+-  'morse', 'rust', 
++  'morse-gtk', 'rust', 
+   license: 'GPLv3',
+   meson_version: '>= 1.0.0',
+   default_options: [ 'warning_level=2', 'werror=false', ],
+
