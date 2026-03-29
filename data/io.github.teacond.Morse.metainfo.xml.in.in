@@ -41,11 +41,11 @@
 
   <screenshots>
     <screenshot type="default">
-      <image xml:lang="en">https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/overview.png</image>
+      <image>https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/overview.png</image>
       <caption>An overview</caption>
     </screenshot>
     <screenshot>
-      <image xml:lang="en">https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/alphabet.png</image>
+      <image>https://raw.githubusercontent.com/teacond/Morse/main/data/screenshots/alphabet.png</image>
       <caption>Alphabet window</caption>
     </screenshot>
   </screenshots>
