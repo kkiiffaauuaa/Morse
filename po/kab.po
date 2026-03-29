@@ -7,16 +7,16 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-03-28 23:40+0100\n"
-"PO-Revision-Date: 2026-02-11 10:09+0000\n"
+"PO-Revision-Date: 2026-03-29 12:00+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Kabyle <https://hosted.weblate.org/projects/morse-app/app/kab/"
-">\n"
+"Language-Team: Kabyle <https://hosted.weblate.org/projects/morse-app/app/"
+"kab/>\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
@@ -48,35 +48,35 @@ msgstr ""
 #: data/ui/alphabet_dialog.blp:5 data/ui/preferences_dialog.blp:9
 #: data/ui/window.blp:68
 msgid "Alphabet"
-msgstr ""
+msgstr "Agemmay"
 
 #: data/ui/alphabet_dialog.blp:16 data/ui/preferences_dialog.blp:12
 msgid "Latin"
-msgstr ""
+msgstr "Alatini"
 
 #: data/ui/alphabet_dialog.blp:17 data/ui/preferences_dialog.blp:13
 msgid "Cyrillic"
-msgstr ""
+msgstr "Asirilik"
 
 #: data/ui/alphabet_dialog.blp:18 data/ui/preferences_dialog.blp:14
 msgid "Greek"
-msgstr ""
+msgstr "Agrigi"
 
 #: data/ui/alphabet_dialog.blp:19 data/ui/preferences_dialog.blp:15
 msgid "Hebrew"
-msgstr ""
+msgstr "Aɛebri"
 
 #: data/ui/alphabet_dialog.blp:20 data/ui/preferences_dialog.blp:16
 msgid "Arabic"
-msgstr ""
+msgstr "Aɛrab"
 
 #: data/ui/alphabet_dialog.blp:21 data/ui/preferences_dialog.blp:17
 msgid "Persian"
-msgstr ""
+msgstr "Afarisi"
 
 #: data/ui/alphabet_dialog.blp:22 data/ui/preferences_dialog.blp:18
 msgid "Korean"
-msgstr ""
+msgstr "Akuri"
 
 #: data/ui/alphabet_dialog.blp:39 data/ui/window.blp:83
 msgid "Letters"
@@ -88,7 +88,7 @@ msgstr "Uṭṭunen"
 
 #: data/ui/alphabet_dialog.blp:64
 msgid "Symbols"
-msgstr ""
+msgstr "Izamulen"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -153,7 +153,7 @@ msgstr "Sken-d inegzumen"
 
 #: data/ui/shortcuts_dialog.blp:12
 msgid "Show Alphabet"
-msgstr ""
+msgstr "Sken-d agemmay"
 
 #: data/ui/shortcuts_dialog.blp:16
 msgid "Open Menu"
@@ -193,7 +193,7 @@ msgstr "Umuɣ agejdan"
 
 #: data/ui/window.blp:63
 msgid "Back"
-msgstr ""
+msgstr "Uɣal"
 
 #: data/ui/window.blp:80
 msgid "Text Type"
