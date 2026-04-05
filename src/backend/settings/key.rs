@@ -22,5 +22,6 @@ pub enum Key {
     StartDelay,
     WaveType,
     Frequency,
-    Alphabet
+    Alphabet,
+    Speed,
 }

@@ -188,12 +188,19 @@ mod imp {
             self.text_buffer.tag_table().add(&text_tag);
             self.set_check_buttons_grid();
             self.characters_popover.set_parent(&self.characters_row.get());
+            self.groups_spin.set_value(self.settings_manager.get().unwrap().borrow().integer(Key::Speed) as f64 / 5.0);
 
-            // Binding property
+            // Binding properties
             self.settings_manager.get().unwrap().borrow().bind_property::<MorseVolumeControl>(
                 Key::PlaybackVolume,
                 self.volume_control.as_ref(),
                 "volume"
+            );
+
+            self.settings_manager.get().unwrap().borrow().bind_property::<SpinRow>(
+                Key::Speed,
+                &self.speed_spin,
+                "value"
             );
 
             self.settings_manager.get().unwrap().borrow().connect_changed(Key::Alphabet, clone!(
