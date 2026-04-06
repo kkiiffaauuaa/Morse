@@ -35,7 +35,9 @@ mod imp {
         #[template_child]
         freq_spin: TemplateChild<SpinRow>,
         #[template_child]
-        alphabets_combo: TemplateChild<ComboRow>
+        alphabets_combo: TemplateChild<ComboRow>,
+        #[template_child]
+        default_speed_spin: TemplateChild<SpinRow>,
     }
 
     #[glib::object_subclass]
@@ -87,6 +89,12 @@ mod imp {
                 Key::Alphabet,
                 &self.alphabets_combo,
                 "selected"
+            );
+
+            settings_manager.bind_property::<SpinRow>(
+                Key::DefaultSpeed,
+                &self.default_speed_spin,
+                "value"
             );
         }
     }

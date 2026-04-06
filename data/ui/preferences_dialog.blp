@@ -19,6 +19,11 @@ template $MorsePreferencesDialog: Adw.PreferencesDialog {
           ]
         };
       }
+      Adw.SpinRow default_speed_spin {
+        title: _("Default Speed");
+        subtitle: _("This speed will be used in the morse code chart");
+        adjustment: speed_adjustment;
+      }
     }
     Adw.PreferencesGroup {
       title: _("Playback");
@@ -70,4 +75,11 @@ Adjustment start_delay_adjustment {
   upper: 10.0;
   value: 0.0;
   step-increment: 1.0;
+}
+
+Adjustment speed_adjustment {
+  lower: 20.0;
+  upper: 500.0;
+  step-increment: 10.0;
+  value: 100.0;
 }

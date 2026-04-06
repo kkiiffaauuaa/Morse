@@ -68,8 +68,8 @@ mod imp {
 
             self.grid_items.set(Rc::new(RefCell::new(Vec::new()))).unwrap();
             self.player.set(Rc::new(MorseApplication::default().player())).unwrap();
-            self.is_playing_global.set(MorseApplication::default().get_is_playing());
-            self.is_playing_local.set(Rc::new(Cell::new(false)));
+            self.is_playing_global.set(MorseApplication::default().get_is_playing()).unwrap();
+            self.is_playing_local.set(Rc::new(Cell::new(false))).unwrap();
             self.settings_manager.set(Rc::new(MorseApplication::default().settings_manager())).unwrap();
 
             self.alphabets_combo.connect_selected_notify(glib::clone!(
@@ -189,7 +189,12 @@ mod imp {
                             else {
                                 this.is_playing_local.get().unwrap().set(true);
 
-                                let (duration, _) = this.player.get().unwrap().timings(&char_str, TextType::Mixed, 100, 3);
+                                let (duration, _) = this.player.get().unwrap().timings(
+                                    &char_str,
+                                    TextType::Mixed,
+                                    this.settings_manager.get().unwrap().integer(Key::DefaultSpeed) as u32,
+                                    3
+                                );
                                 let frequency = this.settings_manager.get().unwrap().integer(Key::Frequency) as f32;
                                 let wave_type = match this.settings_manager.get().unwrap().integer(Key::WaveType) {
                                     0 => WaveType::Square,
@@ -199,7 +204,15 @@ mod imp {
                                 };
 
                                 this.player.get().unwrap().set_volume(this.settings_manager.get().unwrap().double(Key::PlaybackVolume) as f32);
-                                this.player.get().unwrap().play(&char_str, TextType::Mixed, 100, 3, frequency, wave_type, 48000);
+                                this.player.get().unwrap().play(
+                                    &char_str,
+                                    TextType::Mixed,
+                                    this.settings_manager.get().unwrap().integer(Key::DefaultSpeed) as u32,
+                                    3,
+                                    frequency,
+                                    wave_type,
+                                    48000
+                                );
 
                                 glib::timeout_add_local_once(duration, clone!(
                                     #[weak] this,
