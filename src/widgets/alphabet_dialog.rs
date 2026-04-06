@@ -181,7 +181,7 @@ mod imp {
                             if this.is_playing_global.get().unwrap().get() {
                                 this.toast_overlay.add_toast(
                                     Toast::builder()
-                                    .title(&i18n("Can't play this char while text is playing"))
+                                    .title(&i18n("Unable to play this character while the audio is playing"))
                                     .build()
                                 );
                             }

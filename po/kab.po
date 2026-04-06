@@ -6,11 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-28 23:40+0100\n"
+"POT-Creation-Date: 2026-04-06 02:44+0200\n"
 "PO-Revision-Date: 2026-03-29 12:00+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
-"Language-Team: Kabyle <https://hosted.weblate.org/projects/morse-app/app/"
-"kab/>\n"
+"Language-Team: Kabyle <https://hosted.weblate.org/projects/morse-app/app/kab/"
+">\n"
 "Language: kab\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
-#: data/ui/window.blp:11 src/application.rs:117
+#: data/ui/window.blp:11 src/application.rs:121
 msgid "Morse"
 msgstr "Morse"
 
@@ -50,43 +50,43 @@ msgstr ""
 msgid "Alphabet"
 msgstr "Agemmay"
 
-#: data/ui/alphabet_dialog.blp:16 data/ui/preferences_dialog.blp:12
+#: data/ui/alphabet_dialog.blp:17 data/ui/preferences_dialog.blp:12
 msgid "Latin"
 msgstr "Alatini"
 
-#: data/ui/alphabet_dialog.blp:17 data/ui/preferences_dialog.blp:13
+#: data/ui/alphabet_dialog.blp:18 data/ui/preferences_dialog.blp:13
 msgid "Cyrillic"
 msgstr "Asirilik"
 
-#: data/ui/alphabet_dialog.blp:18 data/ui/preferences_dialog.blp:14
+#: data/ui/alphabet_dialog.blp:19 data/ui/preferences_dialog.blp:14
 msgid "Greek"
 msgstr "Agrigi"
 
-#: data/ui/alphabet_dialog.blp:19 data/ui/preferences_dialog.blp:15
+#: data/ui/alphabet_dialog.blp:20 data/ui/preferences_dialog.blp:15
 msgid "Hebrew"
 msgstr "Aɛebri"
 
-#: data/ui/alphabet_dialog.blp:20 data/ui/preferences_dialog.blp:16
+#: data/ui/alphabet_dialog.blp:21 data/ui/preferences_dialog.blp:16
 msgid "Arabic"
 msgstr "Aɛrab"
 
-#: data/ui/alphabet_dialog.blp:21 data/ui/preferences_dialog.blp:17
+#: data/ui/alphabet_dialog.blp:22 data/ui/preferences_dialog.blp:17
 msgid "Persian"
 msgstr "Afarisi"
 
-#: data/ui/alphabet_dialog.blp:22 data/ui/preferences_dialog.blp:18
+#: data/ui/alphabet_dialog.blp:23 data/ui/preferences_dialog.blp:18
 msgid "Korean"
 msgstr "Akuri"
 
-#: data/ui/alphabet_dialog.blp:39 data/ui/window.blp:83
+#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:83
 msgid "Letters"
 msgstr "Isekkilen"
 
-#: data/ui/alphabet_dialog.blp:51 data/ui/window.blp:84
+#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:84
 msgid "Digits"
 msgstr "Uṭṭunen"
 
-#: data/ui/alphabet_dialog.blp:64
+#: data/ui/alphabet_dialog.blp:65
 msgid "Symbols"
 msgstr "Izamulen"
 
@@ -95,55 +95,64 @@ msgstr "Izamulen"
 msgid "General"
 msgstr "Amatu"
 
-#: data/ui/preferences_dialog.blp:24 data/ui/shortcuts_dialog.blp:30
+#: data/ui/preferences_dialog.blp:23
+#, fuzzy
+msgid "Default Speed"
+msgstr "Amezwer"
+
+#: data/ui/preferences_dialog.blp:24
+msgid "This speed will be used in the morse code chart"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:29 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:26
+#: data/ui/preferences_dialog.blp:31
 msgid "Additions"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:29
+#: data/ui/preferences_dialog.blp:34
 msgid "None"
 msgstr "Ula yiwen"
 
-#: data/ui/preferences_dialog.blp:30
+#: data/ui/preferences_dialog.blp:35
 msgid "Default"
 msgstr "Amezwer"
 
-#: data/ui/preferences_dialog.blp:31
+#: data/ui/preferences_dialog.blp:36
 msgid "Competitions"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:36
+#: data/ui/preferences_dialog.blp:41
 msgid "Start Delay"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:41
+#: data/ui/preferences_dialog.blp:46
 msgid "Sound"
 msgstr "Imesli"
 
-#: data/ui/preferences_dialog.blp:43
+#: data/ui/preferences_dialog.blp:48
 msgid "Wave Type"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:46
+#: data/ui/preferences_dialog.blp:51
 msgid "Square"
 msgstr "Amkuẓ"
 
-#: data/ui/preferences_dialog.blp:47
+#: data/ui/preferences_dialog.blp:52
 msgid "Triangle"
 msgstr "Akerḍis"
 
-#: data/ui/preferences_dialog.blp:48
+#: data/ui/preferences_dialog.blp:53
 msgid "Sawtooth"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:49
+#: data/ui/preferences_dialog.blp:54
 msgid "Sine"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:54
+#: data/ui/preferences_dialog.blp:59
 msgid "Frequency"
 msgstr ""
 
@@ -281,18 +290,22 @@ msgid "_About Morse"
 msgstr "Ɣef Morse (_A)"
 
 #. # Translator: Leave there your name
-#: src/application.rs:127
+#: src/application.rs:131
 msgid "translator-credits"
 msgstr "Athmane MOKRAOUI"
 
-#: src/widgets/window.rs:277
+#: src/widgets/alphabet_dialog.rs:184
+msgid "Unable to play this character while the audio is playing"
+msgstr ""
+
+#: src/widgets/window.rs:282
 msgid "The text doesn't contain any allowed characters"
 msgstr ""
 
-#: src/widgets/window.rs:465
+#: src/widgets/window.rs:471
 msgid "Copied to clipboard"
 msgstr "Yettwanɣel ɣer ufus"
 
-#: src/widgets/window.rs:508
+#: src/widgets/window.rs:514
 msgid "To generate text enable at least 1 character"
 msgstr "Iwakken ad d-sarewḍ aḍris, sermed xerṣum 1 n usekkil"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-28 23:40+0100\n"
+"POT-Creation-Date: 2026-04-06 02:44+0200\n"
 "PO-Revision-Date: 2026-01-22 22:38+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/morse-app/app/fi/"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
-#: data/ui/window.blp:11 src/application.rs:117
+#: data/ui/window.blp:11 src/application.rs:121
 msgid "Morse"
 msgstr "Morse"
 
@@ -50,43 +50,43 @@ msgstr ""
 msgid "Alphabet"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:16 data/ui/preferences_dialog.blp:12
+#: data/ui/alphabet_dialog.blp:17 data/ui/preferences_dialog.blp:12
 msgid "Latin"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:17 data/ui/preferences_dialog.blp:13
+#: data/ui/alphabet_dialog.blp:18 data/ui/preferences_dialog.blp:13
 msgid "Cyrillic"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:18 data/ui/preferences_dialog.blp:14
+#: data/ui/alphabet_dialog.blp:19 data/ui/preferences_dialog.blp:14
 msgid "Greek"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:19 data/ui/preferences_dialog.blp:15
+#: data/ui/alphabet_dialog.blp:20 data/ui/preferences_dialog.blp:15
 msgid "Hebrew"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:20 data/ui/preferences_dialog.blp:16
+#: data/ui/alphabet_dialog.blp:21 data/ui/preferences_dialog.blp:16
 msgid "Arabic"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:21 data/ui/preferences_dialog.blp:17
+#: data/ui/alphabet_dialog.blp:22 data/ui/preferences_dialog.blp:17
 msgid "Persian"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:22 data/ui/preferences_dialog.blp:18
+#: data/ui/alphabet_dialog.blp:23 data/ui/preferences_dialog.blp:18
 msgid "Korean"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:39 data/ui/window.blp:83
+#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:83
 msgid "Letters"
 msgstr "Kirjaimet"
 
-#: data/ui/alphabet_dialog.blp:51 data/ui/window.blp:84
+#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:84
 msgid "Digits"
 msgstr "Numerot"
 
-#: data/ui/alphabet_dialog.blp:64
+#: data/ui/alphabet_dialog.blp:65
 msgid "Symbols"
 msgstr ""
 
@@ -95,55 +95,64 @@ msgstr ""
 msgid "General"
 msgstr "Yleiset"
 
-#: data/ui/preferences_dialog.blp:24 data/ui/shortcuts_dialog.blp:30
+#: data/ui/preferences_dialog.blp:23
+#, fuzzy
+msgid "Default Speed"
+msgstr "Oletus"
+
+#: data/ui/preferences_dialog.blp:24
+msgid "This speed will be used in the morse code chart"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:29 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
 msgstr "Toisto"
 
-#: data/ui/preferences_dialog.blp:26
+#: data/ui/preferences_dialog.blp:31
 msgid "Additions"
 msgstr "Lisäykset"
 
-#: data/ui/preferences_dialog.blp:29
+#: data/ui/preferences_dialog.blp:34
 msgid "None"
 msgstr "Ei mitään"
 
-#: data/ui/preferences_dialog.blp:30
+#: data/ui/preferences_dialog.blp:35
 msgid "Default"
 msgstr "Oletus"
 
-#: data/ui/preferences_dialog.blp:31
+#: data/ui/preferences_dialog.blp:36
 msgid "Competitions"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:36
+#: data/ui/preferences_dialog.blp:41
 msgid "Start Delay"
 msgstr "Aloituksen viive"
 
-#: data/ui/preferences_dialog.blp:41
+#: data/ui/preferences_dialog.blp:46
 msgid "Sound"
 msgstr "Ääni"
 
-#: data/ui/preferences_dialog.blp:43
+#: data/ui/preferences_dialog.blp:48
 msgid "Wave Type"
 msgstr "Aallon tyyppi"
 
-#: data/ui/preferences_dialog.blp:46
+#: data/ui/preferences_dialog.blp:51
 msgid "Square"
 msgstr "Neliö"
 
-#: data/ui/preferences_dialog.blp:47
+#: data/ui/preferences_dialog.blp:52
 msgid "Triangle"
 msgstr "Kolmio"
 
-#: data/ui/preferences_dialog.blp:48
+#: data/ui/preferences_dialog.blp:53
 msgid "Sawtooth"
 msgstr "Sahalaita"
 
-#: data/ui/preferences_dialog.blp:49
+#: data/ui/preferences_dialog.blp:54
 msgid "Sine"
 msgstr "Sini"
 
-#: data/ui/preferences_dialog.blp:54
+#: data/ui/preferences_dialog.blp:59
 msgid "Frequency"
 msgstr "Taajuus"
 
@@ -281,18 +290,22 @@ msgid "_About Morse"
 msgstr "_Tietoja - Morse"
 
 #. # Translator: Leave there your name
-#: src/application.rs:127
+#: src/application.rs:131
 msgid "translator-credits"
 msgstr "Jiri Grönroos"
 
-#: src/widgets/window.rs:277
+#: src/widgets/alphabet_dialog.rs:184
+msgid "Unable to play this character while the audio is playing"
+msgstr ""
+
+#: src/widgets/window.rs:282
 msgid "The text doesn't contain any allowed characters"
 msgstr "Teksti ei sisällä yhtäkään sallittua merkkiä"
 
-#: src/widgets/window.rs:465
+#: src/widgets/window.rs:471
 msgid "Copied to clipboard"
 msgstr "Kopioitu leikepöydälle"
 
-#: src/widgets/window.rs:508
+#: src/widgets/window.rs:514
 msgid "To generate text enable at least 1 character"
 msgstr "Ota käyttöön vähintään yksi merkki luodaksesi tekstiä"
