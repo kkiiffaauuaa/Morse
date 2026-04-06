@@ -42,7 +42,8 @@ mod imp {
         symbols_grid: TemplateChild<Grid>,
         grid_items: OnceCell<Rc<RefCell<Vec<Button>>>>,
         player: OnceCell<Rc<MorsePlayer>>,
-        is_playing: OnceCell<Rc<Cell<bool>>>,
+        is_playing_global: OnceCell<Rc<Cell<bool>>>,
+        is_playing_local: OnceCell<Rc<Cell<bool>>>,
         settings_manager: OnceCell<Rc<SettingsManager>>,
     }
 
@@ -67,7 +68,8 @@ mod imp {
 
             self.grid_items.set(Rc::new(RefCell::new(Vec::new()))).unwrap();
             self.player.set(Rc::new(MorseApplication::default().player())).unwrap();
-            self.is_playing.set(MorseApplication::default().get_is_playing()).unwrap();
+            self.is_playing_global.set(MorseApplication::default().get_is_playing());
+            self.is_playing_local.set(Rc::new(Cell::new(false)));
             self.settings_manager.set(Rc::new(MorseApplication::default().settings_manager())).unwrap();
 
             self.alphabets_combo.connect_selected_notify(glib::clone!(
@@ -116,8 +118,9 @@ mod imp {
             self.obj().connect_closed(clone!(
                 #[weak(rename_to = this)] self,
                 move |_| {
-                    this.is_playing.get().unwrap().set(false);
-                    this.player.get().unwrap().stop();
+                    if this.is_playing_local.get().unwrap().get() {
+                        this.player.get().unwrap().stop();
+                    }
                 }
             ));
         }
@@ -142,7 +145,7 @@ mod imp {
                 ] {
                 for (i, el) in chars.iter().enumerate() {
                     let char_str = el.to_string();
-                    
+
                     let alphabet_button_box = Box::builder()
                     .orientation(Orientation::Horizontal)
                     .build();
@@ -175,15 +178,17 @@ mod imp {
                     alphabet_button.connect_clicked(clone!(
                         #[weak(rename_to = this)] self,
                         move |_| {
-                            if this.is_playing.get().unwrap().get() {
+                            if this.is_playing_global.get().unwrap().get() {
                                 this.toast_overlay.add_toast(
                                     Toast::builder()
-                                    .title(&i18n("Can't play while something else is playing"))
+                                    .title(&i18n("Can't play this char while text is playing"))
                                     .build()
                                 );
                             }
+                            else if this.is_playing_local.get().unwrap().get() { }
                             else {
-                                this.is_playing.get().unwrap().set(true);
+                                this.is_playing_local.get().unwrap().set(true);
+
                                 let (duration, _) = this.player.get().unwrap().timings(&char_str, TextType::Mixed, 100, 3);
                                 let frequency = this.settings_manager.get().unwrap().integer(Key::Frequency) as f32;
                                 let wave_type = match this.settings_manager.get().unwrap().integer(Key::WaveType) {
@@ -192,11 +197,14 @@ mod imp {
                                     2 => WaveType::Sawtooth,
                                     _ => WaveType::Sine,
                                 };
+
+                                this.player.get().unwrap().set_volume(this.settings_manager.get().unwrap().double(Key::PlaybackVolume) as f32);
                                 this.player.get().unwrap().play(&char_str, TextType::Mixed, 100, 3, frequency, wave_type, 48000);
+
                                 glib::timeout_add_local_once(duration, clone!(
                                     #[weak] this,
                                     move || {
-                                        this.is_playing.get().unwrap().set(false);
+                                        this.is_playing_local.get().unwrap().set(false);
                                     }
                                 ));
                             }
