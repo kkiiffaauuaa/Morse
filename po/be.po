@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-06 02:44+0200\n"
+"POT-Creation-Date: 2026-04-07 00:07+0200\n"
 "PO-Revision-Date: 2026-03-28 23:37+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Belarusian <https://hosted.weblate.org/projects/morse-app/app/"
@@ -88,8 +88,12 @@ msgid "Digits"
 msgstr "Лічбы"
 
 #: data/ui/alphabet_dialog.blp:65
-msgid "Symbols"
-msgstr "Знакі"
+msgid "Punctuation"
+msgstr ""
+
+#: data/ui/alphabet_dialog.blp:78
+msgid "Nonstandard Punctuation"
+msgstr ""
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -296,18 +300,20 @@ msgstr "_Аб Морзэ"
 msgid "translator-credits"
 msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
-#: src/widgets/alphabet_dialog.rs:184
+#: src/widgets/alphabet_dialog.rs:176
 msgid "Unable to play this character while the audio is playing"
 msgstr ""
 
-#: src/widgets/window.rs:282
-msgid "The text doesn't contain any allowed characters"
-msgstr "Тэкст не змяшчае дазволеных знакаў"
-
-#: src/widgets/window.rs:471
+#: src/widgets/window.rs:463
 msgid "Copied to clipboard"
 msgstr "Скапіявана да буферу абмену"
 
 #: src/widgets/window.rs:514
 msgid "To generate text enable at least 1 character"
 msgstr "Каб згенераваць тэкст, выберыце хоць бы 1 знак"
+
+#~ msgid "Symbols"
+#~ msgstr "Знакі"
+
+#~ msgid "The text doesn't contain any allowed characters"
+#~ msgstr "Тэкст не змяшчае дазволеных знакаў"
