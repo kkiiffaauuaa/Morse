@@ -101,13 +101,12 @@ msgid "General"
 msgstr "Асноўныя"
 
 #: data/ui/preferences_dialog.blp:23
-#, fuzzy
 msgid "Default Speed"
-msgstr "Стандартныя"
+msgstr "Хуткасць па змаўчанні"
 
 #: data/ui/preferences_dialog.blp:24
 msgid "This speed will be used in the morse code chart"
-msgstr ""
+msgstr "Гэтая хуткасць будзе выкарыстана ў табліцы азбукі Морзэ"
 
 #: data/ui/preferences_dialog.blp:29 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
@@ -300,11 +299,11 @@ msgstr "_Аб Морзэ"
 msgid "translator-credits"
 msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
-#: src/widgets/alphabet_dialog.rs:176
+#: src/widgets/alphabet_dialog.rs:184
 msgid "Unable to play this character while the audio is playing"
-msgstr ""
+msgstr "Немагчыма прайграць гэты сімвал, пакуль прайграецца аўдыё"
 
-#: src/widgets/window.rs:463
+#: src/widgets/window.rs:463 src/widgets/window.rs:471
 msgid "Copied to clipboard"
 msgstr "Скапіявана да буферу абмену"
 
@@ -312,8 +311,10 @@ msgstr "Скапіявана да буферу абмену"
 msgid "To generate text enable at least 1 character"
 msgstr "Каб згенераваць тэкст, выберыце хоць бы 1 знак"
 
-#~ msgid "Symbols"
-#~ msgstr "Знакі"
+#: data/ui/alphabet_dialog.blp:65
+msgid "Symbols"
+msgstr "Знакі"
 
-#~ msgid "The text doesn't contain any allowed characters"
-#~ msgstr "Тэкст не змяшчае дазволеных знакаў"
+#: src/widgets/window.rs:282
+msgid "The text doesn't contain any allowed characters"
+msgstr "Тэкст не змяшчае дазволеных знакаў"

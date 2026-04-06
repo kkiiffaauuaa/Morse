@@ -23,16 +23,16 @@ msgstr ""
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
 #: data/ui/window.blp:11 src/application.rs:121
 msgid "Morse"
-msgstr "Morse"
+msgstr "Morze"
 
 #. Translator: This line is intended for search purposes. Do not delete the English part, add your translations after
 #: data/io.github.teacond.Morse.desktop.in.in:9
 msgid "morse;code;telegraph;cw;"
-msgstr "morse;code;telegraph;kod;telegraf;kluč;"
+msgstr "morse;code;telegraph;cw;morze;kod;telegraf;kluč;"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:7
 msgid "Learn Morse Code"
-msgstr "Vyvučajcie kod Morse"
+msgstr "Vyvučajcie kod Morze"
 
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:9
 msgid "Learn Morse Code and High Speed Telegraphy."
@@ -61,7 +61,7 @@ msgstr "Kiryličny"
 
 #: data/ui/alphabet_dialog.blp:19 data/ui/preferences_dialog.blp:14
 msgid "Greek"
-msgstr "Grečaski"
+msgstr "Hrečaski"
 
 #: data/ui/alphabet_dialog.blp:20 data/ui/preferences_dialog.blp:15
 msgid "Hebrew"
@@ -101,13 +101,12 @@ msgid "General"
 msgstr "Asnoŭnyja"
 
 #: data/ui/preferences_dialog.blp:23
-#, fuzzy
 msgid "Default Speed"
-msgstr "Standartnyja"
+msgstr "Chutkasć pa zmaŭčanni"
 
 #: data/ui/preferences_dialog.blp:24
 msgid "This speed will be used in the morse code chart"
-msgstr ""
+msgstr "Hetaja chutkasć budzie vykarystana ŭ tablicy azbuki Morze"
 
 #: data/ui/preferences_dialog.blp:29 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
@@ -235,7 +234,7 @@ msgstr "Standartnaja kolkasć słoŭ"
 
 #: data/ui/window.blp:99
 msgid "The words number is calculated automatically based on the text speed"
-msgstr "Kolkasć słoŭ ličycca aŭtamatyčna, hruntujučysia na hutkasci"
+msgstr "Kolkasć słoŭ ličycca aŭtamatyčna, hruntujučysia na chutkasci"
 
 #: data/ui/window.blp:103
 msgid "Words"
@@ -293,18 +292,18 @@ msgstr "_Skaroty kłavišaŭ"
 
 #: data/ui/window.blp:328
 msgid "_About Morse"
-msgstr "_Ab Morse"
+msgstr "_Ab Morze"
 
 #. # Translator: Leave there your name
 #: src/application.rs:131
 msgid "translator-credits"
 msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
-#: src/widgets/alphabet_dialog.rs:176
+#: src/widgets/alphabet_dialog.rs:184
 msgid "Unable to play this character while the audio is playing"
-msgstr ""
+msgstr "Niemahčyma prajhrać hety simvał, pakul prajhrajecca aŭdyjo"
 
-#: src/widgets/window.rs:463
+#: src/widgets/window.rs:463 src/widgets/window.rs:471
 msgid "Copied to clipboard"
 msgstr "Skapijavana da bufieru abmienu"
 
@@ -312,8 +311,10 @@ msgstr "Skapijavana da bufieru abmienu"
 msgid "To generate text enable at least 1 character"
 msgstr "Kab zhienieravać tekst, vybierycie choć by 1 znak"
 
-#~ msgid "Symbols"
-#~ msgstr "Znaki"
+#: data/ui/alphabet_dialog.blp:65
+msgid "Symbols"
+msgstr "Znaki"
 
-#~ msgid "The text doesn't contain any allowed characters"
-#~ msgstr "Tekst nie zmiaščaje dazvolenych znakaŭ"
+#: src/widgets/window.rs:282
+msgid "The text doesn't contain any allowed characters"
+msgstr "Tekst nie zmiaščaje dazvolenych znakaŭ"
