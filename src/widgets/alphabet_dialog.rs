@@ -15,12 +15,14 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 use crate::application::MorseApplication;
-use crate::backend::settings::Key;
+use crate::backend::settings::{Key, settings_manager::SettingsManager};
 use crate::constants::ALPHABETS;
-use morse_player::{Alphabet, MorsePlayer};
-use adw::{subclass::prelude::*};
-use gtk::{prelude::*, glib, Grid, DropDown, Box, Label, Orientation, Align};
-use std::{cell::{OnceCell, RefCell}};
+use crate::i18n::i18n;
+use morse_player::{Alphabet, MorsePlayer, TextType, WaveType};
+use adw::{subclass::prelude::*, prelude::*, ToastOverlay, Toast};
+use gtk::{glib, Grid, DropDown, Box, Label, Orientation, Align, Button};
+use std::{cell::{OnceCell, RefCell, Cell}, rc::Rc};
+use glib::clone;
 
 mod imp {
     use super::*;
@@ -29,6 +31,8 @@ mod imp {
     #[template(resource = "/io/github/teacond/Morse/ui/alphabet_dialog.ui")]
     pub struct MorseAlphabetDialog {
         #[template_child]
+        toast_overlay: TemplateChild<ToastOverlay>,
+        #[template_child]
         alphabets_combo: TemplateChild<DropDown>,
         #[template_child]
         letters_grid: TemplateChild<Grid>,
@@ -36,8 +40,10 @@ mod imp {
         digits_grid: TemplateChild<Grid>,
         #[template_child]
         symbols_grid: TemplateChild<Grid>,
-        grid_items: OnceCell<RefCell<Vec<Box>>>,
-        player: OnceCell<RefCell<MorsePlayer>>,
+        grid_items: OnceCell<Rc<RefCell<Vec<Button>>>>,
+        player: OnceCell<Rc<MorsePlayer>>,
+        is_playing: OnceCell<Rc<Cell<bool>>>,
+        settings_manager: OnceCell<Rc<SettingsManager>>,
     }
 
     #[glib::object_subclass]
@@ -59,10 +65,10 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
-            let settings_manager = MorseApplication::default().settings_manager();
-
-            self.grid_items.set(RefCell::new(Vec::new())).unwrap();
-            self.player.set(RefCell::new(MorseApplication::default().player())).unwrap();
+            self.grid_items.set(Rc::new(RefCell::new(Vec::new()))).unwrap();
+            self.player.set(Rc::new(MorseApplication::default().player())).unwrap();
+            self.is_playing.set(MorseApplication::default().get_is_playing()).unwrap();
+            self.settings_manager.set(Rc::new(MorseApplication::default().settings_manager())).unwrap();
 
             self.alphabets_combo.connect_selected_notify(glib::clone!(
                 #[weak(rename_to = this)] self,
@@ -90,7 +96,7 @@ mod imp {
                             (ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone(), Alphabet::Latin)
                         }
                     };
-                    this.player.get().unwrap().borrow().set_alphabet(alphabet_type);
+                    this.player.get().unwrap().set_alphabet(alphabet_type);
                     this.construct_alphabet(
                         alphabet,
                         ALPHABETS.get("digits").unwrap().clone(),
@@ -104,8 +110,16 @@ mod imp {
                 ALPHABETS.get("digits").unwrap().clone(),
                 ALPHABETS.get("symbols").unwrap().clone()
             );
-            self.player.get().unwrap().borrow().set_alphabet(Alphabet::Latin);
-            self.alphabets_combo.set_selected(settings_manager.integer(Key::Alphabet) as u32);
+            self.player.get().unwrap().set_alphabet(Alphabet::Latin);
+            self.alphabets_combo.set_selected(self.settings_manager.get().unwrap().integer(Key::Alphabet) as u32);
+    
+            self.obj().connect_closed(clone!(
+                #[weak(rename_to = this)] self,
+                move |_| {
+                    this.is_playing.get().unwrap().set(false);
+                    this.player.get().unwrap().stop();
+                }
+            ));
         }
     }
     impl WidgetImpl for MorseAlphabetDialog {}
@@ -127,38 +141,77 @@ mod imp {
                 (self.symbols_grid.clone(), symbols)
                 ] {
                 for (i, el) in chars.iter().enumerate() {
-                    let alphabet_item = Box::builder()
+                    let char_str = el.to_string();
+                    
+                    let alphabet_button_box = Box::builder()
                     .orientation(Orientation::Horizontal)
+                    .build();
+
+                    let alphabet_button = Button::builder()
                     .hexpand(true)
-                    .css_classes(["card"])
+                    .css_classes(["card", "activatable"])
+                    .child(&alphabet_button_box)
                     .build();
 
                     let char_widget = Label::builder()
-                    .label(&el.to_string())
+                    .label(&char_str)
                     .margin_start(20)
                     .margin_top(10)
                     .margin_bottom(10)
                     .build();
+
                     let morse_widget = Label::builder()
-                    .label(self.player.get().unwrap().borrow().get_morse(el))
+                    .label(self.player.get().unwrap().get_morse(el))
                     .margin_end(20)
                     .margin_top(10)
                     .margin_bottom(10)
                     .hexpand(true)
                     .halign(Align::Center)
                     .build();
-                    alphabet_item.append(&char_widget);
-                    alphabet_item.append(&morse_widget);
+
+                    alphabet_button_box.append(&char_widget);
+                    alphabet_button_box.append(&morse_widget);
                     
+                    alphabet_button.connect_clicked(clone!(
+                        #[weak(rename_to = this)] self,
+                        move |_| {
+                            if this.is_playing.get().unwrap().get() {
+                                this.toast_overlay.add_toast(
+                                    Toast::builder()
+                                    .title(&i18n("Can't play while something else is playing"))
+                                    .build()
+                                );
+                            }
+                            else {
+                                this.is_playing.get().unwrap().set(true);
+                                let (duration, _) = this.player.get().unwrap().timings(&char_str, TextType::Mixed, 100, 3);
+                                let frequency = this.settings_manager.get().unwrap().integer(Key::Frequency) as f32;
+                                let wave_type = match this.settings_manager.get().unwrap().integer(Key::WaveType) {
+                                    0 => WaveType::Square,
+                                    1 => WaveType::Triangle,
+                                    2 => WaveType::Sawtooth,
+                                    _ => WaveType::Sine,
+                                };
+                                this.player.get().unwrap().play(&char_str, TextType::Mixed, 100, 3, frequency, wave_type, 48000);
+                                glib::timeout_add_local_once(duration, clone!(
+                                    #[weak] this,
+                                    move || {
+                                        this.is_playing.get().unwrap().set(false);
+                                    }
+                                ));
+                            }
+                        }
+                    ));
+
                     grid.attach(
-                        &alphabet_item,
+                        &alphabet_button,
                         (i % 2) as i32,
                         (i / 2) as i32,
                         1,
                         1
                     );
 
-                    grid_items.push(alphabet_item);
+                    grid_items.push(alphabet_button);
                 }
             }
         }
