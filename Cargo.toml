@@ -22,4 +22,4 @@ regex = "1.12.3"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
 
-morse_player = { git = "https://github.com/teacond/morse_player", rev="9b3668cdb4951b0ff13a099f6075a4098ad2d9d2" }
+morse_player = { git = "https://github.com/teacond/morse_player", rev="d4a5546dbe3a9a758a623c4c77cf7f677dc386f1" }
