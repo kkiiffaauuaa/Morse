@@ -23,5 +23,6 @@ pub enum Key {
     WaveType,
     Frequency,
     Alphabet,
+    DefaultSpeed,
     Speed,
 }

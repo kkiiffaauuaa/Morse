@@ -14,9 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use std::cell::{RefCell, OnceCell};
-use std::time::{Duration, Instant};
-
+use std::{cell::{RefCell, OnceCell, Cell}, rc::Rc, time::{Duration, Instant}};
 use rand::prelude::*;
 
 use crate::constants::{
@@ -34,7 +32,7 @@ use crate::application::MorseApplication;
 use crate::widgets::volume_control::MorseVolumeControl;
 use crate::backend::text_generator::generate_text;
 use crate::backend::settings::{Key, settings_manager::SettingsManager};
-use morse_player::{TextType, WaveType, Alphabet};
+use morse_player::{TextType, WaveType, Alphabet, MorsePlayer};
 
 use adw::{
     ActionRow, 
@@ -67,8 +65,6 @@ use gio::{SimpleAction};
 use glib::{clone, ControlFlow, MainContext, SourceId};
 
 mod imp {
-    use morse_player::MorsePlayer;
-
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
@@ -127,10 +123,11 @@ mod imp {
         #[template_child]
         volume_control: TemplateChild<MorseVolumeControl>,
         pref_action: OnceCell<SimpleAction>,
-        timeouts_vec: OnceCell<RefCell<Vec<SourceId>>>,
-        check_buttons_vec: OnceCell<RefCell<Vec<CheckButton>>>,
-        settings_manager: OnceCell<RefCell<SettingsManager>>,
-        player: OnceCell<RefCell<MorsePlayer>>,
+        timeouts_vec: OnceCell<Rc<RefCell<Vec<SourceId>>>>,
+        check_buttons_vec: OnceCell<Rc<RefCell<Vec<CheckButton>>>>,
+        settings_manager: OnceCell<Rc<SettingsManager>>,
+        player: OnceCell<Rc<MorsePlayer>>,
+        is_playing: OnceCell<Rc<Cell<bool>>>,
     }
 
     #[glib::object_subclass]
@@ -178,32 +175,33 @@ mod imp {
                 .clone()
             ).unwrap();
 
-            self.timeouts_vec.set(RefCell::new(Vec::new())).unwrap();
-            self.check_buttons_vec.set(RefCell::new(Vec::new())).unwrap();
-            self.settings_manager.set(RefCell::new(MorseApplication::default().settings_manager())).unwrap();
-            self.player.set(RefCell::new(MorseApplication::default().player())).unwrap();
+            self.timeouts_vec.set(Rc::new(RefCell::new(Vec::new()))).unwrap();
+            self.check_buttons_vec.set(Rc::new(RefCell::new(Vec::new()))).unwrap();
+            self.settings_manager.set(Rc::new(MorseApplication::default().settings_manager())).unwrap();
+            self.player.set(Rc::new(MorseApplication::default().player())).unwrap();
+            self.is_playing.set(MorseApplication::default().get_is_playing()).unwrap();
 
             // Other interface settings
             self.text_buffer.set_text(DEFAULT_TEXT);
             self.text_buffer.tag_table().add(&text_tag);
             self.set_check_buttons_grid();
             self.characters_popover.set_parent(&self.characters_row.get());
-            self.groups_spin.set_value(self.settings_manager.get().unwrap().borrow().integer(Key::Speed) as f64 / 5.0);
+            self.groups_spin.set_value(self.settings_manager.get().unwrap().integer(Key::Speed) as f64 / 5.0);
 
             // Binding properties
-            self.settings_manager.get().unwrap().borrow().bind_property::<MorseVolumeControl>(
+            self.settings_manager.get().unwrap().bind_property::<MorseVolumeControl>(
                 Key::PlaybackVolume,
                 self.volume_control.as_ref(),
                 "volume"
             );
 
-            self.settings_manager.get().unwrap().borrow().bind_property::<SpinRow>(
+            self.settings_manager.get().unwrap().bind_property::<SpinRow>(
                 Key::Speed,
                 &self.speed_spin,
                 "value"
             );
 
-            self.settings_manager.get().unwrap().borrow().connect_changed(Key::Alphabet, clone!(
+            self.settings_manager.get().unwrap().connect_changed(Key::Alphabet, clone!(
                 #[weak(rename_to = this)] self,
                 move |_, _| {
                     this.set_check_buttons_grid();
@@ -221,8 +219,8 @@ mod imp {
                         }
                     }
 
-                    let frequency = this.settings_manager.get().unwrap().borrow().integer(Key::Frequency) as f32;
-                    let start_delay = this.settings_manager.get().unwrap().borrow().integer(Key::StartDelay);
+                    let frequency = this.settings_manager.get().unwrap().integer(Key::Frequency) as f32;
+                    let start_delay = this.settings_manager.get().unwrap().integer(Key::StartDelay);
                     let mut start_text_duration = Duration::from_secs(0);
                     let mut end_text_duration = Duration::from_secs(0);
                     let speed = this.speed_spin.value() as u32;
@@ -232,7 +230,7 @@ mod imp {
                     let text_buffer_string = this.text_buffer.text(&start_iter, &end_iter, true).to_uppercase();
                     let allowed_chars = this.get_allowed_chars();
                     let base_text: String = text_buffer_string.chars().filter(|c| allowed_chars.contains(c)).collect();
-                    let wave_type = match this.settings_manager.get().unwrap().borrow().integer(Key::WaveType) {
+                    let wave_type = match this.settings_manager.get().unwrap().integer(Key::WaveType) {
                         0 => WaveType::Square,
                         1 => WaveType::Triangle,
                         2 => WaveType::Sawtooth,
@@ -243,12 +241,12 @@ mod imp {
                         1 => TextType::Digits,
                         _ => TextType::Mixed,
                     };
-                    this.player.get().unwrap().borrow().set_alphabet(this.get_selected_alphabet().1);
-                    let text: String = match this.settings_manager.get().unwrap().borrow().integer(Key::Additions) {
+                    this.player.get().unwrap().set_alphabet(this.get_selected_alphabet().1);
+                    let text: String = match this.settings_manager.get().unwrap().integer(Key::Additions) {
                         0 => base_text.clone(),
                         1 => {
-                            start_text_duration = this.player.get().unwrap().borrow().timings(START_TEXT, text_type, speed, delay).0;
-                            end_text_duration = this.player.get().unwrap().borrow().timings(END_TEXT, text_type, speed, delay).0;
+                            start_text_duration = this.player.get().unwrap().timings(START_TEXT, text_type, speed, delay).0;
+                            end_text_duration = this.player.get().unwrap().timings(END_TEXT, text_type, speed, delay).0;
                             START_TEXT.to_string() + &base_text + &END_TEXT
                         }
                         _ => {
@@ -260,13 +258,13 @@ mod imp {
                                 start_string = START_TEXT_COMPETITIONS_DIGITS.to_string();
                             }
                             start_string += &(speed.to_string() + " " + START_TEXT);
-                            start_text_duration = this.player.get().unwrap().borrow().timings(
+                            start_text_duration = this.player.get().unwrap().timings(
                                 &start_string,
                                 text_type,
                                 speed,
                                 delay,
                             ).0;
-                            end_text_duration = this.player.get().unwrap().borrow().timings(
+                            end_text_duration = this.player.get().unwrap().timings(
                                 END_TEXT,
                                 text_type,
                                 speed,
@@ -276,7 +274,7 @@ mod imp {
                         },
                     };
 
-                    let (base_duration, timings) = this.player.get().unwrap().borrow().timings(&base_text, text_type, speed, delay);
+                    let (base_duration, timings) = this.player.get().unwrap().timings(&base_text, text_type, speed, delay);
 
                     if base_text.is_empty() {
                         this.toast_overlay.add_toast(
@@ -288,10 +286,11 @@ mod imp {
                     }
 
                     // Interface changes
-                    this.player.get().unwrap().borrow().set_volume(this.volume_control.volume() as f32);
+                    this.player.get().unwrap().set_volume(this.volume_control.volume() as f32);
                     this.set_timer_label(base_duration);
                     play_button.set_visible(false);
                     this.stop_button.set_visible(true);
+                    this.is_playing.get().unwrap().set(true);
                     this.generate_text_button.set_sensitive(false);
                     this.preferences_group_general.set_sensitive(false);
                     this.preferences_group_text.set_sensitive(false);
@@ -302,7 +301,7 @@ mod imp {
                     let start_delay_timeout = glib::timeout_add_local_once(Duration::from_secs(start_delay as u64), clone!(
                         #[weak] this,
                         move || {
-                            this.player.get().unwrap().borrow().play(&text, text_type, speed, delay, frequency, wave_type, 48000);
+                            this.player.get().unwrap().play(&text, text_type, speed, delay, frequency, wave_type, 48000);
                             let text_start_instant = Instant::now();
                                 
                             let timer_timeout = glib::timeout_add_local(Duration::from_millis(250), clone!(
@@ -368,7 +367,7 @@ mod imp {
             self.stop_button.connect_clicked(clone!(
                 #[weak(rename_to = this)] self,
                 move |_| {
-                    this.player.get().unwrap().borrow().stop();
+                    this.player.get().unwrap().stop();
                     this.set_default_state();
                 }
             ));
@@ -439,7 +438,7 @@ mod imp {
             self.volume_control.connect_volume_notify(clone!(
                 #[weak(rename_to = this)] self,
                 move |volume_control| {
-                    this.player.get().unwrap().borrow().set_volume(volume_control.volume() as f32);
+                    this.player.get().unwrap().set_volume(volume_control.volume() as f32);
                 }
             ));
 
@@ -540,7 +539,7 @@ mod imp {
         }
 
         fn get_selected_alphabet(&self) -> (Vec<char>, Alphabet) {
-            match self.settings_manager.get().unwrap().borrow().integer(Key::Alphabet) {
+            match self.settings_manager.get().unwrap().integer(Key::Alphabet) {
                 1 => {
                     (ALPHABETS.get(&Alphabet::Cyrillic.to_string()).unwrap().clone(), Alphabet::Cyrillic)
                 },
@@ -628,6 +627,7 @@ mod imp {
         fn set_default_state(&self) {
             self.play_button.set_visible(true);
             self.stop_button.set_visible(false);
+            self.is_playing.get().unwrap().set(false);
             self.generate_text_button.set_sensitive(true);
             self.preferences_group_general.set_sensitive(true);
             self.preferences_group_text.set_sensitive(true);

@@ -25,12 +25,15 @@ use morse_player::MorsePlayer;
 use adw::{prelude::*, subclass::prelude::*};
 use gtk::{gio, glib};
 
+use std::{cell::Cell, rc::Rc};
+
 mod imp {
     use super::*;
 
     #[derive(Debug, Default)]
     pub struct MorseApplication {
         pub player: MorsePlayer,
+        pub is_playing: Rc<Cell<bool>>,
         pub settings_manager: SettingsManager
     }
 
@@ -43,6 +46,7 @@ mod imp {
         fn new() -> Self { 
             Self {
                 player: MorsePlayer::new(),
+                is_playing: Rc::new(Cell::new(false)),
                 settings_manager: SettingsManager::new()
             }
         }
@@ -146,6 +150,10 @@ impl MorseApplication {
 
     pub fn settings_manager(&self) -> SettingsManager {
         self.imp().settings_manager.clone()
+    }
+
+    pub fn get_is_playing(&self) -> Rc<Cell<bool>> {
+        self.imp().is_playing.clone()
     }
 }
 
