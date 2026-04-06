@@ -39,7 +39,9 @@ mod imp {
         #[template_child]
         digits_grid: TemplateChild<Grid>,
         #[template_child]
-        symbols_grid: TemplateChild<Grid>,
+        punctuation_grid: TemplateChild<Grid>,
+        #[template_child]
+        ns_punctuation_grid: TemplateChild<Grid>,
         grid_items: OnceCell<Rc<RefCell<Vec<Button>>>>,
         player: OnceCell<Rc<MorsePlayer>>,
         is_playing_global: OnceCell<Rc<Cell<bool>>>,
@@ -76,41 +78,30 @@ mod imp {
                 #[weak(rename_to = this)] self,
                 move |alphabets_combo| {
                     let (alphabet, alphabet_type) = match alphabets_combo.selected() {
-                        1 => {
-                            (ALPHABETS.get(&Alphabet::Cyrillic.to_string()).unwrap().clone(), Alphabet::Cyrillic)
-                        },
-                        2 => {
-                            (ALPHABETS.get(&Alphabet::Greek.to_string()).unwrap().clone(), Alphabet::Greek)
-                        },
-                        3 => {
-                            (ALPHABETS.get(&Alphabet::Hebrew.to_string()).unwrap().clone(), Alphabet::Hebrew)
-                        },
-                        4 => {
-                            (ALPHABETS.get(&Alphabet::Arabic.to_string()).unwrap().clone(), Alphabet::Arabic)
-                        },
-                        5 => {
-                            (ALPHABETS.get(&Alphabet::Persian.to_string()).unwrap().clone(), Alphabet::Persian)
-                        },
-                        6 => {
-                            (ALPHABETS.get(&Alphabet::Korean.to_string()).unwrap().clone(), Alphabet::Korean)
-                        },
-                        _ => {
-                            (ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone(), Alphabet::Latin)
-                        }
+                        1 => (ALPHABETS.cyrillic.visible.clone(), Alphabet::Cyrillic),
+                        2 => (ALPHABETS.greek.visible.clone(), Alphabet::Greek),
+                        3 => (ALPHABETS.hebrew.visible.clone(), Alphabet::Hebrew),
+                        4 => (ALPHABETS.arabic.visible.clone(), Alphabet::Arabic),
+                        5 => (ALPHABETS.persian.visible.clone(), Alphabet::Persian),
+                        6 => (ALPHABETS.korean.visible.clone(), Alphabet::Korean),
+                        _ => (ALPHABETS.latin.visible.clone(), Alphabet::Latin)
                     };
                     this.player.get().unwrap().set_alphabet(alphabet_type);
+
                     this.construct_alphabet(
                         alphabet,
-                        ALPHABETS.get("digits").unwrap().clone(),
-                        ALPHABETS.get("symbols").unwrap().clone()
+                        ALPHABETS.digits.visible.clone(),
+                        ALPHABETS.symbols.visible.clone(),
+                        ALPHABETS.symbols.supported.clone()
                     );
                 }
             ));
             
             self.construct_alphabet(
-                ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone(),
-                ALPHABETS.get("digits").unwrap().clone(),
-                ALPHABETS.get("symbols").unwrap().clone()
+                ALPHABETS.latin.visible.clone(),
+                ALPHABETS.digits.visible.clone(),
+                ALPHABETS.symbols.visible.clone(),
+                ALPHABETS.symbols.supported.clone()
             );
             self.player.get().unwrap().set_alphabet(Alphabet::Latin);
             self.alphabets_combo.set_selected(self.settings_manager.get().unwrap().integer(Key::Alphabet) as u32);
@@ -129,7 +120,7 @@ mod imp {
     impl AdwDialogImpl for MorseAlphabetDialog {}
 
     impl MorseAlphabetDialog {
-        fn construct_alphabet(&self, letters: Vec<char>, digits: Vec<char>, symbols: Vec<char>) {
+        fn construct_alphabet(&self, letters: Vec<char>, digits: Vec<char>, punctuation: Vec<char>, ns_punctuation: Vec<char>) {
             let mut grid_items = self.grid_items.get().unwrap().borrow_mut();
 
             for el in grid_items.iter() {
@@ -141,7 +132,8 @@ mod imp {
             for (grid, chars) in [
                 (self.letters_grid.clone(), letters),
                 (self.digits_grid.clone(), digits),
-                (self.symbols_grid.clone(), symbols)
+                (self.punctuation_grid.clone(), punctuation),
+                (self.ns_punctuation_grid.clone(), ns_punctuation)
                 ] {
                 for (i, el) in chars.iter().enumerate() {
                     let char_str = el.to_string();

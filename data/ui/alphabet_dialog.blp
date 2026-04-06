@@ -62,12 +62,25 @@ template $MorseAlphabetDialog: Adw.Dialog {
           }
           Gtk.Label {
             styles ["title-4"]
-            label: _("Symbols");
+            label: _("Punctuation");
             halign: start;
             margin-start: 5;
             margin-top: 10;
           }
-          Gtk.Grid symbols_grid {
+          Gtk.Grid punctuation_grid {
+            row-spacing: 10;
+            column-spacing: 15;
+            margin-top: 20;
+            margin-bottom: 20;
+          }
+          Gtk.Label {
+            styles ["title-4"]
+            label: _("Nonstandard Punctuation");
+            halign: start;
+            margin-start: 5;
+            margin-top: 10;
+          }
+          Gtk.Grid ns_punctuation_grid {
             row-spacing: 10;
             column-spacing: 15;
             margin-top: 20;

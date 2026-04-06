@@ -14,10 +14,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use std::{collections::HashMap, sync::LazyLock};
+use std::sync::LazyLock;
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize)]
+pub struct Alphabet {
+    pub visible: Vec<char>,
+    pub supported: Vec<char>,
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct Alphabets {
+    pub latin: Alphabet,
+    pub cyrillic: Alphabet,
+    pub greek: Alphabet,
+    pub hebrew: Alphabet,
+    pub arabic: Alphabet,
+    pub persian: Alphabet,
+    pub korean: Alphabet,
+    pub digits: Alphabet,
+    pub symbols: Alphabet
+}
 
 // GENERATION
-pub static ALPHABETS: LazyLock<HashMap<String, Vec<char>>> = LazyLock::new(|| {
+pub static ALPHABETS: LazyLock<Alphabets> = LazyLock::new(|| {
     serde_json::from_str(include_str!("alphabets.json")).unwrap()
 });
 

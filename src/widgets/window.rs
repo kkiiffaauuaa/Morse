@@ -228,7 +228,8 @@ mod imp {
                     let start_iter = this.text_buffer.start_iter();
                     let end_iter = this.text_buffer.end_iter();
                     let text_buffer_string = this.text_buffer.text(&start_iter, &end_iter, true).to_uppercase();
-                    let allowed_chars = this.get_allowed_chars();
+                    let mut allowed_chars = this.get_allowed_chars();
+                    allowed_chars.push(' ');
                     let base_text: String = text_buffer_string.chars().filter(|c| allowed_chars.contains(c)).collect();
                     let wave_type = match this.settings_manager.get().unwrap().integer(Key::WaveType) {
                         0 => WaveType::Square,
@@ -241,7 +242,7 @@ mod imp {
                         1 => TextType::Digits,
                         _ => TextType::Mixed,
                     };
-                    this.player.get().unwrap().set_alphabet(this.get_selected_alphabet().1);
+                    this.player.get().unwrap().set_alphabet(this.get_selected_alphabet().2);
                     let text: String = match this.settings_manager.get().unwrap().integer(Key::Additions) {
                         0 => base_text.clone(),
                         1 => {
@@ -275,15 +276,6 @@ mod imp {
                     };
 
                     let (base_duration, timings) = this.player.get().unwrap().timings(&base_text, text_type, speed, delay);
-
-                    if base_text.is_empty() {
-                        this.toast_overlay.add_toast(
-                            Toast::builder()
-                            .title(&i18n("The text doesn't contain any allowed characters"))
-                            .build()
-                        );
-                        return
-                    }
 
                     // Interface changes
                     this.player.get().unwrap().set_volume(this.volume_control.volume() as f32);
@@ -482,7 +474,15 @@ mod imp {
             self.text_buffer.connect_text_notify(clone!(
                 #[weak(rename_to = this)] self,
                 move |text_buffer| {
-                    if text_buffer.text(&text_buffer.start_iter(), &text_buffer.end_iter(), false).len() == 0 {
+                    let allowed_chars = this.get_allowed_chars();
+                    let text_len = text_buffer
+                        .text(&text_buffer.start_iter(), &text_buffer.end_iter(), false)
+                        .to_uppercase()
+                        .chars()
+                        .filter(|c| allowed_chars.contains(c))
+                        .count();
+
+                    if text_len == 0 {
                         this.play_button.set_sensitive(false);
                     }
                     else {
@@ -528,52 +528,41 @@ mod imp {
         }
 
         fn get_allowed_chars(&self) -> Vec<char> {
-            let (mut allowed_chars, alphabet) = self.get_selected_alphabet();
-            allowed_chars.extend(ALPHABETS.get("digits").unwrap().clone());
-            allowed_chars.extend(ALPHABETS.get("symbols").unwrap().clone());
-            allowed_chars.extend(ALPHABETS.get("other").unwrap().clone());
+            let mut allowed_chars: Vec<char> = Vec::new();
+            let (visible_chars, supported_chars, alphabet) = self.get_selected_alphabet();
+            allowed_chars.extend(visible_chars);
+            allowed_chars.extend(supported_chars);
+            allowed_chars.extend(ALPHABETS.digits.visible.clone());
+            allowed_chars.extend(ALPHABETS.symbols.visible.clone());
+            allowed_chars.extend(ALPHABETS.symbols.supported.clone());
             if alphabet != Alphabet::Latin {
-                allowed_chars.extend(ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone())
+                allowed_chars.extend(ALPHABETS.latin.visible.clone());
             }
             allowed_chars
         }
 
-        fn get_selected_alphabet(&self) -> (Vec<char>, Alphabet) {
+        fn get_selected_alphabet(&self) -> (Vec<char>, Vec<char>, Alphabet) {
             match self.settings_manager.get().unwrap().integer(Key::Alphabet) {
-                1 => {
-                    (ALPHABETS.get(&Alphabet::Cyrillic.to_string()).unwrap().clone(), Alphabet::Cyrillic)
-                },
-                2 => {
-                    (ALPHABETS.get(&Alphabet::Greek.to_string()).unwrap().clone(), Alphabet::Greek)
-                },
-                3 => {
-                    (ALPHABETS.get(&Alphabet::Hebrew.to_string()).unwrap().clone(), Alphabet::Hebrew)
-                },
-                4 => {
-                    (ALPHABETS.get(&Alphabet::Arabic.to_string()).unwrap().clone(), Alphabet::Arabic)
-                },
-                5 => {
-                    (ALPHABETS.get(&Alphabet::Persian.to_string()).unwrap().clone(), Alphabet::Persian)
-                },
-                6 => {
-                    (ALPHABETS.get(&Alphabet::Korean.to_string()).unwrap().clone(), Alphabet::Korean)
-                },
-                _ => {
-                    (ALPHABETS.get(&Alphabet::Latin.to_string()).unwrap().clone(), Alphabet::Latin)
-                }
+                1 => (ALPHABETS.cyrillic.visible.clone(), ALPHABETS.cyrillic.supported.clone(), Alphabet::Cyrillic),
+                2 => (ALPHABETS.greek.visible.clone(), ALPHABETS.greek.supported.clone(), Alphabet::Greek),
+                3 => (ALPHABETS.hebrew.visible.clone(), ALPHABETS.hebrew.supported.clone(), Alphabet::Hebrew),
+                4 => (ALPHABETS.arabic.visible.clone(), ALPHABETS.arabic.supported.clone(), Alphabet::Arabic),
+                5 => (ALPHABETS.persian.visible.clone(), ALPHABETS.persian.supported.clone(), Alphabet::Persian),
+                6 => (ALPHABETS.korean.visible.clone(), ALPHABETS.korean.supported.clone(), Alphabet::Korean),
+                _ => (ALPHABETS.latin.visible.clone(), ALPHABETS.latin.supported.clone(), Alphabet::Latin)
             }
         }
 
         fn set_check_buttons_grid(&self) {
-            let (base_alphabet, _) = self.get_selected_alphabet();
+            let (base_alphabet, _, _) = self.get_selected_alphabet();
 
             let chars: Vec<char> = match self.text_type_combo.selected() {
                 0 => base_alphabet,
-                1 => ALPHABETS.get("digits").unwrap().clone(),
+                1 => ALPHABETS.digits.visible.clone(),
                 _ => {
                     let mut mixed: Vec<char> = base_alphabet;
-                    mixed.extend(ALPHABETS.get("digits").unwrap().clone().clone());
-                    mixed.extend(ALPHABETS.get("symbols").unwrap().clone().clone());
+                    mixed.extend(ALPHABETS.digits.visible.clone());
+                    mixed.extend(ALPHABETS.symbols.visible.clone());
                     mixed
                 },
             };
