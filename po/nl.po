@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-06 02:44+0200\n"
+"POT-Creation-Date: 2026-04-07 00:07+0200\n"
 "PO-Revision-Date: 2026-04-02 20:17+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/morse-app/app/nl/"
@@ -87,8 +87,12 @@ msgid "Digits"
 msgstr "Cijfers"
 
 #: data/ui/alphabet_dialog.blp:65
-msgid "Symbols"
-msgstr "Symbolen"
+msgid "Punctuation"
+msgstr ""
+
+#: data/ui/alphabet_dialog.blp:78
+msgid "Nonstandard Punctuation"
+msgstr ""
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -296,18 +300,20 @@ msgstr "_Over Morse"
 msgid "translator-credits"
 msgstr "Philip Goto https://philipgoto.nl"
 
-#: src/widgets/alphabet_dialog.rs:184
+#: src/widgets/alphabet_dialog.rs:176
 msgid "Unable to play this character while the audio is playing"
 msgstr ""
 
-#: src/widgets/window.rs:282
-msgid "The text doesn't contain any allowed characters"
-msgstr "De tekst bevat geen toe­gestane tekens"
-
-#: src/widgets/window.rs:471
+#: src/widgets/window.rs:463
 msgid "Copied to clipboard"
 msgstr "Gekopieerd naar klem­bord"
 
 #: src/widgets/window.rs:514
 msgid "To generate text enable at least 1 character"
 msgstr "Schakel minimaal 1 teken in om tekst te genereren"
+
+#~ msgid "Symbols"
+#~ msgstr "Symbolen"
+
+#~ msgid "The text doesn't contain any allowed characters"
+#~ msgstr "De tekst bevat geen toe­gestane tekens"

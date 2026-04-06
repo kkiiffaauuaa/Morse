@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-06 02:44+0200\n"
+"POT-Creation-Date: 2026-04-07 00:07+0200\n"
 "PO-Revision-Date: 2026-01-24 21:51-0300\n"
 "Last-Translator: john peter sa <johnppetersa@gmail.com>\n"
 "Language-Team: none\n"
@@ -86,7 +86,11 @@ msgid "Digits"
 msgstr "Dígitos"
 
 #: data/ui/alphabet_dialog.blp:65
-msgid "Symbols"
+msgid "Punctuation"
+msgstr ""
+
+#: data/ui/alphabet_dialog.blp:78
+msgid "Nonstandard Punctuation"
 msgstr ""
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
@@ -296,18 +300,17 @@ msgstr "_Sobre o Morse"
 msgid "translator-credits"
 msgstr "john peter sa"
 
-#: src/widgets/alphabet_dialog.rs:184
+#: src/widgets/alphabet_dialog.rs:176
 msgid "Unable to play this character while the audio is playing"
 msgstr ""
 
-#: src/widgets/window.rs:282
-msgid "The text doesn't contain any allowed characters"
-msgstr "O texto não contém nenhum caractere permitido"
-
-#: src/widgets/window.rs:471
+#: src/widgets/window.rs:463
 msgid "Copied to clipboard"
 msgstr "Copiado para a área de transferência"
 
 #: src/widgets/window.rs:514
 msgid "To generate text enable at least 1 character"
 msgstr "Para gerar texto habilite pelo menos 1 caractere"
+
+#~ msgid "The text doesn't contain any allowed characters"
+#~ msgstr "O texto não contém nenhum caractere permitido"
