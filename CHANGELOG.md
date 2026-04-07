@@ -1,5 +1,21 @@
 # Change Log
 
+## [1.3.0] - 2026-04-07
+
+### Added
+
+- A Morse code playback feature when clicking on a character in the Morse code chart
+- Extended punctuation support
+- Saving the latest used speed
+- Initial debian (Sid) packaging
+- Dutch translation
+- Occitan translation
+
+### Changed
+
+- Updated dependencies
+- Updated translations
+
 ## [1.2.0] - 2026-03-29
 
 - Support for non-Latin Morse code alphabets
