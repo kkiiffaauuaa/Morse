@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07 00:07+0200\n"
+"POT-Creation-Date: 2026-04-09 00:21+0200\n"
 "PO-Revision-Date: 2026-04-06 22:45+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Belarusian (Latin script) <https://hosted.weblate.org/"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
-#: data/ui/window.blp:11 src/application.rs:121
+#: data/ui/window.blp:11 src/application.rs:134
 msgid "Morse"
 msgstr "Morze"
 
@@ -94,6 +94,10 @@ msgstr "Punktuacyja"
 #: data/ui/alphabet_dialog.blp:78
 msgid "Nonstandard Punctuation"
 msgstr "Niestandartnaja punktuacyja"
+
+#: data/ui/error_window.blp:34
+msgid "Close"
+msgstr ""
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -294,27 +298,33 @@ msgstr "_Skaroty kłavišaŭ"
 msgid "_About Morse"
 msgstr "_Ab Morze"
 
+#: src/application.rs:86
+msgid "Audio Error"
+msgstr ""
+
+#: src/application.rs:87
+msgid "Failed to create audio stream. Please check your audio output settings."
+msgstr ""
+
 #. # Translator: Leave there your name
-#: src/application.rs:131
+#: src/application.rs:144
 msgid "translator-credits"
 msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
-#: src/widgets/alphabet_dialog.rs:184
+#: src/widgets/alphabet_dialog.rs:176
 msgid "Unable to play this character while the audio is playing"
 msgstr "Niemahčyma prajhrać hety simvał, pakul prajhrajecca aŭdyjo"
 
-#: src/widgets/window.rs:463 src/widgets/window.rs:471
+#: src/widgets/window.rs:464
 msgid "Copied to clipboard"
 msgstr "Skapijavana da bufieru abmienu"
 
-#: src/widgets/window.rs:514
+#: src/widgets/window.rs:515
 msgid "To generate text enable at least 1 character"
 msgstr "Kab zhienieravać tekst, vybierycie choć by 1 znak"
 
-#: data/ui/alphabet_dialog.blp:65
-msgid "Symbols"
-msgstr "Znaki"
+#~ msgid "Symbols"
+#~ msgstr "Znaki"
 
-#: src/widgets/window.rs:282
-msgid "The text doesn't contain any allowed characters"
-msgstr "Tekst nie zmiaščaje dazvolenych znakaŭ"
+#~ msgid "The text doesn't contain any allowed characters"
+#~ msgstr "Tekst nie zmiaščaje dazvolenych znakaŭ"

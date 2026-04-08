@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07 00:07+0200\n"
+"POT-Creation-Date: 2026-04-09 00:21+0200\n"
 "PO-Revision-Date: 2026-04-06 22:45+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/"
-"ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/ru/"
+">\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
-#: data/ui/window.blp:11 src/application.rs:121
+#: data/ui/window.blp:11 src/application.rs:134
 msgid "Morse"
 msgstr "Морзе"
 
@@ -95,6 +95,10 @@ msgstr "Пунктуация"
 #: data/ui/alphabet_dialog.blp:78
 msgid "Nonstandard Punctuation"
 msgstr "Нестандартная пунктуация"
+
+#: data/ui/error_window.blp:34
+msgid "Close"
+msgstr ""
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -295,8 +299,16 @@ msgstr "_Сочетания клавиш"
 msgid "_About Morse"
 msgstr "_О Морзе"
 
+#: src/application.rs:86
+msgid "Audio Error"
+msgstr ""
+
+#: src/application.rs:87
+msgid "Failed to create audio stream. Please check your audio output settings."
+msgstr ""
+
 #. # Translator: Leave there your name
-#: src/application.rs:131
+#: src/application.rs:144
 msgid "translator-credits"
 msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
@@ -304,11 +316,11 @@ msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 msgid "Unable to play this character while the audio is playing"
 msgstr "Невозможно воспроизвести этот символ, пока воспроизводится аудио"
 
-#: src/widgets/window.rs:463
+#: src/widgets/window.rs:464
 msgid "Copied to clipboard"
 msgstr "Скопировано в буфер обмена"
 
-#: src/widgets/window.rs:514
+#: src/widgets/window.rs:515
 msgid "To generate text enable at least 1 character"
 msgstr "Чтобы сгенерировать текст, выберите хотя-бы 1 символ"
 

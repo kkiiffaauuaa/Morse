@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07 00:07+0200\n"
+"POT-Creation-Date: 2026-04-09 00:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
-#: data/ui/window.blp:11 src/application.rs:121
+#: data/ui/window.blp:11 src/application.rs:134
 msgid "Morse"
 msgstr ""
 
@@ -91,6 +91,10 @@ msgstr ""
 
 #: data/ui/alphabet_dialog.blp:78
 msgid "Nonstandard Punctuation"
+msgstr ""
+
+#: data/ui/error_window.blp:34
+msgid "Close"
 msgstr ""
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
@@ -291,8 +295,16 @@ msgstr ""
 msgid "_About Morse"
 msgstr ""
 
+#: src/application.rs:86
+msgid "Audio Error"
+msgstr ""
+
+#: src/application.rs:87
+msgid "Failed to create audio stream. Please check your audio output settings."
+msgstr ""
+
 #. # Translator: Leave there your name
-#: src/application.rs:131
+#: src/application.rs:144
 msgid "translator-credits"
 msgstr ""
 
@@ -300,10 +312,10 @@ msgstr ""
 msgid "Unable to play this character while the audio is playing"
 msgstr ""
 
-#: src/widgets/window.rs:463
+#: src/widgets/window.rs:464
 msgid "Copied to clipboard"
 msgstr ""
 
-#: src/widgets/window.rs:514
+#: src/widgets/window.rs:515
 msgid "To generate text enable at least 1 character"
 msgstr ""
