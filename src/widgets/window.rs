@@ -317,6 +317,7 @@ mod imp {
                                 }
                             ));
 
+                            let allowed_chars = this.get_allowed_chars();
                             let mut ids_for_iter: Vec<i32> = Vec::new();
                             for (i, text_buffer_char) in text_buffer_string.chars().into_iter().enumerate() {
                                 if allowed_chars.contains(&text_buffer_char) {

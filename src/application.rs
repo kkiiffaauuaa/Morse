@@ -18,6 +18,7 @@ use crate::config::{APP_ID, PATH_ID, VERSION};
 use crate::i18n::i18n;
 use crate::widgets::preferences_dialog::MorsePreferencesDialog;
 use crate::widgets::alphabet_dialog::MorseAlphabetDialog;
+use crate::widgets::error_window::MorseErrorWindow;
 use crate::MorseApplicationWindow;
 use crate::backend::settings::settings_manager::SettingsManager;
 
@@ -30,9 +31,9 @@ use std::{cell::Cell, rc::Rc};
 mod imp {
     use super::*;
 
-    #[derive(Debug, Default)]
+    #[derive(Debug)]
     pub struct MorseApplication {
-        pub player: MorsePlayer,
+        pub player: Option<MorsePlayer>,
         pub is_playing: Rc<Cell<bool>>,
         pub settings_manager: SettingsManager
     }
@@ -43,9 +44,11 @@ mod imp {
         type Type = super::MorseApplication;
         type ParentType = adw::Application;
 
-        fn new() -> Self { 
+        fn new() -> Self {
+            let player: Option<MorsePlayer> = MorsePlayer::new().ok();
+            
             Self {
-                player: MorsePlayer::new(),
+                player: player,
                 is_playing: Rc::new(Cell::new(false)),
                 settings_manager: SettingsManager::new()
             }
@@ -70,12 +73,22 @@ mod imp {
     impl ApplicationImpl for MorseApplication {
         fn activate(&self) {
             let application = self.obj();
-            let window = application.active_window().unwrap_or_else(|| {
-                let window = MorseApplicationWindow::new(&*application);
-                window.upcast()
-            });
 
-            window.present();
+            if self.player.is_none() {
+                let window = application.active_window().unwrap_or_else(|| {
+                    let window = MorseApplicationWindow::new(&*application);
+                    window.upcast()
+                });
+                window.present();
+            }
+            else {
+                let window = MorseErrorWindow::new(
+                    &i18n("Audio Error"),
+                    &i18n("Failed to create audio stream. Please check your audio output settings."),
+                    &*application
+                );
+                window.present();
+            }
         }
     }
 
@@ -145,7 +158,7 @@ impl MorseApplication {
     }
 
     pub fn player(&self) -> MorsePlayer {
-        self.imp().player.clone()
+        self.imp().player.clone().unwrap()
     }
 
     pub fn settings_manager(&self) -> SettingsManager {

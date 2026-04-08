@@ -1,0 +1,39 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MorseErrorWindow: Adw.ApplicationWindow {
+  height-request: 100;
+  default-width: 400;
+  accessible-role: alert_dialog;
+  resizable: false;
+
+  Adw.ToolbarView {
+    [top]
+    Label error_title {
+      margin-top: 25;
+      margin-bottom: 15;
+      styles ["title-2"]
+    }
+
+    content: Box {
+      margin-start: 25;
+      margin-end: 25;
+      margin-bottom: 25;
+      spacing: 20;
+      orientation: vertical;
+
+      Label error_description {
+        styles ["body"]
+        justify: center;
+        wrap: true;
+        wrap-mode: word;
+      }
+
+      Button close_btn {
+        margin-top: 10;
+        label: _("Close");
+        height-request: 45;
+      }
+    };
+  }
+}
