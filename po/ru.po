@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 00:21+0200\n"
-"PO-Revision-Date: 2026-04-06 22:45+0000\n"
+"PO-Revision-Date: 2026-04-09 23:09+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/ru/"
-">\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/"
+"ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,7 +98,7 @@ msgstr "Нестандартная пунктуация"
 
 #: data/ui/error_window.blp:34
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -301,11 +301,12 @@ msgstr "_О Морзе"
 
 #: src/application.rs:86
 msgid "Audio Error"
-msgstr ""
+msgstr "Ошибка аудио"
 
 #: src/application.rs:87
 msgid "Failed to create audio stream. Please check your audio output settings."
 msgstr ""
+"Не удалось создать аудиопоток. Пожалуйста, проверьте ваши настройки аудио."
 
 #. # Translator: Leave there your name
 #: src/application.rs:144
