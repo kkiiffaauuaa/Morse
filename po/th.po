@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-07 00:07+0200\n"
+"POT-Creation-Date: 2026-04-09 00:21+0200\n"
 "PO-Revision-Date: 2026-01-21 20:26+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/morse-app/app/th/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
-#: data/ui/window.blp:11 src/application.rs:121
+#: data/ui/window.blp:11 src/application.rs:134
 msgid "Morse"
 msgstr "มอร์ส"
 
@@ -93,6 +93,10 @@ msgstr ""
 
 #: data/ui/alphabet_dialog.blp:78
 msgid "Nonstandard Punctuation"
+msgstr ""
+
+#: data/ui/error_window.blp:34
+msgid "Close"
 msgstr ""
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
@@ -294,8 +298,16 @@ msgstr "_ปุ่มลัดแป้นพิมพ์"
 msgid "_About Morse"
 msgstr "_เกี่ยวกับ มอร์ส"
 
+#: src/application.rs:86
+msgid "Audio Error"
+msgstr ""
+
+#: src/application.rs:87
+msgid "Failed to create audio stream. Please check your audio output settings."
+msgstr ""
+
 #. # Translator: Leave there your name
-#: src/application.rs:131
+#: src/application.rs:144
 #, fuzzy
 msgid "translator-credits"
 msgstr "เครดิตผู้แปล"
@@ -304,11 +316,11 @@ msgstr "เครดิตผู้แปล"
 msgid "Unable to play this character while the audio is playing"
 msgstr ""
 
-#: src/widgets/window.rs:463
+#: src/widgets/window.rs:464
 msgid "Copied to clipboard"
 msgstr "คัดลอกไปยังคลิปบอร์ดแล้ว"
 
-#: src/widgets/window.rs:514
+#: src/widgets/window.rs:515
 msgid "To generate text enable at least 1 character"
 msgstr "เปิดใช้งานตัวอักษรอย่าน้อย 1 ตัวเพื่อสร้างข้อความ"
 

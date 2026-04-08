@@ -18,3 +18,4 @@ pub mod window;
 pub mod preferences_dialog;
 pub mod volume_control;
 pub mod alphabet_dialog;
+pub mod error_window;

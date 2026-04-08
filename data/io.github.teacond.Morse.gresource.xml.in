@@ -6,6 +6,7 @@
     <file preprocess="xml-stripblanks" alias="shortcuts-dialog.ui">ui/shortcuts_dialog.ui</file>
     <file preprocess="xml-stripblanks">ui/volume_control.ui</file>
     <file preprocess="xml-stripblanks">ui/alphabet_dialog.ui</file>
+    <file preprocess="xml-stripblanks">ui/error_window.ui</file>
 
     <file preprocess="xml-stripblanks">icons/scalable/actions/dice-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/dock-left-symbolic.svg</file>
