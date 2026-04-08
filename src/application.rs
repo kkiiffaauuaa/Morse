@@ -74,7 +74,7 @@ mod imp {
         fn activate(&self) {
             let application = self.obj();
 
-            if self.player.is_none() {
+            if self.player.is_some() {
                 let window = application.active_window().unwrap_or_else(|| {
                     let window = MorseApplicationWindow::new(&*application);
                     window.upcast()
