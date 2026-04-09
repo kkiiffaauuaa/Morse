@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 00:21+0200\n"
-"PO-Revision-Date: 2026-03-29 15:37+0000\n"
+"PO-Revision-Date: 2026-04-09 23:09+0000\n"
 "Last-Translator: Quentin PAGÈS <quentinantonin@free.fr>\n"
-"Language-Team: Occitan <https://hosted.weblate.org/projects/morse-app/app/oc/"
-">\n"
+"Language-Team: Occitan <https://hosted.weblate.org/projects/morse-app/app/"
+"oc/>\n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,15 +88,15 @@ msgstr "Chifras"
 
 #: data/ui/alphabet_dialog.blp:65
 msgid "Punctuation"
-msgstr ""
+msgstr "Pontuacion"
 
 #: data/ui/alphabet_dialog.blp:78
 msgid "Nonstandard Punctuation"
-msgstr ""
+msgstr "Pontuacion non estandarda"
 
 #: data/ui/error_window.blp:34
 msgid "Close"
-msgstr ""
+msgstr "Tampar"
 
 #: data/ui/preferences_dialog.blp:7 data/ui/shortcuts_dialog.blp:6
 #: data/ui/window.blp:78
@@ -110,7 +110,7 @@ msgstr "Per defaut"
 
 #: data/ui/preferences_dialog.blp:24
 msgid "This speed will be used in the morse code chart"
-msgstr ""
+msgstr "Aquesta velocitat serà utilizada dins lo grafe de còdi mòrse"
 
 #: data/ui/preferences_dialog.blp:29 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
@@ -303,11 +303,13 @@ msgstr "_A prepaus de Mòrse"
 
 #: src/application.rs:86
 msgid "Audio Error"
-msgstr ""
+msgstr "Error àudio"
 
 #: src/application.rs:87
 msgid "Failed to create audio stream. Please check your audio output settings."
 msgstr ""
+"Fracàs de la creacion del flux àudio. Mercés de verificar los paramètres "
+"àudio."
 
 #. # Translator: Leave there your name
 #: src/application.rs:144
@@ -316,7 +318,7 @@ msgstr "Quentin PAGÈS"
 
 #: src/widgets/alphabet_dialog.rs:176
 msgid "Unable to play this character while the audio is playing"
-msgstr ""
+msgstr "Lectura impossibla d’aqueste caractèr pendent que l’àudio es a se jogar"
 
 #: src/widgets/window.rs:464
 msgid "Copied to clipboard"
