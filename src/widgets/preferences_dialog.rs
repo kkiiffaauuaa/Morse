@@ -38,6 +38,8 @@ mod imp {
         alphabets_combo: TemplateChild<ComboRow>,
         #[template_child]
         default_speed_spin: TemplateChild<SpinRow>,
+        #[template_child]
+        speed_system_combo: TemplateChild<ComboRow>
     }
 
     #[glib::object_subclass]
@@ -95,6 +97,12 @@ mod imp {
                 Key::DefaultSpeed,
                 &self.default_speed_spin,
                 "value"
+            );
+
+            settings_manager.bind_property::<ComboRow>(
+                Key::SpeedSystem,
+                &self.speed_system_combo,
+                "selected"
             );
         }
     }
