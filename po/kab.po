@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 00:21+0200\n"
+"POT-Creation-Date: 2026-04-13 11:49+0200\n"
 "PO-Revision-Date: 2026-03-29 12:00+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/morse-app/app/kab/"
@@ -78,11 +78,11 @@ msgstr "Afarisi"
 msgid "Korean"
 msgstr "Akuri"
 
-#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:83
+#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:84
 msgid "Letters"
 msgstr "Isekkilen"
 
-#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:84
+#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:85
 msgid "Digits"
 msgstr "Uṭṭunen"
 
@@ -104,63 +104,67 @@ msgid "General"
 msgstr "Amatu"
 
 #: data/ui/preferences_dialog.blp:23
+msgid "Speed System"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:32
 #, fuzzy
 msgid "Default Speed"
 msgstr "Amezwer"
 
-#: data/ui/preferences_dialog.blp:24
+#: data/ui/preferences_dialog.blp:33
 msgid "This speed will be used in the morse code chart"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:29 data/ui/shortcuts_dialog.blp:30
+#: data/ui/preferences_dialog.blp:38 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:31
+#: data/ui/preferences_dialog.blp:40
 msgid "Additions"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:34
+#: data/ui/preferences_dialog.blp:43
 msgid "None"
 msgstr "Ula yiwen"
 
-#: data/ui/preferences_dialog.blp:35
+#: data/ui/preferences_dialog.blp:44
 msgid "Default"
 msgstr "Amezwer"
 
-#: data/ui/preferences_dialog.blp:36
+#: data/ui/preferences_dialog.blp:45
 msgid "Competitions"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:41
+#: data/ui/preferences_dialog.blp:50
 msgid "Start Delay"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:46
+#: data/ui/preferences_dialog.blp:55
 msgid "Sound"
 msgstr "Imesli"
 
-#: data/ui/preferences_dialog.blp:48
+#: data/ui/preferences_dialog.blp:57
 msgid "Wave Type"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:51
+#: data/ui/preferences_dialog.blp:60
 msgid "Square"
 msgstr "Amkuẓ"
 
-#: data/ui/preferences_dialog.blp:52
+#: data/ui/preferences_dialog.blp:61
 msgid "Triangle"
 msgstr "Akerḍis"
 
-#: data/ui/preferences_dialog.blp:53
+#: data/ui/preferences_dialog.blp:62
 msgid "Sawtooth"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:54
+#: data/ui/preferences_dialog.blp:63
 msgid "Sine"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:59
+#: data/ui/preferences_dialog.blp:68
 msgid "Frequency"
 msgstr ""
 
@@ -204,7 +208,7 @@ msgstr ""
 msgid "Volume"
 msgstr "Ableɣ"
 
-#: data/ui/window.blp:56 data/ui/window.blp:152
+#: data/ui/window.blp:56 data/ui/window.blp:153
 msgid "Main Menu"
 msgstr "Umuɣ agejdan"
 
@@ -216,84 +220,88 @@ msgstr "Uɣal"
 msgid "Text Type"
 msgstr "Anaw n uḍris"
 
-#: data/ui/window.blp:85
+#: data/ui/window.blp:81
+msgid "This option will affect the dot duration"
+msgstr ""
+
+#: data/ui/window.blp:86
 msgid "Mixed"
 msgstr "Xelḍen"
 
-#: data/ui/window.blp:90
+#: data/ui/window.blp:91
 msgid "Auto Generation"
 msgstr "Turwin tawurmant"
 
-#: data/ui/window.blp:91
+#: data/ui/window.blp:92
 msgid "Pressing the playback button will generate the new text"
 msgstr ""
 
-#: data/ui/window.blp:96
+#: data/ui/window.blp:97
 msgid "Text Generation"
 msgstr "Turwin n uḍris"
 
-#: data/ui/window.blp:98
+#: data/ui/window.blp:99
 msgid "Default Words Number"
 msgstr ""
 
-#: data/ui/window.blp:99
+#: data/ui/window.blp:100
 msgid "The words number is calculated automatically based on the text speed"
 msgstr "Amḍan n wawalen yettwassiḍen s wudem awurman ɣef urured n uḍris"
 
-#: data/ui/window.blp:103
+#: data/ui/window.blp:104
 msgid "Words"
 msgstr "Awalen"
 
-#: data/ui/window.blp:108
+#: data/ui/window.blp:109
 msgid "Characters"
 msgstr "Isekkilen"
 
-#: data/ui/window.blp:109
+#: data/ui/window.blp:110
 msgid "Select the characters you need"
 msgstr "Fren isekkilen i teḥwaǧeḍ"
 
-#: data/ui/window.blp:118 data/ui/window.blp:120
+#: data/ui/window.blp:119 data/ui/window.blp:121
 msgid "Speed"
 msgstr "Arured"
 
-#: data/ui/window.blp:124
+#: data/ui/window.blp:125
 msgid "Delay between characters"
 msgstr "Amenḍar gar isekkilen"
 
-#: data/ui/window.blp:125
+#: data/ui/window.blp:126
 msgid ""
 "The delay between words is calculated automatically. The default value is 3."
 msgstr ""
 
-#: data/ui/window.blp:158
+#: data/ui/window.blp:159
 msgid "Play"
 msgstr "Ɣeṛ"
 
-#: data/ui/window.blp:165
+#: data/ui/window.blp:166
 msgid "Stop"
 msgstr "Seḥbes"
 
-#: data/ui/window.blp:216
+#: data/ui/window.blp:217
 msgid "Copy Text"
 msgstr "Nɣel aḍris"
 
-#: data/ui/window.blp:221
+#: data/ui/window.blp:222
 msgid "Generate Text"
 msgstr "Sarew-d aḍris"
 
-#: data/ui/window.blp:263
+#: data/ui/window.blp:264
 msgid "Receiving Preferences"
 msgstr ""
 
-#: data/ui/window.blp:318
+#: data/ui/window.blp:319
 msgid "_Preferences"
 msgstr "Imenyafen (_P)"
 
-#: data/ui/window.blp:323
+#: data/ui/window.blp:324
 msgid "_Keyboard Shortcuts"
 msgstr "Inegzumen n unasiw (_K)"
 
-#: data/ui/window.blp:328
+#: data/ui/window.blp:329
 msgid "_About Morse"
 msgstr "Ɣef Morse (_A)"
 
@@ -314,11 +322,11 @@ msgstr "Athmane MOKRAOUI"
 msgid "Unable to play this character while the audio is playing"
 msgstr ""
 
-#: src/widgets/window.rs:464
+#: src/widgets/window.rs:469
 msgid "Copied to clipboard"
 msgstr "Yettwanɣel ɣer ufus"
 
-#: src/widgets/window.rs:515
+#: src/widgets/window.rs:520
 msgid "To generate text enable at least 1 character"
 msgstr "Iwakken ad d-sarewḍ aḍris, sermed xerṣum 1 n usekkil"
 

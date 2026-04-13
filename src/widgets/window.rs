@@ -32,7 +32,7 @@ use crate::application::MorseApplication;
 use crate::widgets::volume_control::MorseVolumeControl;
 use crate::backend::text_generator::generate_text;
 use crate::backend::settings::{Key, settings_manager::SettingsManager};
-use morse_player::{TextType, WaveType, Alphabet, MorsePlayer};
+use morse_player::{TextType, WaveType, Alphabet, SpeedSystem, MorsePlayer};
 
 use adw::{
     ActionRow, 
@@ -242,6 +242,11 @@ mod imp {
                         1 => TextType::Digits,
                         _ => TextType::Mixed,
                     };
+                    let speed_system: SpeedSystem = match this.settings_manager.get().unwrap().integer(Key::SpeedSystem) {
+                        0 => SpeedSystem::CODEX,
+                        _ => SpeedSystem::PARIS
+                    };
+                    this.player.get().unwrap().set_speed_system(speed_system);
                     this.player.get().unwrap().set_alphabet(this.get_selected_alphabet().2);
                     let text: String = match this.settings_manager.get().unwrap().integer(Key::Additions) {
                         0 => base_text.clone(),

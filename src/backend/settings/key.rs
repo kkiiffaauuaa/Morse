@@ -25,4 +25,5 @@ pub enum Key {
     Alphabet,
     DefaultSpeed,
     Speed,
+    SpeedSystem,
 }

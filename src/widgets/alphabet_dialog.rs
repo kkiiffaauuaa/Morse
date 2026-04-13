@@ -18,7 +18,7 @@ use crate::application::MorseApplication;
 use crate::backend::settings::{Key, settings_manager::SettingsManager};
 use crate::constants::ALPHABETS;
 use crate::i18n::i18n;
-use morse_player::{Alphabet, MorsePlayer, TextType, WaveType};
+use morse_player::{Alphabet, MorsePlayer, TextType, SpeedSystem, WaveType};
 use adw::{subclass::prelude::*, prelude::*, ToastOverlay, Toast};
 use gtk::{glib, Grid, DropDown, Box, Label, Orientation, Align, Button};
 use std::{cell::{OnceCell, RefCell, Cell}, rc::Rc};
@@ -194,11 +194,16 @@ mod imp {
                                     2 => WaveType::Sawtooth,
                                     _ => WaveType::Sine,
                                 };
+                                let speed_system: SpeedSystem = match this.settings_manager.get().unwrap().integer(Key::SpeedSystem) {
+                                    0 => SpeedSystem::CODEX,
+                                    _ => SpeedSystem::PARIS
+                                };
 
+                                this.player.get().unwrap().set_speed_system(speed_system);
                                 this.player.get().unwrap().set_volume(this.settings_manager.get().unwrap().double(Key::PlaybackVolume) as f32);
                                 this.player.get().unwrap().play(
                                     &char_str,
-                                    TextType::Mixed,
+                                    TextType::Letters,
                                     this.settings_manager.get().unwrap().integer(Key::DefaultSpeed) as u32,
                                     3,
                                     frequency,

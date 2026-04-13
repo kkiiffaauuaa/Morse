@@ -25,5 +25,8 @@
 		<key name="speed" type="i">
 			<default>100</default>
 		</key>
+		<key name="speed-system" type="i">
+			<default>0</default>
+		</key>
 	</schema>
 </schemalist>

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-09 00:21+0200\n"
+"POT-Creation-Date: 2026-04-13 11:49+0200\n"
 "PO-Revision-Date: 2026-04-02 20:17+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/morse-app/app/nl/"
@@ -78,11 +78,11 @@ msgstr "Perzisch"
 msgid "Korean"
 msgstr "Koreaans"
 
-#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:83
+#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:84
 msgid "Letters"
 msgstr "Letters"
 
-#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:84
+#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:85
 msgid "Digits"
 msgstr "Cijfers"
 
@@ -104,63 +104,67 @@ msgid "General"
 msgstr "Algemeen"
 
 #: data/ui/preferences_dialog.blp:23
+msgid "Speed System"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:32
 #, fuzzy
 msgid "Default Speed"
 msgstr "Standaard"
 
-#: data/ui/preferences_dialog.blp:24
+#: data/ui/preferences_dialog.blp:33
 msgid "This speed will be used in the morse code chart"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:29 data/ui/shortcuts_dialog.blp:30
+#: data/ui/preferences_dialog.blp:38 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
 msgstr "Afspelen"
 
-#: data/ui/preferences_dialog.blp:31
+#: data/ui/preferences_dialog.blp:40
 msgid "Additions"
 msgstr "Toevoegingen"
 
-#: data/ui/preferences_dialog.blp:34
+#: data/ui/preferences_dialog.blp:43
 msgid "None"
 msgstr "Geen"
 
-#: data/ui/preferences_dialog.blp:35
+#: data/ui/preferences_dialog.blp:44
 msgid "Default"
 msgstr "Standaard"
 
-#: data/ui/preferences_dialog.blp:36
+#: data/ui/preferences_dialog.blp:45
 msgid "Competitions"
 msgstr "Wedstrijden"
 
-#: data/ui/preferences_dialog.blp:41
+#: data/ui/preferences_dialog.blp:50
 msgid "Start Delay"
 msgstr "Start­vertraging"
 
-#: data/ui/preferences_dialog.blp:46
+#: data/ui/preferences_dialog.blp:55
 msgid "Sound"
 msgstr "Geluid"
 
-#: data/ui/preferences_dialog.blp:48
+#: data/ui/preferences_dialog.blp:57
 msgid "Wave Type"
 msgstr "Golf­type"
 
-#: data/ui/preferences_dialog.blp:51
+#: data/ui/preferences_dialog.blp:60
 msgid "Square"
 msgstr "Blok"
 
-#: data/ui/preferences_dialog.blp:52
+#: data/ui/preferences_dialog.blp:61
 msgid "Triangle"
 msgstr "Drie­hoek"
 
-#: data/ui/preferences_dialog.blp:53
+#: data/ui/preferences_dialog.blp:62
 msgid "Sawtooth"
 msgstr "Zaag­tand"
 
-#: data/ui/preferences_dialog.blp:54
+#: data/ui/preferences_dialog.blp:63
 msgid "Sine"
 msgstr "Sinus"
 
-#: data/ui/preferences_dialog.blp:59
+#: data/ui/preferences_dialog.blp:68
 msgid "Frequency"
 msgstr "Frequentie"
 
@@ -204,7 +208,7 @@ msgstr "Volume verlagen"
 msgid "Volume"
 msgstr "Volume"
 
-#: data/ui/window.blp:56 data/ui/window.blp:152
+#: data/ui/window.blp:56 data/ui/window.blp:153
 msgid "Main Menu"
 msgstr "Hoofd­menu"
 
@@ -216,86 +220,90 @@ msgstr "Terug"
 msgid "Text Type"
 msgstr "Tekst­type"
 
-#: data/ui/window.blp:85
+#: data/ui/window.blp:81
+msgid "This option will affect the dot duration"
+msgstr ""
+
+#: data/ui/window.blp:86
 msgid "Mixed"
 msgstr "Gemengd"
 
-#: data/ui/window.blp:90
+#: data/ui/window.blp:91
 msgid "Auto Generation"
 msgstr "Automatische generatie"
 
-#: data/ui/window.blp:91
+#: data/ui/window.blp:92
 msgid "Pressing the playback button will generate the new text"
 msgstr "Door op de afspeel­knop te drukken, wordt de nieuwe tekst gegenereerd"
 
-#: data/ui/window.blp:96
+#: data/ui/window.blp:97
 msgid "Text Generation"
 msgstr "Tekst­generatie"
 
-#: data/ui/window.blp:98
+#: data/ui/window.blp:99
 msgid "Default Words Number"
 msgstr "Standaard­aantal woorden"
 
-#: data/ui/window.blp:99
+#: data/ui/window.blp:100
 msgid "The words number is calculated automatically based on the text speed"
 msgstr ""
 "Het aantal woorden wordt automatisch berekend op basis van de tekst­snelheid"
 
-#: data/ui/window.blp:103
+#: data/ui/window.blp:104
 msgid "Words"
 msgstr "Woorden"
 
-#: data/ui/window.blp:108
+#: data/ui/window.blp:109
 msgid "Characters"
 msgstr "Tekens"
 
-#: data/ui/window.blp:109
+#: data/ui/window.blp:110
 msgid "Select the characters you need"
 msgstr "Selecteer de tekens die u nodig heeft"
 
-#: data/ui/window.blp:118 data/ui/window.blp:120
+#: data/ui/window.blp:119 data/ui/window.blp:121
 msgid "Speed"
 msgstr "Snelheid"
 
-#: data/ui/window.blp:124
+#: data/ui/window.blp:125
 msgid "Delay between characters"
 msgstr "Pauze tussen tekens"
 
-#: data/ui/window.blp:125
+#: data/ui/window.blp:126
 msgid ""
 "The delay between words is calculated automatically. The default value is 3."
 msgstr ""
 "De pauze tussen woorden wordt automatisch berekend. De standaard­waarde is 3."
 
-#: data/ui/window.blp:158
+#: data/ui/window.blp:159
 msgid "Play"
 msgstr "Afspelen"
 
-#: data/ui/window.blp:165
+#: data/ui/window.blp:166
 msgid "Stop"
 msgstr "Stoppen"
 
-#: data/ui/window.blp:216
+#: data/ui/window.blp:217
 msgid "Copy Text"
 msgstr "Tekst kopiëren"
 
-#: data/ui/window.blp:221
+#: data/ui/window.blp:222
 msgid "Generate Text"
 msgstr "Tekst genereren"
 
-#: data/ui/window.blp:263
+#: data/ui/window.blp:264
 msgid "Receiving Preferences"
 msgstr "Voorkeuren voor ontvangst"
 
-#: data/ui/window.blp:318
+#: data/ui/window.blp:319
 msgid "_Preferences"
 msgstr "_Voorkeuren"
 
-#: data/ui/window.blp:323
+#: data/ui/window.blp:324
 msgid "_Keyboard Shortcuts"
 msgstr "_Snel­toetsen"
 
-#: data/ui/window.blp:328
+#: data/ui/window.blp:329
 msgid "_About Morse"
 msgstr "_Over Morse"
 
@@ -316,11 +324,11 @@ msgstr "Philip Goto https://philipgoto.nl"
 msgid "Unable to play this character while the audio is playing"
 msgstr ""
 
-#: src/widgets/window.rs:464
+#: src/widgets/window.rs:469
 msgid "Copied to clipboard"
 msgstr "Gekopieerd naar klem­bord"
 
-#: src/widgets/window.rs:515
+#: src/widgets/window.rs:520
 msgid "To generate text enable at least 1 character"
 msgstr "Schakel minimaal 1 teken in om tekst te genereren"
 
