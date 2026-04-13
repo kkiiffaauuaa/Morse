@@ -203,7 +203,7 @@ mod imp {
                                 this.player.get().unwrap().set_volume(this.settings_manager.get().unwrap().double(Key::PlaybackVolume) as f32);
                                 this.player.get().unwrap().play(
                                     &char_str,
-                                    TextType::Mixed,
+                                    TextType::Letters,
                                     this.settings_manager.get().unwrap().integer(Key::DefaultSpeed) as u32,
                                     3,
                                     frequency,
