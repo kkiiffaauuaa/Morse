@@ -21,8 +21,6 @@ extern crate strum_macros;
 
 #[cfg(target_os = "windows")]
 use std::env;
-#[cfg(target_os = "windows")]
-use std::process::Command;
 
 mod widgets;
 mod backend;
@@ -38,20 +36,7 @@ use config::{APP_ID, PKGNAME, PREFIX, LOCALEDIR, DATADIR};
 use gettextrs::{bind_textdomain_codeset, bindtextdomain, textdomain};
 use gtk::{gio, glib, prelude::*};
 
-fn main() -> glib::ExitCode {
-    #[cfg(target_os = "windows")] {
-        if env::var("GDK_DISABLE").unwrap_or_default() != "dcomp" || env::var("GSK_RENDERER").unwrap_or_default() != "vulkan" {
-            let current_exe = env::current_exe().expect("Failed to get current exe path");
-            let status = Command::new(current_exe)
-                .env("GDK_DISABLE", "dcomp")
-                .env("GSK_RENDERER", "vulkan")
-                .args(env::args().skip(1))
-                .status()
-                .expect("Failed to restart with GDK_DISABLE");
-            std::process::exit(status.code().unwrap_or(0));
-        }
-    }
-    
+fn main() -> glib::ExitCode {    
     // Set up gettext translations
     let localepath = get_prefix().join(LOCALEDIR);
 
