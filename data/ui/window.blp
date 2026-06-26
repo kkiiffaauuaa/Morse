@@ -96,8 +96,8 @@ template $MorseApplicationWindow: Adw.ApplicationWindow {
                     Adw.PreferencesGroup preferences_group_text {
                       title: _("Text Generation");
                       Adw.SwitchRow groups_switch {
-                        title: _("Default Words Number");
-                        subtitle: _("The words number is calculated automatically based on the text speed");
+                        title: _("Default word count");
+                        subtitle: _("The word count is calculated automatically based on the text speed");
                         active: true;
                       }
                       Adw.SpinRow groups_spin {
@@ -123,7 +123,7 @@ template $MorseApplicationWindow: Adw.ApplicationWindow {
                       }
                       Adw.SpinRow delay_spin {
                         title: _("Delay between characters");
-                        subtitle: _("The delay between words is calculated automatically. The default value is 3.");
+                        subtitle: _("The delay between words is calculated automatically.\nThe default value is 3.");
                         adjustment: characters_delay_adjustment;
                       }
                     }

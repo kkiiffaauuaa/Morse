@@ -21,12 +21,17 @@ template $MorsePreferencesDialog: Adw.PreferencesDialog {
       }
       Adw.ComboRow speed_system_combo {
         title: _("Speed System");
+        subtitle: _("Choose PARIS for standard text (50 dots) and CODEX for random groups (60 dots)");
         model: StringList {
           strings [
             "CODEX",
             "PARIS"
           ]
         };
+      }
+      Adw.SwitchRow adapted_switch {
+        title: _("Adapt Speed");
+        subtitle: _("Adjusts speed to a 1-minute duration based on the selected text type.\nAvailable only for the CODEX speed system.");
       }
       Adw.SpinRow default_speed_spin {
         title: _("Default Speed");

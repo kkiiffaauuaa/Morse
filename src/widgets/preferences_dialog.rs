@@ -17,8 +17,8 @@
 use crate::backend::settings::Key;
 use crate::application::MorseApplication;
 
-use adw::{ComboRow, SpinRow, subclass::prelude::*};
-use gtk::glib;
+use adw::{ComboRow, SpinRow, SwitchRow, subclass::prelude::*};
+use gtk::{glib, prelude::*};
 
 mod imp {
     use super::*;
@@ -39,7 +39,9 @@ mod imp {
         #[template_child]
         default_speed_spin: TemplateChild<SpinRow>,
         #[template_child]
-        speed_system_combo: TemplateChild<ComboRow>
+        speed_system_combo: TemplateChild<ComboRow>,
+        #[template_child]
+        adapted_switch: TemplateChild<SwitchRow>
     }
 
     #[glib::object_subclass]
@@ -104,6 +106,25 @@ mod imp {
                 &self.speed_system_combo,
                 "selected"
             );
+
+            settings_manager.bind_property::<SwitchRow>(
+                Key::AdaptSpeed,
+                &self.adapted_switch,
+                "active"
+            );
+
+            settings_manager.connect_changed(
+                Key::SpeedSystem,
+                glib::clone!(
+                    #[weak(rename_to = this)] self,
+                    #[strong] settings_manager,
+                    move |_, _| {
+                        this.adapted_switch.set_sensitive(settings_manager.integer(Key::SpeedSystem) == 0);
+                    }
+                )
+            );
+
+            self.adapted_switch.set_sensitive(settings_manager.integer(Key::SpeedSystem) == 0);
         }
     }
     impl WidgetImpl for MorsePreferencesDialog {}

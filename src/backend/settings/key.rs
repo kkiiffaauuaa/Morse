@@ -26,4 +26,5 @@ pub enum Key {
     DefaultSpeed,
     Speed,
     SpeedSystem,
+    AdaptSpeed,
 }
