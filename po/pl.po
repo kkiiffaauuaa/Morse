@@ -7,17 +7,17 @@ msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-27 13:01+0200\n"
-"PO-Revision-Date: 2026-04-09 23:09+0000\n"
+"PO-Revision-Date: 2026-06-27 14:27+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/morse-app/app/pl/"
-">\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/morse-app/app/pl/>"
+"\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
@@ -106,24 +106,27 @@ msgstr "Podstawowe"
 
 #: data/ui/preferences_dialog.blp:23
 msgid "Speed System"
-msgstr ""
+msgstr "System prędkości"
 
 #: data/ui/preferences_dialog.blp:24
 msgid ""
 "Choose PARIS for standard text (50 dots) and CODEX for random groups (60 "
 "dots)"
 msgstr ""
+"Wybierz PARIS dla standardowego tekstu (50 kropek), a CODEX dla losowych "
+"grup (60 kropek)"
 
 #: data/ui/preferences_dialog.blp:33
-#, fuzzy
 msgid "Adapt Speed"
-msgstr "Prędkość domyślna"
+msgstr "Prędkość adaptacyjna"
 
 #: data/ui/preferences_dialog.blp:34
 msgid ""
 "Adjusts speed to a 1-minute duration (default word count) based on the "
 "selected text type. Available only for the CODEX speed system."
 msgstr ""
+"Dostosowuje prędkość do czasu trwania 1 minuty (domyślna liczba słów) na "
+"podstawie wybranego typu tekstu. Dostępne tylko dla systemu prędkości CODEX."
 
 #: data/ui/preferences_dialog.blp:37
 msgid "Default Speed"
@@ -147,6 +150,9 @@ msgid ""
 "“Competitions” plays “OOOOO” or “00000” (depending on text type), then "
 "current speed, and “VVV =”."
 msgstr ""
+"Zarządza początkiem i końcem tekstu. “Domyślne” nadaje “VVV =”. “Zawody” "
+"nadaje “OOOOO” or \"00000\" (w zależności od typu tekstu), następnie "
+"aktualną prędkość i “VVV =”."
 
 #: data/ui/preferences_dialog.blp:49
 msgid "None"
@@ -166,7 +172,7 @@ msgstr "Opóźnienie startu"
 
 #: data/ui/preferences_dialog.blp:57
 msgid "Delay in seconds before the text starts playing"
-msgstr ""
+msgstr "Opóźnienie w sekundach przed rozpoczęciem odtwarzania tekstu"
 
 #: data/ui/preferences_dialog.blp:62
 msgid "Sound"
@@ -266,12 +272,10 @@ msgid "Text Generation"
 msgstr "Generowanie tekstu"
 
 #: data/ui/window.blp:98
-#, fuzzy
 msgid "Default word count"
-msgstr "Standardowa liczba słów"
+msgstr "Domyślna liczba słów"
 
 #: data/ui/window.blp:99
-#, fuzzy
 msgid "The word count is calculated automatically based on the text speed"
 msgstr "Liczba słów liczy się automatycznie na podstawie prędkości"
 
@@ -293,19 +297,17 @@ msgstr "Prędkość"
 
 #: data/ui/window.blp:121
 msgid "The speed of the text in CPM"
-msgstr ""
+msgstr "Prędkość odtwarzania tekstu w znakach na minutę (CPM)"
 
 #: data/ui/window.blp:125
 msgid "Delay between characters"
 msgstr "Opóźnienie między znakami"
 
 #: data/ui/window.blp:126
-#, fuzzy
 msgid ""
 "The delay between words is calculated automatically. The default value is 3."
 msgstr ""
-"Opóźnienie między słowami liczy się automatycznie. Standardowe znaczenie to "
-"3."
+"Opóźnienie między słowami liczy się automatycznie. Domyślna wartość to 3."
 
 #: data/ui/window.blp:159
 msgid "Play"
@@ -341,11 +343,13 @@ msgstr "_O Morse"
 
 #: src/application.rs:85
 msgid "Audio Error"
-msgstr ""
+msgstr "Błąd dźwięku"
 
 #: src/application.rs:87
 msgid "Failed to create audio stream. Please check your audio output settings."
 msgstr ""
+"Nie udało się stworzyć strumienia dźwiękowego. Sprawdź swoje ustawienia "
+"dźwięku."
 
 #. # Translator: Leave there your name
 #: src/application.rs:148
