@@ -22,11 +22,11 @@ extern crate strum_macros;
 #[cfg(target_os = "windows")]
 use std::env;
 
-mod widgets;
-mod backend;
 mod application;
+mod backend;
 mod constants;
 mod i18n;
+mod widgets;
 
 use self::application::MorseApplication;
 use self::widgets::window::MorseApplicationWindow;
@@ -42,7 +42,7 @@ pub const PREFIX: &str = env!("PREFIX");
 pub const LOCALEDIR: &str = env!("LOCALEDIR");
 pub const DATADIR: &str = env!("DATADIR");
 
-fn main() -> glib::ExitCode {    
+fn main() -> glib::ExitCode {
     // Set up gettext translations
     let localepath = get_prefix().join(LOCALEDIR);
 
@@ -51,7 +51,10 @@ fn main() -> glib::ExitCode {
     textdomain(PKGNAME).expect("Unable to switch to the text domain");
 
     // Load resources
-    let path = get_prefix().join(DATADIR).join(PKGNAME).join(format!("{}.gresource", APP_ID));
+    let path = get_prefix()
+        .join(DATADIR)
+        .join(PKGNAME)
+        .join(format!("{}.gresource", APP_ID));
     let resources = gio::Resource::load(path.to_str().unwrap()).expect("Could not load resources");
     gio::resources_register(&resources);
 
@@ -73,15 +76,13 @@ fn get_prefix() -> std::path::PathBuf {
         path.pop();
         path.pop();
         path
-    }
-    else if cfg!(target_os = "macos") {
+    } else if cfg!(target_os = "macos") {
         let mut path = std::env::current_exe().unwrap();
         path.pop();
         path.pop();
         path.pop();
         path
-    }
-    else {
+    } else {
         std::path::PathBuf::from(PREFIX)
     }
 }

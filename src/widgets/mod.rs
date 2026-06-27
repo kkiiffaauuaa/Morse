@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-pub mod window;
-pub mod preferences_dialog;
-pub mod volume_control;
 pub mod alphabet_dialog;
 pub mod error_window;
+pub mod preferences_dialog;
+pub mod volume_control;
+pub mod window;

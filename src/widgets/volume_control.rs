@@ -16,12 +16,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+use std::cell::Cell;
 use std::marker::PhantomData;
 use std::sync::LazyLock;
-use std::cell::Cell;
 
-use gtk::{gio, gdk, glib, subclass::prelude::*, prelude::*, Widget, Scale, Button};
-use glib::{subclass::Signal, Properties};
+use glib::{Properties, subclass::Signal};
+use gtk::{Button, Scale, Widget, gdk, gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -34,7 +34,7 @@ mod imp {
         volume_low_button: TemplateChild<Button>,
         #[template_child]
         volume_scale: TemplateChild<Scale>,
-        
+
         #[property(get = Self::volume, set = Self::set_volume, minimum = 0.0, maximum = 1.0, default = 1.0)]
         volume: PhantomData<f64>,
         #[property(get, set=Self::set_toggle_mute)]
@@ -76,20 +76,22 @@ mod imp {
             self.volume_scale.adjustment().connect_notify_local(
                 Some("value"),
                 glib::clone!(
-                    #[weak(rename_to = this)] self,
+                    #[weak(rename_to = this)]
+                    self,
                     move |adj, _| {
                         let value = adj.value();
                         if value == adj.lower() {
-                            this.volume_low_button.set_icon_name("audio-volume-muted-symbolic");
-                        } 
-                        else if value <= 0.333 {
-                            this.volume_low_button.set_icon_name("audio-volume-low-symbolic");
-                        }
-                        else if value <= 0.666 {
-                            this.volume_low_button.set_icon_name("audio-volume-medium-symbolic");
-                        }
-                        else {
-                            this.volume_low_button.set_icon_name("audio-volume-high-symbolic");
+                            this.volume_low_button
+                                .set_icon_name("audio-volume-muted-symbolic");
+                        } else if value <= 0.333 {
+                            this.volume_low_button
+                                .set_icon_name("audio-volume-low-symbolic");
+                        } else if value <= 0.666 {
+                            this.volume_low_button
+                                .set_icon_name("audio-volume-medium-symbolic");
+                        } else {
+                            this.volume_low_button
+                                .set_icon_name("audio-volume-high-symbolic");
                         }
                         this.obj().notify_volume();
                         this.obj().emit_by_name::<()>("volume-changed", &[&value]);
@@ -103,7 +105,8 @@ mod imp {
                 .build();
 
             event_controller.connect_scroll(glib::clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 #[upgrade_or_panic]
                 move |_, _, dy| {
                     let adj = this.volume_scale.adjustment();
@@ -150,9 +153,11 @@ mod imp {
 
         fn signals() -> &'static [Signal] {
             static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
-                vec![Signal::builder("volume-changed")
-                    .param_types([f64::static_type()])
-                    .build()]
+                vec![
+                    Signal::builder("volume-changed")
+                        .param_types([f64::static_type()])
+                        .build(),
+                ]
             });
 
             SIGNALS.as_ref()

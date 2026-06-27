@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+use serde::{Deserialize, Serialize};
 use std::sync::LazyLock;
-use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Alphabet {
@@ -33,13 +33,12 @@ pub struct Alphabets {
     pub persian: Alphabet,
     pub korean: Alphabet,
     pub digits: Alphabet,
-    pub symbols: Alphabet
+    pub symbols: Alphabet,
 }
 
 // GENERATION
-pub static ALPHABETS: LazyLock<Alphabets> = LazyLock::new(|| {
-    serde_json::from_str(include_str!("alphabets.json")).unwrap()
-});
+pub static ALPHABETS: LazyLock<Alphabets> =
+    LazyLock::new(|| serde_json::from_str(include_str!("alphabets.json")).unwrap());
 
 // PLAYING
 pub const START_TEXT: &str = "VVV = ";

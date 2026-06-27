@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use gtk::{gio, glib, Label, Button, Application};
-use adw::{subclass::prelude::*, prelude::*, ApplicationWindow};
+use adw::{ApplicationWindow, prelude::*, subclass::prelude::*};
 use glib::clone;
+use gtk::{Application, Button, Label, gio, glib};
 
 mod imp {
     use super::*;
@@ -29,7 +29,7 @@ mod imp {
         #[template_child]
         pub error_description: TemplateChild<Label>,
         #[template_child]
-        close_btn: TemplateChild<Button>
+        close_btn: TemplateChild<Button>,
     }
 
     #[glib::object_subclass]
@@ -52,7 +52,8 @@ mod imp {
             self.parent_constructed();
 
             self.close_btn.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     this.obj().close();
                 }

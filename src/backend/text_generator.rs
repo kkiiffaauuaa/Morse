@@ -14,11 +14,16 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+use anyhow::{Result, anyhow};
 use rand::prelude::*;
 use rand::rngs::{StdRng, SysRng};
-use anyhow::{anyhow, Result};
 
-pub fn generate_text(seed: Option<u64>, chars_count: u64, word_length: u64, chars_in_use: Vec<char>) -> Result<String> {
+pub fn generate_text(
+    seed: Option<u64>,
+    chars_count: u64,
+    word_length: u64,
+    chars_in_use: Vec<char>,
+) -> Result<String> {
     let mut rng: StdRng;
 
     match seed {
@@ -27,11 +32,15 @@ pub fn generate_text(seed: Option<u64>, chars_count: u64, word_length: u64, char
     }
 
     if word_length == 0 {
-        return Err(anyhow!("The value of `word_length` must be greater than 0."));
+        return Err(anyhow!(
+            "The value of `word_length` must be greater than 0."
+        ));
     }
 
     if word_length > chars_count {
-        return Err(anyhow!("The value of `chars_count` must be greater than or equal to `word_length`."));
+        return Err(anyhow!(
+            "The value of `chars_count` must be greater than or equal to `word_length`."
+        ));
     }
 
     if chars_in_use.is_empty() {
@@ -40,7 +49,7 @@ pub fn generate_text(seed: Option<u64>, chars_count: u64, word_length: u64, char
 
     let mut unused_chars = chars_in_use.clone();
     let mut result = Vec::<char>::new();
-    let mut previous_chars = vec!('\0', '\0');
+    let mut previous_chars = vec!['\0', '\0'];
 
     for i in 1..=chars_count {
         let mut new_char: char;
@@ -48,13 +57,15 @@ pub fn generate_text(seed: Option<u64>, chars_count: u64, word_length: u64, char
         loop {
             if chars_count - i < chars_in_use.len() as u64 && !unused_chars.is_empty() {
                 new_char = *unused_chars.choose(&mut rng).unwrap();
-            }
-            else {
+            } else {
                 new_char = *chars_in_use.choose(&mut rng).unwrap();
             }
 
             // 3 chars cannot be in a row
-            if !(new_char == previous_chars[0] && new_char == previous_chars[1] && chars_in_use.len() > 1) {
+            if !(new_char == previous_chars[0]
+                && new_char == previous_chars[1]
+                && chars_in_use.len() > 1)
+            {
                 break;
             }
         }
@@ -67,7 +78,7 @@ pub fn generate_text(seed: Option<u64>, chars_count: u64, word_length: u64, char
         }
 
         result.push(new_char);
-    
+
         if i % word_length == 0 && i != chars_count {
             result.push(' ');
             previous_chars[0] = previous_chars[1];

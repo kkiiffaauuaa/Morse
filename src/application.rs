@@ -14,17 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use crate::{APP_ID, PATH_ID, VERSION};
-use crate::i18n::i18n;
-use crate::widgets::preferences_dialog::MorsePreferencesDialog;
-use crate::widgets::alphabet_dialog::MorseAlphabetDialog;
-use crate::widgets::error_window::MorseErrorWindow;
 use crate::MorseApplicationWindow;
 use crate::backend::settings::settings_manager::SettingsManager;
+use crate::i18n::i18n;
+use crate::widgets::alphabet_dialog::MorseAlphabetDialog;
+use crate::widgets::error_window::MorseErrorWindow;
+use crate::widgets::preferences_dialog::MorsePreferencesDialog;
+use crate::{APP_ID, PATH_ID, VERSION};
 
-use morse_player::MorsePlayer;
 use adw::{prelude::*, subclass::prelude::*};
 use gtk::{gio, glib};
+use morse_player::MorsePlayer;
 
 use std::{cell::Cell, rc::Rc};
 
@@ -35,7 +35,7 @@ mod imp {
     pub struct MorseApplication {
         pub player: Option<MorsePlayer>,
         pub is_playing: Rc<Cell<bool>>,
-        pub settings_manager: SettingsManager
+        pub settings_manager: SettingsManager,
     }
 
     #[glib::object_subclass]
@@ -46,11 +46,11 @@ mod imp {
 
         fn new() -> Self {
             let player: Option<MorsePlayer> = MorsePlayer::new().ok();
-            
+
             Self {
                 player: player,
                 is_playing: Rc::new(Cell::new(false)),
-                settings_manager: SettingsManager::new(APP_ID)
+                settings_manager: SettingsManager::new(APP_ID),
             }
         }
     }
@@ -80,12 +80,13 @@ mod imp {
                     window.upcast()
                 });
                 window.present();
-            }
-            else {
+            } else {
                 let window = MorseErrorWindow::new(
                     &i18n("Audio Error"),
-                    &i18n("Failed to create audio stream. Please check your audio output settings."),
-                    &*application
+                    &i18n(
+                        "Failed to create audio stream. Please check your audio output settings.",
+                    ),
+                    &*application,
                 );
                 window.present();
             }
@@ -124,7 +125,12 @@ impl MorseApplication {
         let alphabet_action = gio::ActionEntry::builder("alphabet")
             .activate(move |app: &Self, _, _| app.show_alphabet())
             .build();
-        self.add_action_entries([quit_action, about_action, preferences_action, alphabet_action]);
+        self.add_action_entries([
+            quit_action,
+            about_action,
+            preferences_action,
+            alphabet_action,
+        ]);
     }
 
     fn show_about(&self) {
@@ -134,9 +140,7 @@ impl MorseApplication {
             .application_name(&i18n("Morse"))
             .developer_name("Jaŭhien Lavonćjeŭ")
             .version(VERSION)
-            .developers(vec![
-                "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>",
-            ])
+            .developers(vec!["Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"])
             .copyright("© 2025-2026 Jaŭhien Lavonćjeŭ")
             .issue_url("https://github.com/teacond/Morse/issues")
             .license_type(gtk::License::Gpl30)

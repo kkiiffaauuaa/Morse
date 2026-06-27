@@ -14,11 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+use crate::constants::{CODEX_DURATION, DIGITS_DURATION, PARIS_DURATION};
 use std::time::Duration;
-use crate::constants::{CODEX_DURATION, PARIS_DURATION, DIGITS_DURATION};
 
-pub mod text_generator;
 pub mod settings;
+pub mod text_generator;
 
 #[derive(PartialEq, Default, Clone, Copy)]
 pub enum TextType {
@@ -32,21 +32,41 @@ pub enum TextType {
 pub enum SpeedSystem {
     #[default]
     CODEX,
-    PARIS
+    PARIS,
 }
 
-pub fn calculate_dot_duration(speed: f64, speed_system: SpeedSystem, text_type: Option<TextType>) -> Duration {
+pub fn calculate_dot_duration(
+    speed: f64,
+    speed_system: SpeedSystem,
+    text_type: Option<TextType>,
+) -> Duration {
     let speed_to_use: f64;
 
     if let Some(text_type) = text_type {
         speed_to_use = match text_type {
-            TextType::Letters => if speed_system == SpeedSystem::CODEX { CODEX_DURATION } else { PARIS_DURATION },
+            TextType::Letters => {
+                if speed_system == SpeedSystem::CODEX {
+                    CODEX_DURATION
+                } else {
+                    PARIS_DURATION
+                }
+            }
             TextType::Digits => DIGITS_DURATION,
-            TextType::Mixed => ((if speed_system == SpeedSystem::CODEX { CODEX_DURATION } else { PARIS_DURATION }) + DIGITS_DURATION) / 2.0
+            TextType::Mixed => {
+                ((if speed_system == SpeedSystem::CODEX {
+                    CODEX_DURATION
+                } else {
+                    PARIS_DURATION
+                }) + DIGITS_DURATION)
+                    / 2.0
+            }
         };
-    }
-    else {
-        speed_to_use = if speed_system == SpeedSystem::CODEX { CODEX_DURATION } else { PARIS_DURATION };
+    } else {
+        speed_to_use = if speed_system == SpeedSystem::CODEX {
+            CODEX_DURATION
+        } else {
+            PARIS_DURATION
+        };
     }
 
     Duration::from_secs_f64(speed_to_use * 100.0 / speed)

@@ -14,8 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use crate::backend::settings::Key;
 use crate::application::MorseApplication;
+use crate::backend::settings::Key;
 
 use adw::{ComboRow, SpinRow, SwitchRow, subclass::prelude::*};
 use gtk::{glib, prelude::*};
@@ -41,7 +41,7 @@ mod imp {
         #[template_child]
         speed_system_combo: TemplateChild<ComboRow>,
         #[template_child]
-        adapted_switch: TemplateChild<SwitchRow>
+        adapted_switch: TemplateChild<SwitchRow>,
     }
 
     #[glib::object_subclass]
@@ -68,63 +68,63 @@ mod imp {
             settings_manager.bind_property::<ComboRow>(
                 Key::Additions,
                 &self.additions_combo,
-                "selected"
+                "selected",
             );
 
             settings_manager.bind_property::<SpinRow>(
                 Key::StartDelay,
                 &self.start_delay_spin,
-                "value"
+                "value",
             );
 
             settings_manager.bind_property::<ComboRow>(
                 Key::WaveType,
                 &self.wave_type_combo,
-                "selected"
+                "selected",
             );
 
-            settings_manager.bind_property::<SpinRow>(
-                Key::Frequency,
-                &self.freq_spin,
-                "value"
-            );
-            
+            settings_manager.bind_property::<SpinRow>(Key::Frequency, &self.freq_spin, "value");
+
             settings_manager.bind_property::<ComboRow>(
                 Key::Alphabet,
                 &self.alphabets_combo,
-                "selected"
+                "selected",
             );
 
             settings_manager.bind_property::<SpinRow>(
                 Key::DefaultSpeed,
                 &self.default_speed_spin,
-                "value"
+                "value",
             );
 
             settings_manager.bind_property::<ComboRow>(
                 Key::SpeedSystem,
                 &self.speed_system_combo,
-                "selected"
+                "selected",
             );
 
             settings_manager.bind_property::<SwitchRow>(
                 Key::AdaptSpeed,
                 &self.adapted_switch,
-                "active"
+                "active",
             );
 
             settings_manager.connect_changed(
                 Key::SpeedSystem,
                 glib::clone!(
-                    #[weak(rename_to = this)] self,
-                    #[strong] settings_manager,
+                    #[weak(rename_to = this)]
+                    self,
+                    #[strong]
+                    settings_manager,
                     move |_, _| {
-                        this.adapted_switch.set_sensitive(settings_manager.integer(Key::SpeedSystem) == 0);
+                        this.adapted_switch
+                            .set_sensitive(settings_manager.integer(Key::SpeedSystem) == 0);
                     }
-                )
+                ),
             );
 
-            self.adapted_switch.set_sensitive(settings_manager.integer(Key::SpeedSystem) == 0);
+            self.adapted_switch
+                .set_sensitive(settings_manager.integer(Key::SpeedSystem) == 0);
         }
     }
     impl WidgetImpl for MorsePreferencesDialog {}

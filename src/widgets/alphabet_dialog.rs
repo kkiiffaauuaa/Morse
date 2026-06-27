@@ -16,14 +16,17 @@
 
 use crate::application::MorseApplication;
 use crate::backend::settings::{Key, settings_manager::SettingsManager};
-use crate::backend::{calculate_dot_duration, SpeedSystem};
+use crate::backend::{SpeedSystem, calculate_dot_duration};
 use crate::constants::ALPHABETS;
 use crate::i18n::i18n;
-use morse_player::{Alphabet, MorsePlayer, WaveType};
-use adw::{subclass::prelude::*, prelude::*, ToastOverlay, Toast};
-use gtk::{glib, Grid, DropDown, Box, Label, Orientation, Align, Button};
-use std::{cell::{OnceCell, RefCell, Cell}, rc::Rc};
+use adw::{Toast, ToastOverlay, prelude::*, subclass::prelude::*};
 use glib::clone;
+use gtk::{Align, Box, Button, DropDown, Grid, Label, Orientation, glib};
+use morse_player::{Alphabet, MorsePlayer, WaveType};
+use std::{
+    cell::{Cell, OnceCell, RefCell},
+    rc::Rc,
+};
 
 mod imp {
     use super::*;
@@ -69,14 +72,25 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
-            self.grid_items.set(Rc::new(RefCell::new(Vec::new()))).unwrap();
-            self.player.set(Rc::new(MorseApplication::default().player())).unwrap();
-            self.is_playing_global.set(MorseApplication::default().get_is_playing()).unwrap();
-            self.is_playing_local.set(Rc::new(Cell::new(false))).unwrap();
-            self.settings_manager.set(Rc::new(MorseApplication::default().settings_manager())).unwrap();
+            self.grid_items
+                .set(Rc::new(RefCell::new(Vec::new())))
+                .unwrap();
+            self.player
+                .set(Rc::new(MorseApplication::default().player()))
+                .unwrap();
+            self.is_playing_global
+                .set(MorseApplication::default().get_is_playing())
+                .unwrap();
+            self.is_playing_local
+                .set(Rc::new(Cell::new(false)))
+                .unwrap();
+            self.settings_manager
+                .set(Rc::new(MorseApplication::default().settings_manager()))
+                .unwrap();
 
             self.alphabets_combo.connect_selected_notify(glib::clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |alphabets_combo| {
                     let (alphabet, alphabet_type) = match alphabets_combo.selected() {
                         1 => (ALPHABETS.cyrillic.visible.clone(), Alphabet::Cyrillic),
@@ -85,7 +99,7 @@ mod imp {
                         4 => (ALPHABETS.arabic.visible.clone(), Alphabet::Arabic),
                         5 => (ALPHABETS.persian.visible.clone(), Alphabet::Persian),
                         6 => (ALPHABETS.korean.visible.clone(), Alphabet::Korean),
-                        _ => (ALPHABETS.latin.visible.clone(), Alphabet::Latin)
+                        _ => (ALPHABETS.latin.visible.clone(), Alphabet::Latin),
                     };
                     this.player.get().unwrap().set_alphabet(alphabet_type);
 
@@ -93,22 +107,24 @@ mod imp {
                         alphabet,
                         ALPHABETS.digits.visible.clone(),
                         ALPHABETS.symbols.visible.clone(),
-                        ALPHABETS.symbols.supported.clone()
+                        ALPHABETS.symbols.supported.clone(),
                     );
                 }
             ));
-            
+
             self.construct_alphabet(
                 ALPHABETS.latin.visible.clone(),
                 ALPHABETS.digits.visible.clone(),
                 ALPHABETS.symbols.visible.clone(),
-                ALPHABETS.symbols.supported.clone()
+                ALPHABETS.symbols.supported.clone(),
             );
             self.player.get().unwrap().set_alphabet(Alphabet::Latin);
-            self.alphabets_combo.set_selected(self.settings_manager.get().unwrap().integer(Key::Alphabet) as u32);
-    
+            self.alphabets_combo
+                .set_selected(self.settings_manager.get().unwrap().integer(Key::Alphabet) as u32);
+
             self.obj().connect_closed(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     if this.is_playing_local.get().unwrap().get() {
                         this.player.get().unwrap().stop();
@@ -121,7 +137,13 @@ mod imp {
     impl AdwDialogImpl for MorseAlphabetDialog {}
 
     impl MorseAlphabetDialog {
-        fn construct_alphabet(&self, letters: Vec<char>, digits: Vec<char>, punctuation: Vec<char>, ns_punctuation: Vec<char>) {
+        fn construct_alphabet(
+            &self,
+            letters: Vec<char>,
+            digits: Vec<char>,
+            punctuation: Vec<char>,
+            ns_punctuation: Vec<char>,
+        ) {
             let mut grid_items = self.grid_items.get().unwrap().borrow_mut();
 
             for el in grid_items.iter() {
@@ -134,40 +156,39 @@ mod imp {
                 (self.letters_grid.clone(), letters),
                 (self.digits_grid.clone(), digits),
                 (self.punctuation_grid.clone(), punctuation),
-                (self.ns_punctuation_grid.clone(), ns_punctuation)
-                ] {
+                (self.ns_punctuation_grid.clone(), ns_punctuation),
+            ] {
                 for (i, el) in chars.iter().enumerate() {
                     let char_str = el.to_string();
 
-                    let alphabet_button_box = Box::builder()
-                    .orientation(Orientation::Horizontal)
-                    .build();
+                    let alphabet_button_box =
+                        Box::builder().orientation(Orientation::Horizontal).build();
 
                     let alphabet_button = Button::builder()
-                    .hexpand(true)
-                    .css_classes(["card", "activatable"])
-                    .child(&alphabet_button_box)
-                    .build();
+                        .hexpand(true)
+                        .css_classes(["card", "activatable"])
+                        .child(&alphabet_button_box)
+                        .build();
 
                     let char_widget = Label::builder()
-                    .label(&char_str)
-                    .margin_start(20)
-                    .margin_top(10)
-                    .margin_bottom(10)
-                    .build();
+                        .label(&char_str)
+                        .margin_start(20)
+                        .margin_top(10)
+                        .margin_bottom(10)
+                        .build();
 
                     let morse_widget = Label::builder()
-                    .label(self.player.get().unwrap().get_morse(el))
-                    .margin_end(20)
-                    .margin_top(10)
-                    .margin_bottom(10)
-                    .hexpand(true)
-                    .halign(Align::Center)
-                    .build();
+                        .label(self.player.get().unwrap().get_morse(el))
+                        .margin_end(20)
+                        .margin_top(10)
+                        .margin_bottom(10)
+                        .hexpand(true)
+                        .halign(Align::Center)
+                        .build();
 
                     alphabet_button_box.append(&char_widget);
                     alphabet_button_box.append(&morse_widget);
-                    
+
                     alphabet_button.connect_clicked(clone!(
                         #[weak(rename_to = this)] self,
                         move |_| {
@@ -222,13 +243,7 @@ mod imp {
                         }
                     ));
 
-                    grid.attach(
-                        &alphabet_button,
-                        (i % 2) as i32,
-                        (i / 2) as i32,
-                        1,
-                        1
-                    );
+                    grid.attach(&alphabet_button, (i % 2) as i32, (i / 2) as i32, 1, 1);
 
                     grid_items.push(alphabet_button);
                 }

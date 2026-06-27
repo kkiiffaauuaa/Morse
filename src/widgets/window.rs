@@ -14,56 +14,36 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use std::{cell::{RefCell, OnceCell, Cell}, rc::Rc, time::{Duration, Instant}};
 use rand::prelude::*;
+use std::{
+    cell::{Cell, OnceCell, RefCell},
+    rc::Rc,
+    time::{Duration, Instant},
+};
 
+use crate::application::MorseApplication;
+use crate::backend::settings::{Key, settings_manager::SettingsManager};
+use crate::backend::text_generator::generate_text;
+use crate::backend::{SpeedSystem, TextType, calculate_dot_duration};
 use crate::constants::{
-    ALPHABETS,
-    START_TEXT,
-    START_TEXT_COMPETITIONS_LETTERS,
-    START_TEXT_COMPETITIONS_DIGITS,
-    END_TEXT,
-    DEFAULT_TEXT,
-    WORD_JOINER,
-    ZERO_WIDTH_NO_JOINER
+    ALPHABETS, DEFAULT_TEXT, END_TEXT, START_TEXT, START_TEXT_COMPETITIONS_DIGITS,
+    START_TEXT_COMPETITIONS_LETTERS, WORD_JOINER, ZERO_WIDTH_NO_JOINER,
 };
 use crate::i18n::i18n;
-use crate::application::MorseApplication;
 use crate::widgets::volume_control::MorseVolumeControl;
-use crate::backend::text_generator::generate_text;
-use crate::backend::settings::{Key, settings_manager::SettingsManager};
-use crate::backend::{SpeedSystem, TextType, calculate_dot_duration};
-use morse_player::{WaveType, Alphabet, MorsePlayer};
+use morse_player::{Alphabet, MorsePlayer, WaveType};
 
 use adw::{
-    ActionRow, 
-    ComboRow, 
-    OverlaySplitView, 
-    PreferencesGroup, 
-    SpinRow, 
-    SwitchRow, 
-    Toast, 
-    ToastOverlay,
-    StyleManager,
-    subclass::prelude::*,
-    prelude::*,
+    ActionRow, ComboRow, OverlaySplitView, PreferencesGroup, SpinRow, StyleManager, SwitchRow,
+    Toast, ToastOverlay, prelude::*, subclass::prelude::*,
 };
 use gtk::{
-    gio,
+    Button, CheckButton, Grid, Label, Popover, TextBuffer, TextTag, TextView, gdk::Display, gio,
     glib,
-    Label,
-    Button,
-    Popover,
-    TextBuffer,
-    TextView,
-    TextTag,
-    Grid,
-    CheckButton,
-    gdk::Display,
 };
 
-use gio::{SimpleAction};
-use glib::{clone, ControlFlow, MainContext, SourceId};
+use gio::SimpleAction;
+use glib::{ControlFlow, MainContext, SourceId, clone};
 
 mod imp {
     use super::*;
@@ -143,8 +123,7 @@ mod imp {
                 let this = &win.imp();
                 if this.play_button.is_visible() {
                     this.play_button.emit_clicked();
-                }
-                else {
+                } else {
                     this.stop_button.emit_clicked();
                 }
             });
@@ -164,54 +143,76 @@ mod imp {
             let word_length: u64 = 5;
             let style_manager = StyleManager::default(); // just a style manager
             let text_tag = TextTag::builder() // highlighting playable char
-            .foreground_rgba(&style_manager.accent_color_rgba())
-            .name("accent_tag")
-            .build();
-            self.pref_action.set( // setting a variable of preferences action (will be used to block this action)
-                MorseApplication::default()
-                .lookup_action("preferences")
-                .unwrap()
-                .downcast_ref::<gio::SimpleAction>()
-                .unwrap()
-                .clone()
-            ).unwrap();
+                .foreground_rgba(&style_manager.accent_color_rgba())
+                .name("accent_tag")
+                .build();
+            self.pref_action
+                .set(
+                    // setting a variable of preferences action (will be used to block this action)
+                    MorseApplication::default()
+                        .lookup_action("preferences")
+                        .unwrap()
+                        .downcast_ref::<gio::SimpleAction>()
+                        .unwrap()
+                        .clone(),
+                )
+                .unwrap();
 
-            self.timeouts_vec.set(Rc::new(RefCell::new(Vec::new()))).unwrap();
-            self.check_buttons_vec.set(Rc::new(RefCell::new(Vec::new()))).unwrap();
-            self.settings_manager.set(Rc::new(MorseApplication::default().settings_manager())).unwrap();
-            self.player.set(Rc::new(MorseApplication::default().player())).unwrap();
-            self.is_playing.set(MorseApplication::default().get_is_playing()).unwrap();
+            self.timeouts_vec
+                .set(Rc::new(RefCell::new(Vec::new())))
+                .unwrap();
+            self.check_buttons_vec
+                .set(Rc::new(RefCell::new(Vec::new())))
+                .unwrap();
+            self.settings_manager
+                .set(Rc::new(MorseApplication::default().settings_manager()))
+                .unwrap();
+            self.player
+                .set(Rc::new(MorseApplication::default().player()))
+                .unwrap();
+            self.is_playing
+                .set(MorseApplication::default().get_is_playing())
+                .unwrap();
 
             // Other interface settings
             self.text_buffer.set_text(DEFAULT_TEXT);
             self.text_buffer.tag_table().add(&text_tag);
             self.set_check_buttons_grid();
-            self.characters_popover.set_parent(&self.characters_row.get());
-            self.groups_spin.set_value(self.settings_manager.get().unwrap().integer(Key::Speed) as f64 / 5.0);
+            self.characters_popover
+                .set_parent(&self.characters_row.get());
+            self.groups_spin
+                .set_value(self.settings_manager.get().unwrap().integer(Key::Speed) as f64 / 5.0);
 
             // Binding properties
-            self.settings_manager.get().unwrap().bind_property::<MorseVolumeControl>(
-                Key::PlaybackVolume,
-                self.volume_control.as_ref(),
-                "volume"
-            );
+            self.settings_manager
+                .get()
+                .unwrap()
+                .bind_property::<MorseVolumeControl>(
+                    Key::PlaybackVolume,
+                    self.volume_control.as_ref(),
+                    "volume",
+                );
 
-            self.settings_manager.get().unwrap().bind_property::<SpinRow>(
-                Key::Speed,
-                &self.speed_spin,
-                "value"
-            );
+            self.settings_manager
+                .get()
+                .unwrap()
+                .bind_property::<SpinRow>(Key::Speed, &self.speed_spin, "value");
 
-            self.settings_manager.get().unwrap().connect_changed(Key::Alphabet, clone!(
-                #[weak(rename_to = this)] self,
-                move |_, _| {
-                    this.set_check_buttons_grid();
-                    this.generate_text_clicked(word_length);
-                }
-            ));
+            self.settings_manager.get().unwrap().connect_changed(
+                Key::Alphabet,
+                clone!(
+                    #[weak(rename_to = this)]
+                    self,
+                    move |_, _| {
+                        this.set_check_buttons_grid();
+                        this.generate_text_clicked(word_length);
+                    }
+                ),
+            );
 
             self.play_button.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |play_button| {
                     if this.random_switch.is_active() {
                         this.generate_text_clicked(word_length);
@@ -222,34 +223,55 @@ mod imp {
 
                     let player = this.player.get().unwrap();
 
-                    let frequency = this.settings_manager.get().unwrap().integer(Key::Frequency) as f32;
-                    let start_delay = this.settings_manager.get().unwrap().integer(Key::StartDelay);
+                    let frequency =
+                        this.settings_manager.get().unwrap().integer(Key::Frequency) as f32;
+                    let start_delay = this
+                        .settings_manager
+                        .get()
+                        .unwrap()
+                        .integer(Key::StartDelay);
                     let mut start_text_duration = Duration::from_secs(0);
                     let mut end_text_duration = Duration::from_secs(0);
                     let speed = this.speed_spin.value() as u32;
                     let delay = this.delay_spin.value() as u32;
                     let start_iter = this.text_buffer.start_iter();
                     let end_iter = this.text_buffer.end_iter();
-                    let text_buffer_string = this.text_buffer.text(&start_iter, &end_iter, true).to_uppercase();
+                    let text_buffer_string = this
+                        .text_buffer
+                        .text(&start_iter, &end_iter, true)
+                        .to_uppercase();
                     let mut allowed_chars = this.get_allowed_chars();
                     allowed_chars.push(' ');
-                    let base_text: String = text_buffer_string.chars().filter(|c| allowed_chars.contains(c)).collect();
-                    let wave_type = match this.settings_manager.get().unwrap().integer(Key::WaveType) {
-                        0 => WaveType::Square,
-                        1 => WaveType::Triangle,
-                        2 => WaveType::Sawtooth,
-                        _ => WaveType::Sine,
-                    };
+                    let base_text: String = text_buffer_string
+                        .chars()
+                        .filter(|c| allowed_chars.contains(c))
+                        .collect();
+                    let wave_type =
+                        match this.settings_manager.get().unwrap().integer(Key::WaveType) {
+                            0 => WaveType::Square,
+                            1 => WaveType::Triangle,
+                            2 => WaveType::Sawtooth,
+                            _ => WaveType::Sine,
+                        };
                     let text_type: TextType = match this.text_type_combo.selected() {
                         0 => TextType::Letters,
                         1 => TextType::Digits,
                         _ => TextType::Mixed,
                     };
-                    let speed_system: SpeedSystem = match this.settings_manager.get().unwrap().integer(Key::SpeedSystem) {
+                    let speed_system: SpeedSystem = match this
+                        .settings_manager
+                        .get()
+                        .unwrap()
+                        .integer(Key::SpeedSystem)
+                    {
                         0 => SpeedSystem::CODEX,
-                        _ => SpeedSystem::PARIS
+                        _ => SpeedSystem::PARIS,
                     };
-                    let adapt_speed: bool = this.settings_manager.get().unwrap().boolean(Key::AdaptSpeed);
+                    let adapt_speed: bool = this
+                        .settings_manager
+                        .get()
+                        .unwrap()
+                        .boolean(Key::AdaptSpeed);
 
                     player
                         .set_volume(this.volume_control.volume() as f32)
@@ -257,38 +279,38 @@ mod imp {
                         .set_dot_duration(calculate_dot_duration(
                             speed as f64,
                             speed_system,
-                            if speed_system == SpeedSystem::CODEX && adapt_speed { Some(text_type) } else { None }
+                            if speed_system == SpeedSystem::CODEX && adapt_speed {
+                                Some(text_type)
+                            } else {
+                                None
+                            },
                         ))
                         .set_delay(delay)
                         .set_frequency(frequency)
                         .set_wave_type(wave_type)
                         .set_sample_rate(48000);
 
-                    let text: String = match this.settings_manager.get().unwrap().integer(Key::Additions) {
-                        0 => base_text.clone(),
-                        1 => {
-                            start_text_duration = player.timings(START_TEXT).0;
-                            end_text_duration = player.timings(END_TEXT).0;
-                            START_TEXT.to_string() + &base_text + &END_TEXT
-                        }
-                        _ => {
-                            let mut start_string: String;
-                            if text_type == TextType::Letters {
-                                start_string = START_TEXT_COMPETITIONS_LETTERS.to_string();
+                    let text: String =
+                        match this.settings_manager.get().unwrap().integer(Key::Additions) {
+                            0 => base_text.clone(),
+                            1 => {
+                                start_text_duration = player.timings(START_TEXT).0;
+                                end_text_duration = player.timings(END_TEXT).0;
+                                START_TEXT.to_string() + &base_text + &END_TEXT
                             }
-                            else {
-                                start_string = START_TEXT_COMPETITIONS_DIGITS.to_string();
+                            _ => {
+                                let mut start_string: String;
+                                if text_type == TextType::Letters {
+                                    start_string = START_TEXT_COMPETITIONS_LETTERS.to_string();
+                                } else {
+                                    start_string = START_TEXT_COMPETITIONS_DIGITS.to_string();
+                                }
+                                start_string += &(speed.to_string() + " " + START_TEXT);
+                                start_text_duration = player.timings(&start_string).0;
+                                end_text_duration = player.timings(END_TEXT).0;
+                                start_string + &base_text + &END_TEXT
                             }
-                            start_string += &(speed.to_string() + " " + START_TEXT);
-                            start_text_duration = player.timings(
-                                &start_string,
-                            ).0;
-                            end_text_duration = player.timings(
-                                END_TEXT,
-                            ).0;
-                            start_string + &base_text + &END_TEXT
-                        },
-                    };
+                        };
 
                     let (base_duration, timings) = player.timings(&base_text);
 
@@ -304,75 +326,103 @@ mod imp {
                     this.text_view.set_editable(false);
                     this.pref_action.get().unwrap().set_enabled(false);
 
-                    let start_delay_timeout = glib::timeout_add_local_once(Duration::from_secs(start_delay as u64), clone!(
-                        #[weak] this,
-                        move || {
-                            this.player.get().unwrap().play(&text);
-                            let text_start_instant = Instant::now();
-                                
-                            let timer_timeout = glib::timeout_add_local(Duration::from_millis(250), clone!(
-                                #[strong] this,
-                                move || {
-                                    if text_start_instant.elapsed().as_secs_f32() - start_text_duration.as_secs_f32() >= 0.0 {
-                                        let elapsed = text_start_instant.elapsed() - start_text_duration;
-                                        if elapsed >= base_duration {
-                                            return ControlFlow::Break;
-                                        }
-                                        this.set_timer_label(base_duration - elapsed);
-                                    }
-                                    return ControlFlow::Continue;
-                                }
-                            ));
+                    let start_delay_timeout = glib::timeout_add_local_once(
+                        Duration::from_secs(start_delay as u64),
+                        clone!(
+                            #[weak]
+                            this,
+                            move || {
+                                this.player.get().unwrap().play(&text);
+                                let text_start_instant = Instant::now();
 
-                            let text_timeout = glib::timeout_add_local_once(base_duration + start_text_duration + end_text_duration, clone!(
-                                #[weak] this,
-                                move || {
-                                    this.set_default_state();
-                                }
-                            ));
-
-                            let allowed_chars = this.get_allowed_chars();
-                            let mut ids_for_iter: Vec<i32> = Vec::new();
-                            for (i, text_buffer_char) in text_buffer_string.chars().into_iter().enumerate() {
-                                if allowed_chars.contains(&text_buffer_char) {
-                                    ids_for_iter.push(i as i32);
-                                }
-                            }
-
-                            let mut timeouts_vec_borrowed = this.timeouts_vec.get().unwrap().borrow_mut();
-                            let mut char_id: i32 = 0;
-                            for (i, timing) in timings.iter().enumerate() {
-                                if i < ids_for_iter.len() {
-                                    char_id = ids_for_iter[i];
-                                }
-                                let char_timeout = glib::timeout_add_local_once(
-                                    start_text_duration + *timing + text_start_instant.elapsed(),
+                                let timer_timeout = glib::timeout_add_local(
+                                    Duration::from_millis(250),
                                     clone!(
-                                        #[weak] this,
+                                        #[strong]
+                                        this,
                                         move || {
-                                            this.text_buffer.remove_all_tags(&start_iter, &end_iter);
-                                            this.text_buffer.apply_tag_by_name(
-                                                "accent_tag",
-                                                &this.text_buffer.iter_at_offset(char_id),
-                                                &this.text_buffer.iter_at_offset(char_id + 1),
-                                            );
+                                            if text_start_instant.elapsed().as_secs_f32()
+                                                - start_text_duration.as_secs_f32()
+                                                >= 0.0
+                                            {
+                                                let elapsed = text_start_instant.elapsed()
+                                                    - start_text_duration;
+                                                if elapsed >= base_duration {
+                                                    return ControlFlow::Break;
+                                                }
+                                                this.set_timer_label(base_duration - elapsed);
+                                            }
+                                            return ControlFlow::Continue;
                                         }
-                                    )
+                                    ),
                                 );
-                                timeouts_vec_borrowed.push(char_timeout);
-                            }
-                                
-                            timeouts_vec_borrowed.push(text_timeout);
-                            timeouts_vec_borrowed.push(timer_timeout);
-                        }
-                    ));
 
-                    this.timeouts_vec.get().unwrap().borrow_mut().push(start_delay_timeout);
+                                let text_timeout = glib::timeout_add_local_once(
+                                    base_duration + start_text_duration + end_text_duration,
+                                    clone!(
+                                        #[weak]
+                                        this,
+                                        move || {
+                                            this.set_default_state();
+                                        }
+                                    ),
+                                );
+
+                                let allowed_chars = this.get_allowed_chars();
+                                let mut ids_for_iter: Vec<i32> = Vec::new();
+                                for (i, text_buffer_char) in
+                                    text_buffer_string.chars().into_iter().enumerate()
+                                {
+                                    if allowed_chars.contains(&text_buffer_char) {
+                                        ids_for_iter.push(i as i32);
+                                    }
+                                }
+
+                                let mut timeouts_vec_borrowed =
+                                    this.timeouts_vec.get().unwrap().borrow_mut();
+                                let mut char_id: i32 = 0;
+                                for (i, timing) in timings.iter().enumerate() {
+                                    if i < ids_for_iter.len() {
+                                        char_id = ids_for_iter[i];
+                                    }
+                                    let char_timeout = glib::timeout_add_local_once(
+                                        start_text_duration
+                                            + *timing
+                                            + text_start_instant.elapsed(),
+                                        clone!(
+                                            #[weak]
+                                            this,
+                                            move || {
+                                                this.text_buffer
+                                                    .remove_all_tags(&start_iter, &end_iter);
+                                                this.text_buffer.apply_tag_by_name(
+                                                    "accent_tag",
+                                                    &this.text_buffer.iter_at_offset(char_id),
+                                                    &this.text_buffer.iter_at_offset(char_id + 1),
+                                                );
+                                            }
+                                        ),
+                                    );
+                                    timeouts_vec_borrowed.push(char_timeout);
+                                }
+
+                                timeouts_vec_borrowed.push(text_timeout);
+                                timeouts_vec_borrowed.push(timer_timeout);
+                            }
+                        ),
+                    );
+
+                    this.timeouts_vec
+                        .get()
+                        .unwrap()
+                        .borrow_mut()
+                        .push(start_delay_timeout);
                 }
             ));
 
             self.stop_button.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     this.player.get().unwrap().stop();
                     this.set_default_state();
@@ -380,14 +430,16 @@ mod imp {
             ));
 
             self.text_type_combo.connect_selected_notify(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     this.set_check_buttons_grid();
                 }
             ));
 
             self.groups_switch.connect_active_notify(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |groups_switch| {
                     this.groups_spin.set_sensitive(!groups_switch.is_active());
                     this.groups_spin.set_value(this.speed_spin.value() / 5.0);
@@ -395,28 +447,32 @@ mod imp {
             ));
 
             self.sidebar_back_button.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     this.split_view.set_show_sidebar(false);
                 }
             ));
 
             self.show_sidebar_button.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     this.split_view.set_show_sidebar(true);
                 }
             ));
 
             self.characters_row.connect_activated(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     this.characters_popover.popup();
                 }
             ));
 
             self.remove_all_button.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     for check_button in this.check_buttons_vec.get().unwrap().borrow().to_vec() {
                         check_button.set_active(false);
@@ -425,7 +481,8 @@ mod imp {
             ));
 
             self.add_all_button.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     for check_button in this.check_buttons_vec.get().unwrap().borrow().to_vec() {
                         check_button.set_active(true);
@@ -434,7 +491,8 @@ mod imp {
             ));
 
             self.speed_spin.connect_value_notify(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |speed_spin| {
                     if this.groups_switch.is_active() {
                         this.groups_spin.set_value(speed_spin.value() / 5.0);
@@ -443,14 +501,19 @@ mod imp {
             ));
 
             self.volume_control.connect_volume_notify(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |volume_control| {
-                    this.player.get().unwrap().set_volume(volume_control.volume() as f32);
+                    this.player
+                        .get()
+                        .unwrap()
+                        .set_volume(volume_control.volume() as f32);
                 }
             ));
 
             self.copy_text_button.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     let text_view_buffer = this.text_view.buffer();
                     let bounds = text_view_buffer.bounds();
@@ -464,30 +527,31 @@ mod imp {
                             space_count += 1;
                             if space_count % word_length == 0 {
                                 result.push('\n');
-                            } 
-                            else {
+                            } else {
                                 result.push(' ');
                             }
-                        }
-                        else {
+                        } else {
                             result.push(c);
                         }
                     }
 
                     Display::default().unwrap().clipboard().set_text(&result);
-                    this.toast_overlay.add_toast(Toast::builder().title(&i18n("Copied to clipboard")).build());
+                    this.toast_overlay
+                        .add_toast(Toast::builder().title(&i18n("Copied to clipboard")).build());
                 }
             ));
 
             self.generate_text_button.connect_clicked(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |_| {
                     this.generate_text_clicked(word_length);
                 }
             ));
 
             self.text_buffer.connect_text_notify(clone!(
-                #[weak(rename_to = this)] self,
+                #[weak(rename_to = this)]
+                self,
                 move |text_buffer| {
                     let allowed_chars = this.get_allowed_chars();
                     let text_len = text_buffer
@@ -499,8 +563,7 @@ mod imp {
 
                     if text_len == 0 {
                         this.play_button.set_sensitive(false);
-                    }
-                    else {
+                    } else {
                         this.play_button.set_sensitive(true);
                     }
                 }
@@ -508,7 +571,8 @@ mod imp {
 
             // To change color of tag dependings on the accent color
             style_manager.connect_accent_color_rgba_notify(clone!(
-                #[weak] text_tag,
+                #[weak]
+                text_tag,
                 move |style_manager| {
                     text_tag.set_foreground_rgba(Some(&style_manager.accent_color_rgba()));
                 }
@@ -526,18 +590,18 @@ mod imp {
             if chars_in_use.is_empty() {
                 self.toast_overlay.add_toast(
                     Toast::builder()
-                    .title(&i18n("To generate text enable at least 1 character"))
-                    .build()
+                        .title(&i18n("To generate text enable at least 1 character"))
+                        .build(),
                 );
-            }
-            else {
+            } else {
                 self.set_text_buffer(
                     &generate_text(
                         Some(rand::rng().random_range(0..u64::MAX)),
                         self.groups_spin.value() as u64 * word_length,
                         word_length,
-                        chars_in_use.to_vec()
-                    ).unwrap()
+                        chars_in_use.to_vec(),
+                    )
+                    .unwrap(),
                 );
             }
         }
@@ -558,13 +622,41 @@ mod imp {
 
         fn get_selected_alphabet(&self) -> (Vec<char>, Vec<char>, Alphabet) {
             match self.settings_manager.get().unwrap().integer(Key::Alphabet) {
-                1 => (ALPHABETS.cyrillic.visible.clone(), ALPHABETS.cyrillic.supported.clone(), Alphabet::Cyrillic),
-                2 => (ALPHABETS.greek.visible.clone(), ALPHABETS.greek.supported.clone(), Alphabet::Greek),
-                3 => (ALPHABETS.hebrew.visible.clone(), ALPHABETS.hebrew.supported.clone(), Alphabet::Hebrew),
-                4 => (ALPHABETS.arabic.visible.clone(), ALPHABETS.arabic.supported.clone(), Alphabet::Arabic),
-                5 => (ALPHABETS.persian.visible.clone(), ALPHABETS.persian.supported.clone(), Alphabet::Persian),
-                6 => (ALPHABETS.korean.visible.clone(), ALPHABETS.korean.supported.clone(), Alphabet::Korean),
-                _ => (ALPHABETS.latin.visible.clone(), ALPHABETS.latin.supported.clone(), Alphabet::Latin)
+                1 => (
+                    ALPHABETS.cyrillic.visible.clone(),
+                    ALPHABETS.cyrillic.supported.clone(),
+                    Alphabet::Cyrillic,
+                ),
+                2 => (
+                    ALPHABETS.greek.visible.clone(),
+                    ALPHABETS.greek.supported.clone(),
+                    Alphabet::Greek,
+                ),
+                3 => (
+                    ALPHABETS.hebrew.visible.clone(),
+                    ALPHABETS.hebrew.supported.clone(),
+                    Alphabet::Hebrew,
+                ),
+                4 => (
+                    ALPHABETS.arabic.visible.clone(),
+                    ALPHABETS.arabic.supported.clone(),
+                    Alphabet::Arabic,
+                ),
+                5 => (
+                    ALPHABETS.persian.visible.clone(),
+                    ALPHABETS.persian.supported.clone(),
+                    Alphabet::Persian,
+                ),
+                6 => (
+                    ALPHABETS.korean.visible.clone(),
+                    ALPHABETS.korean.supported.clone(),
+                    Alphabet::Korean,
+                ),
+                _ => (
+                    ALPHABETS.latin.visible.clone(),
+                    ALPHABETS.latin.supported.clone(),
+                    Alphabet::Latin,
+                ),
             }
         }
 
@@ -579,7 +671,7 @@ mod imp {
                     mixed.extend(ALPHABETS.digits.visible.clone());
                     mixed.extend(ALPHABETS.symbols.visible.clone());
                     mixed
-                },
+                }
             };
 
             let mut check_buttons_vec = self.check_buttons_vec.get().unwrap().borrow_mut();
@@ -590,28 +682,17 @@ mod imp {
 
             for (i, char) in chars.iter().enumerate() {
                 let check_button = CheckButton::builder()
-                .label(char.to_string())
-                .active(true)
-                .build();
+                    .label(char.to_string())
+                    .active(true)
+                    .build();
                 check_button.set_active(true);
 
                 if chars.len() <= 10 {
-                    self.popover_grid.attach(
-                        &check_button,
-                        (i / 2) as i32,
-                        (i % 2) as i32,
-                        1,
-                        1
-                    )
-                }
-                else {
-                    self.popover_grid.attach(
-                        &check_button,
-                        (i / 6) as i32,
-                        (i % 6) as i32,
-                        1,
-                        1
-                    )
+                    self.popover_grid
+                        .attach(&check_button, (i / 2) as i32, (i % 2) as i32, 1, 1)
+                } else {
+                    self.popover_grid
+                        .attach(&check_button, (i / 6) as i32, (i % 6) as i32, 1, 1)
                 }
 
                 check_buttons_vec.push(check_button);
@@ -639,7 +720,8 @@ mod imp {
             self.text_view.set_editable(true);
             self.pref_action.get().unwrap().set_enabled(true);
             self.timer_label.set_text("00:00");
-            self.text_buffer.remove_all_tags(&self.text_buffer.start_iter(), &self.text_buffer.end_iter());
+            self.text_buffer
+                .remove_all_tags(&self.text_buffer.start_iter(), &self.text_buffer.end_iter());
 
             let context = MainContext::default();
             for id in self.timeouts_vec.get().unwrap().borrow_mut().drain(..) {
@@ -656,13 +738,12 @@ mod imp {
                 if secs < 10 {
                     time_text += "0";
                     time_text += &secs.to_string();
-                }
-                else {
+                } else {
                     time_text += &secs.to_string();
                 }
                 time_text
             }
-            
+
             let mut time_string = String::new();
             let hours = secs / 3600;
             let minutes = (secs - (hours * 3600)) / 60;
@@ -686,25 +767,22 @@ mod imp {
             let chars_vec_len = chars_vec.len();
             for i in 0..chars_vec_len {
                 let c = chars_vec[i];
-        
+
                 if punctuation.contains(&c) {
                     if i > 0 && chars_vec[i - 1] != ' ' {
                         output.push(WORD_JOINER);
-                    }
-                    else {
+                    } else {
                         output.push(ZERO_WIDTH_NO_JOINER);
                     }
-                    
+
                     output.push(c);
 
                     if i + 1 < chars_vec_len && chars_vec[i + 1] != ' ' {
                         output.push(WORD_JOINER);
-                    }
-                    else {
+                    } else {
                         output.push(ZERO_WIDTH_NO_JOINER);
                     }
-                }
-                else {
+                } else {
                     output.push(c);
                 }
             }
