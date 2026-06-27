@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 05:12+0200\n"
+"POT-Creation-Date: 2026-06-27 05:39+0200\n"
 "PO-Revision-Date: 2026-04-06 22:45+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Belarusian (Latin script) <https://hosted.weblate.org/"
@@ -301,7 +301,7 @@ msgstr "Zatrymka pamiž znakami"
 #: data/ui/window.blp:126
 #, fuzzy
 msgid ""
-"The delay between words is calculated automatically.The default value is 3."
+"The delay between words is calculated automatically. The default value is 3."
 msgstr ""
 "Zatrymka pamiž słowami abličvajecca aŭtamatyčna. Standartnaje značennie - 3."
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 05:12+0200\n"
+"POT-Creation-Date: 2026-06-27 05:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -295,7 +295,7 @@ msgstr ""
 
 #: data/ui/window.blp:126
 msgid ""
-"The delay between words is calculated automatically.The default value is 3."
+"The delay between words is calculated automatically. The default value is 3."
 msgstr ""
 
 #: data/ui/window.blp:159

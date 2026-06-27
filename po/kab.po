@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 05:12+0200\n"
+"POT-Creation-Date: 2026-06-27 05:39+0200\n"
 "PO-Revision-Date: 2026-04-19 13:09+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/morse-app/app/kab/"
@@ -299,7 +299,7 @@ msgstr "Amenḍar gar isekkilen"
 #: data/ui/window.blp:126
 #, fuzzy
 msgid ""
-"The delay between words is calculated automatically.The default value is 3."
+"The delay between words is calculated automatically. The default value is 3."
 msgstr "Amḍan n wawalen yettwassiḍen s wudem awurman ɣef urured n uḍris"
 
 #: data/ui/window.blp:159

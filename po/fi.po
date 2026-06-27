@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 05:12+0200\n"
+"POT-Creation-Date: 2026-06-27 05:39+0200\n"
 "PO-Revision-Date: 2026-01-22 22:38+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/morse-app/app/fi/"
@@ -301,7 +301,7 @@ msgstr "Viive merkkien välillä"
 #: data/ui/window.blp:126
 #, fuzzy
 msgid ""
-"The delay between words is calculated automatically.The default value is 3."
+"The delay between words is calculated automatically. The default value is 3."
 msgstr "Viive sanojen välillä lasketaan automaattisesti. Oletusarvo on 3."
 
 #: data/ui/window.blp:159

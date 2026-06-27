@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-27 05:12+0200\n"
+"POT-Creation-Date: 2026-06-27 05:39+0200\n"
 "PO-Revision-Date: 2026-04-14 11:09+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/ru/"
@@ -302,7 +302,7 @@ msgstr "Задержка между символами"
 #: data/ui/window.blp:126
 #, fuzzy
 msgid ""
-"The delay between words is calculated automatically.The default value is 3."
+"The delay between words is calculated automatically. The default value is 3."
 msgstr ""
 "Задержка между словами считается автоматически. Стандартное значение — 3."
 
