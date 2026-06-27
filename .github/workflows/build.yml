@@ -38,6 +38,8 @@ jobs:
   windows:
     name: Windows
     if: github.ref_type == 'tag'
+    env:
+      PYTHONUTF8: "1"
     strategy:
       matrix:
         include:
