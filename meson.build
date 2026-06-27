@@ -3,7 +3,7 @@ project(
   license: 'GPLv3',
   meson_version: '>= 1.0.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
-  version: '1.3.0',
+  version: '1.4.0',
 )
 
 i18n = import('i18n')

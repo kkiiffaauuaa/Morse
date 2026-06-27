@@ -1,5 +1,22 @@
 # Change Log
 
+## [1.4.0] - 2026-06-27
+
+### Added
+
+- A window to display program errors
+- Ability to change the speed system (PARIS / CODEX)
+- Option to disable adaptive speed
+- Portuguese translation
+
+### Changed
+
+- Fixed broken build on macOS
+- Removed workaround that fixed black borders around window on Windows
+- Replaced config.rs with compiler variables
+- Updated dependencies
+- Updated translations
+
 ## [1.3.0] - 2026-04-07
 
 ### Added
