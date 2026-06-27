@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 11:49+0200\n"
+"POT-Creation-Date: 2026-06-27 05:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
-#: data/ui/window.blp:11 src/application.rs:134
+#: data/ui/window.blp:11 src/application.rs:140
 msgid "Morse"
 msgstr ""
 
@@ -77,11 +77,11 @@ msgstr ""
 msgid "Korean"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:84
+#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:83
 msgid "Letters"
 msgstr ""
 
-#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:85
+#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:84
 msgid "Digits"
 msgstr ""
 
@@ -106,63 +106,90 @@ msgstr ""
 msgid "Speed System"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:32
-msgid "Default Speed"
+#: data/ui/preferences_dialog.blp:24
+msgid ""
+"Choose PARIS for standard text (50 dots) and CODEX for random groups (60 "
+"dots)"
 msgstr ""
 
 #: data/ui/preferences_dialog.blp:33
+msgid "Adapt Speed"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:34
+msgid ""
+"Adjusts speed to a 1-minute duration (default word count) based on the "
+"selected text type. Available only for the CODEX speed system."
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:37
+msgid "Default Speed"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:38
 msgid "This speed will be used in the morse code chart"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:38 data/ui/shortcuts_dialog.blp:30
+#: data/ui/preferences_dialog.blp:43 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:40
+#: data/ui/preferences_dialog.blp:45
 msgid "Additions"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:43
+#: data/ui/preferences_dialog.blp:46
+msgid ""
+"Controls the start and end of the text. “Default” plays “VVV =”. "
+"“Competitions” plays five groups of “OOO” or “00000” (depending on text "
+"type), then current speed, and “VVV =”."
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:49
 msgid "None"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:44
+#: data/ui/preferences_dialog.blp:50
 msgid "Default"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:45
+#: data/ui/preferences_dialog.blp:51
 msgid "Competitions"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:50
+#: data/ui/preferences_dialog.blp:56
 msgid "Start Delay"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:55
-msgid "Sound"
-msgstr ""
-
 #: data/ui/preferences_dialog.blp:57
-msgid "Wave Type"
-msgstr ""
-
-#: data/ui/preferences_dialog.blp:60
-msgid "Square"
-msgstr ""
-
-#: data/ui/preferences_dialog.blp:61
-msgid "Triangle"
+msgid "Delay in seconds before the text starts playing"
 msgstr ""
 
 #: data/ui/preferences_dialog.blp:62
-msgid "Sawtooth"
+msgid "Sound"
 msgstr ""
 
-#: data/ui/preferences_dialog.blp:63
-msgid "Sine"
+#: data/ui/preferences_dialog.blp:64
+msgid "Wave Type"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:67
+msgid "Square"
 msgstr ""
 
 #: data/ui/preferences_dialog.blp:68
+msgid "Triangle"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:69
+msgid "Sawtooth"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:70
+msgid "Sine"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:75
 msgid "Frequency"
 msgstr ""
 
@@ -218,48 +245,48 @@ msgstr ""
 msgid "Text Type"
 msgstr ""
 
-#: data/ui/window.blp:81
-msgid "This option will affect the dot duration"
-msgstr ""
-
-#: data/ui/window.blp:86
+#: data/ui/window.blp:85
 msgid "Mixed"
 msgstr ""
 
-#: data/ui/window.blp:91
+#: data/ui/window.blp:90
 msgid "Auto Generation"
 msgstr ""
 
-#: data/ui/window.blp:92
+#: data/ui/window.blp:91
 msgid "Pressing the playback button will generate the new text"
 msgstr ""
 
-#: data/ui/window.blp:97
+#: data/ui/window.blp:96
 msgid "Text Generation"
 msgstr ""
 
+#: data/ui/window.blp:98
+msgid "Default word count"
+msgstr ""
+
 #: data/ui/window.blp:99
-msgid "Default Words Number"
+msgid "The word count is calculated automatically based on the text speed"
 msgstr ""
 
-#: data/ui/window.blp:100
-msgid "The words number is calculated automatically based on the text speed"
-msgstr ""
-
-#: data/ui/window.blp:104
+#: data/ui/window.blp:103
 msgid "Words"
 msgstr ""
 
-#: data/ui/window.blp:109
+#: data/ui/window.blp:108
 msgid "Characters"
 msgstr ""
 
-#: data/ui/window.blp:110
+#: data/ui/window.blp:109
 msgid "Select the characters you need"
 msgstr ""
 
-#: data/ui/window.blp:119 data/ui/window.blp:121
+#: data/ui/window.blp:118 data/ui/window.blp:120
 msgid "Speed"
+msgstr ""
+
+#: data/ui/window.blp:121
+msgid "The speed of the text in CPM"
 msgstr ""
 
 #: data/ui/window.blp:125
@@ -268,7 +295,7 @@ msgstr ""
 
 #: data/ui/window.blp:126
 msgid ""
-"The delay between words is calculated automatically. The default value is 3."
+"The delay between words is calculated automatically.The default value is 3."
 msgstr ""
 
 #: data/ui/window.blp:159
@@ -303,7 +330,7 @@ msgstr ""
 msgid "_About Morse"
 msgstr ""
 
-#: src/application.rs:86
+#: src/application.rs:85
 msgid "Audio Error"
 msgstr ""
 
@@ -312,18 +339,18 @@ msgid "Failed to create audio stream. Please check your audio output settings."
 msgstr ""
 
 #. # Translator: Leave there your name
-#: src/application.rs:144
+#: src/application.rs:148
 msgid "translator-credits"
 msgstr ""
 
-#: src/widgets/alphabet_dialog.rs:176
+#: src/widgets/alphabet_dialog.rs:198
 msgid "Unable to play this character while the audio is playing"
 msgstr ""
 
-#: src/widgets/window.rs:469
+#: src/widgets/window.rs:540
 msgid "Copied to clipboard"
 msgstr ""
 
-#: src/widgets/window.rs:520
+#: src/widgets/window.rs:593
 msgid "To generate text enable at least 1 character"
 msgstr ""

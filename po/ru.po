@@ -7,11 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: morse\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 11:49+0200\n"
+"POT-Creation-Date: 2026-06-27 05:12+0200\n"
 "PO-Revision-Date: 2026-04-14 11:09+0000\n"
 "Last-Translator: Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/"
-"ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/morse-app/app/ru/"
+">\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: data/io.github.teacond.Morse.desktop.in.in:2
 #: data/io.github.teacond.Morse.metainfo.xml.in.in:6 data/ui/window.blp:5
-#: data/ui/window.blp:11 src/application.rs:134
+#: data/ui/window.blp:11 src/application.rs:140
 msgid "Morse"
 msgstr "Морзе"
 
@@ -80,11 +80,11 @@ msgstr "Персидский"
 msgid "Korean"
 msgstr "Корейский"
 
-#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:84
+#: data/ui/alphabet_dialog.blp:40 data/ui/window.blp:83
 msgid "Letters"
 msgstr "Буквы"
 
-#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:85
+#: data/ui/alphabet_dialog.blp:52 data/ui/window.blp:84
 msgid "Digits"
 msgstr "Цифры"
 
@@ -109,63 +109,91 @@ msgstr "Основные"
 msgid "Speed System"
 msgstr "Система скорости"
 
-#: data/ui/preferences_dialog.blp:32
+#: data/ui/preferences_dialog.blp:24
+msgid ""
+"Choose PARIS for standard text (50 dots) and CODEX for random groups (60 "
+"dots)"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:33
+#, fuzzy
+msgid "Adapt Speed"
+msgstr "Скорость по умолчанию"
+
+#: data/ui/preferences_dialog.blp:34
+msgid ""
+"Adjusts speed to a 1-minute duration (default word count) based on the "
+"selected text type. Available only for the CODEX speed system."
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:37
 msgid "Default Speed"
 msgstr "Скорость по умолчанию"
 
-#: data/ui/preferences_dialog.blp:33
+#: data/ui/preferences_dialog.blp:38
 msgid "This speed will be used in the morse code chart"
 msgstr "Эта скорость будет использована в таблице азбуки Морзе"
 
-#: data/ui/preferences_dialog.blp:38 data/ui/shortcuts_dialog.blp:30
+#: data/ui/preferences_dialog.blp:43 data/ui/shortcuts_dialog.blp:30
 msgid "Playback"
 msgstr "Проигрывание"
 
-#: data/ui/preferences_dialog.blp:40
+#: data/ui/preferences_dialog.blp:45
 msgid "Additions"
 msgstr "Дополнения"
 
-#: data/ui/preferences_dialog.blp:43
+#: data/ui/preferences_dialog.blp:46
+msgid ""
+"Controls the start and end of the text. “Default” plays “VVV =”. "
+"“Competitions” plays five groups of “OOO” or “00000” (depending on text "
+"type), then current speed, and “VVV =”."
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:49
 msgid "None"
 msgstr "Ничего"
 
-#: data/ui/preferences_dialog.blp:44
+#: data/ui/preferences_dialog.blp:50
 msgid "Default"
 msgstr "Стандартные"
 
-#: data/ui/preferences_dialog.blp:45
+#: data/ui/preferences_dialog.blp:51
 msgid "Competitions"
 msgstr "Соревнования"
 
-#: data/ui/preferences_dialog.blp:50
+#: data/ui/preferences_dialog.blp:56
 msgid "Start Delay"
 msgstr "Начальная задержка"
 
-#: data/ui/preferences_dialog.blp:55
+#: data/ui/preferences_dialog.blp:57
+msgid "Delay in seconds before the text starts playing"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:62
 msgid "Sound"
 msgstr "Звук"
 
-#: data/ui/preferences_dialog.blp:57
+#: data/ui/preferences_dialog.blp:64
 msgid "Wave Type"
 msgstr "Тип волны"
 
-#: data/ui/preferences_dialog.blp:60
+#: data/ui/preferences_dialog.blp:67
 msgid "Square"
 msgstr "Квадрат"
 
-#: data/ui/preferences_dialog.blp:61
+#: data/ui/preferences_dialog.blp:68
 msgid "Triangle"
 msgstr "Треугольник"
 
-#: data/ui/preferences_dialog.blp:62
+#: data/ui/preferences_dialog.blp:69
 msgid "Sawtooth"
 msgstr "Пила"
 
-#: data/ui/preferences_dialog.blp:63
+#: data/ui/preferences_dialog.blp:70
 msgid "Sine"
 msgstr "Синусоида"
 
-#: data/ui/preferences_dialog.blp:68
+#: data/ui/preferences_dialog.blp:75
 msgid "Frequency"
 msgstr "Частота"
 
@@ -221,57 +249,60 @@ msgstr "Назад"
 msgid "Text Type"
 msgstr "Тип текста"
 
-#: data/ui/window.blp:81
-msgid "This option will affect the dot duration"
-msgstr "Данная настройка повлияет на продолжительность точки"
-
-#: data/ui/window.blp:86
+#: data/ui/window.blp:85
 msgid "Mixed"
 msgstr "Смесь"
 
-#: data/ui/window.blp:91
+#: data/ui/window.blp:90
 msgid "Auto Generation"
 msgstr "Автоматическая генерация"
 
-#: data/ui/window.blp:92
+#: data/ui/window.blp:91
 msgid "Pressing the playback button will generate the new text"
 msgstr "Нажатие кнопки проигрывания сгенерирует новый текст"
 
-#: data/ui/window.blp:97
+#: data/ui/window.blp:96
 msgid "Text Generation"
 msgstr "Генерация текста"
 
-#: data/ui/window.blp:99
-msgid "Default Words Number"
+#: data/ui/window.blp:98
+#, fuzzy
+msgid "Default word count"
 msgstr "Стандартное количество слов"
 
-#: data/ui/window.blp:100
-msgid "The words number is calculated automatically based on the text speed"
+#: data/ui/window.blp:99
+#, fuzzy
+msgid "The word count is calculated automatically based on the text speed"
 msgstr "Количество слов подсчитывается автоматически, основываясь на скорости"
 
-#: data/ui/window.blp:104
+#: data/ui/window.blp:103
 msgid "Words"
 msgstr "Слова"
 
-#: data/ui/window.blp:109
+#: data/ui/window.blp:108
 msgid "Characters"
 msgstr "Символы"
 
-#: data/ui/window.blp:110
+#: data/ui/window.blp:109
 msgid "Select the characters you need"
 msgstr "Выберите нужные символы"
 
-#: data/ui/window.blp:119 data/ui/window.blp:121
+#: data/ui/window.blp:118 data/ui/window.blp:120
 msgid "Speed"
 msgstr "Скорость"
+
+#: data/ui/window.blp:121
+msgid "The speed of the text in CPM"
+msgstr ""
 
 #: data/ui/window.blp:125
 msgid "Delay between characters"
 msgstr "Задержка между символами"
 
 #: data/ui/window.blp:126
+#, fuzzy
 msgid ""
-"The delay between words is calculated automatically. The default value is 3."
+"The delay between words is calculated automatically.The default value is 3."
 msgstr ""
 "Задержка между словами считается автоматически. Стандартное значение — 3."
 
@@ -307,7 +338,7 @@ msgstr "_Сочетания клавиш"
 msgid "_About Morse"
 msgstr "_О Морзе"
 
-#: src/application.rs:86
+#: src/application.rs:85
 msgid "Audio Error"
 msgstr "Ошибка аудио"
 
@@ -317,21 +348,24 @@ msgstr ""
 "Не удалось создать аудиопоток. Пожалуйста, проверьте ваши настройки аудио."
 
 #. # Translator: Leave there your name
-#: src/application.rs:144
+#: src/application.rs:148
 msgid "translator-credits"
 msgstr "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"
 
-#: src/widgets/alphabet_dialog.rs:176
+#: src/widgets/alphabet_dialog.rs:198
 msgid "Unable to play this character while the audio is playing"
 msgstr "Невозможно воспроизвести этот символ, пока воспроизводится аудио"
 
-#: src/widgets/window.rs:469
+#: src/widgets/window.rs:540
 msgid "Copied to clipboard"
 msgstr "Скопировано в буфер обмена"
 
-#: src/widgets/window.rs:520
+#: src/widgets/window.rs:593
 msgid "To generate text enable at least 1 character"
 msgstr "Чтобы сгенерировать текст, выберите хотя-бы 1 символ"
+
+#~ msgid "This option will affect the dot duration"
+#~ msgstr "Данная настройка повлияет на продолжительность точки"
 
 #~ msgid "Symbols"
 #~ msgstr "Символы"
