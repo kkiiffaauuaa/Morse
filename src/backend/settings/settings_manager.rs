@@ -18,25 +18,27 @@
 use gio::prelude::*;
 use gtk::{gio, glib};
 
-use crate::config;
-use crate::backend::settings::Key;
+use super::Key;
 
 #[derive(Clone, Debug)]
 pub struct SettingsManager {
-    settings: gio::Settings
+    settings: gio::Settings,
 }
 
 impl SettingsManager {
-    pub fn new() -> Self {
+    pub fn new(app_id: &str) -> Self {
         SettingsManager {
-            settings: gio::Settings::new(config::APP_ID)
+            settings: gio::Settings::new(app_id),
         }
     }
 
     #[allow(dead_code)]
     pub fn connect_changed<F>(&self, key: Key, callback: F)
-    where F: Fn(&gio::Settings, &str) + 'static {
-        self.settings.connect_changed(Some(key.to_string().as_str()), callback);
+    where
+        F: Fn(&gio::Settings, &str) + 'static,
+    {
+        self.settings
+            .connect_changed(Some(key.to_string().as_str()), callback);
     }
 
     #[allow(dead_code)]
@@ -90,11 +92,5 @@ impl SettingsManager {
     #[allow(dead_code)]
     pub fn set_double(&self, key: Key, value: f64) {
         self.settings.set_double(&key.to_string(), value).unwrap();
-    }
-}
-
-impl Default for SettingsManager {
-    fn default() -> Self {
-        Self::new()
     }
 }

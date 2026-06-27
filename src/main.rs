@@ -25,16 +25,22 @@ use std::env;
 mod widgets;
 mod backend;
 mod application;
-mod config;
 mod constants;
 mod i18n;
 
 use self::application::MorseApplication;
 use self::widgets::window::MorseApplicationWindow;
 
-use config::{APP_ID, PKGNAME, PREFIX, LOCALEDIR, DATADIR};
 use gettextrs::{bind_textdomain_codeset, bindtextdomain, textdomain};
 use gtk::{gio, glib, prelude::*};
+
+pub const PKGNAME: &str = env!("PKGNAME");
+pub const APP_ID: &str = env!("APP_ID");
+pub const PATH_ID: &str = env!("PATH_ID");
+pub const VERSION: &str = env!("VERSION");
+pub const PREFIX: &str = env!("PREFIX");
+pub const LOCALEDIR: &str = env!("LOCALEDIR");
+pub const DATADIR: &str = env!("DATADIR");
 
 fn main() -> glib::ExitCode {    
     // Set up gettext translations

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-use crate::config::{APP_ID, PATH_ID, VERSION};
+use crate::{APP_ID, PATH_ID, VERSION};
 use crate::i18n::i18n;
 use crate::widgets::preferences_dialog::MorsePreferencesDialog;
 use crate::widgets::alphabet_dialog::MorseAlphabetDialog;
@@ -50,7 +50,7 @@ mod imp {
             Self {
                 player: player,
                 is_playing: Rc::new(Cell::new(false)),
-                settings_manager: SettingsManager::new()
+                settings_manager: SettingsManager::new(APP_ID)
             }
         }
     }

@@ -1,25 +1,14 @@
-conf = configuration_data()
-conf.set_quoted('PKGNAME', meson.project_name())
-conf.set_quoted('VERSION', '@0@@1@'.format(meson.project_version(), version_suffix))
-conf.set_quoted('APP_ID', app_id)
-conf.set_quoted('PATH_ID', path_id)
-conf.set_quoted('PROFILE', profile)
-conf.set_quoted('PREFIX', get_option('prefix'))
-conf.set_quoted('LOCALEDIR', get_option('localedir'))
-conf.set_quoted('DATADIR', get_option('datadir'))
-
-configure_file(
-  input: 'config.rs.in',
-  output: 'config.rs',
-  configuration: conf
-)
-
-run_command(
-  'cp',
-  meson.project_build_root() / 'src' / 'config.rs',
-  meson.project_source_root() / 'src' / 'config.rs',
-  check: true
-)
+cargo_env = [
+  'CARGO_HOME=' + meson.project_build_root() / 'cargo-home',
+  'PKGNAME=' + meson.project_name(),
+  'VERSION=' + '@0@@1@'.format(meson.project_version(), version_suffix),
+  'APP_ID=' + app_id,
+  'PATH_ID=' + path_id,
+  'PROFILE=' + profile,
+  'PREFIX=' + get_option('prefix'),
+  'LOCALEDIR=' + get_option('localedir'),
+  'DATADIR=' + get_option('datadir')
+]
 
 if host_machine.system() == 'windows'
   target_name = meson.project_name() + '.exe'
@@ -38,8 +27,6 @@ else
   rust_target = 'debug'
   message('Building in debug mode')
 endif
-
-cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
 
 cargo_compile = custom_target(
   'cargo-compile',
