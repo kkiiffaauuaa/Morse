@@ -114,17 +114,20 @@ msgid ""
 "Choose PARIS for standard text (50 dots) and CODEX for random groups (60 "
 "dots)"
 msgstr ""
+"Выберите PARIS для обычного текста (50 точек) или CODEX для случайных групп "
+"(60 точек)"
 
 #: data/ui/preferences_dialog.blp:33
-#, fuzzy
 msgid "Adapt Speed"
-msgstr "Скорость по умолчанию"
+msgstr "Адаптивная скорость"
 
 #: data/ui/preferences_dialog.blp:34
 msgid ""
 "Adjusts speed to a 1-minute duration (default word count) based on the "
 "selected text type. Available only for the CODEX speed system."
 msgstr ""
+"Приводит скорость к одноминутной длине (стандартное кол-во слов) основываясь "
+"на выбранном типе текста. Доступно только для системы CODEX."
 
 #: data/ui/preferences_dialog.blp:37
 msgid "Default Speed"
@@ -148,6 +151,9 @@ msgid ""
 "“Competitions” plays five groups of “OOO” or “00000” (depending on text "
 "type), then current speed, and “VVV =”."
 msgstr ""
+"Управляет началом и концом текста. “Стандартные” проигрывают “VVV =”. "
+"“Соревнования” проигрывают 5 групп “ООО” или “00000” (основываясь на типе "
+"текста), затем текущую скорость и “VVV =”."
 
 #: data/ui/preferences_dialog.blp:49
 msgid "None"
@@ -167,7 +173,7 @@ msgstr "Начальная задержка"
 
 #: data/ui/preferences_dialog.blp:57
 msgid "Delay in seconds before the text starts playing"
-msgstr ""
+msgstr "Задержка в секундах перед началом проигрывания текста"
 
 #: data/ui/preferences_dialog.blp:62
 msgid "Sound"
@@ -266,12 +272,10 @@ msgid "Text Generation"
 msgstr "Генерация текста"
 
 #: data/ui/window.blp:98
-#, fuzzy
 msgid "Default word count"
 msgstr "Стандартное количество слов"
 
 #: data/ui/window.blp:99
-#, fuzzy
 msgid "The word count is calculated automatically based on the text speed"
 msgstr "Количество слов подсчитывается автоматически, основываясь на скорости"
 
@@ -293,7 +297,7 @@ msgstr "Скорость"
 
 #: data/ui/window.blp:121
 msgid "The speed of the text in CPM"
-msgstr ""
+msgstr "Скорость текста в словах/минута"
 
 #: data/ui/window.blp:125
 msgid "Delay between characters"
@@ -363,6 +367,12 @@ msgstr "Скопировано в буфер обмена"
 #: src/widgets/window.rs:593
 msgid "To generate text enable at least 1 character"
 msgstr "Чтобы сгенерировать текст, выберите хотя-бы 1 символ"
+
+#: data/ui/window.blp:126
+msgid ""
+"The delay between words is calculated automatically.The default value is 3."
+msgstr ""
+"Задержка между словами считается автоматически. Стандартное значение — 3."
 
 #~ msgid "This option will affect the dot duration"
 #~ msgstr "Данная настройка повлияет на продолжительность точки"
