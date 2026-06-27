@@ -16,9 +16,10 @@
 
 use crate::application::MorseApplication;
 use crate::backend::settings::{Key, settings_manager::SettingsManager};
+use crate::backend::{calculate_dot_duration, SpeedSystem};
 use crate::constants::ALPHABETS;
 use crate::i18n::i18n;
-use morse_player::{Alphabet, MorsePlayer, TextType, SpeedSystem, WaveType};
+use morse_player::{Alphabet, MorsePlayer, WaveType};
 use adw::{subclass::prelude::*, prelude::*, ToastOverlay, Toast};
 use gtk::{glib, Grid, DropDown, Box, Label, Orientation, Align, Button};
 use std::{cell::{OnceCell, RefCell, Cell}, rc::Rc};
@@ -181,12 +182,7 @@ mod imp {
                             else {
                                 this.is_playing_local.get().unwrap().set(true);
 
-                                let (duration, _) = this.player.get().unwrap().timings(
-                                    &char_str,
-                                    TextType::Mixed,
-                                    this.settings_manager.get().unwrap().integer(Key::DefaultSpeed) as u32,
-                                    3
-                                );
+                                let speed = this.settings_manager.get().unwrap().integer(Key::DefaultSpeed) as u32;
                                 let frequency = this.settings_manager.get().unwrap().integer(Key::Frequency) as f32;
                                 let wave_type = match this.settings_manager.get().unwrap().integer(Key::WaveType) {
                                     0 => WaveType::Square,
@@ -199,17 +195,22 @@ mod imp {
                                     _ => SpeedSystem::PARIS
                                 };
 
-                                this.player.get().unwrap().set_speed_system(speed_system);
-                                this.player.get().unwrap().set_volume(this.settings_manager.get().unwrap().double(Key::PlaybackVolume) as f32);
-                                this.player.get().unwrap().play(
-                                    &char_str,
-                                    TextType::Letters,
-                                    this.settings_manager.get().unwrap().integer(Key::DefaultSpeed) as u32,
-                                    3,
-                                    frequency,
-                                    wave_type,
-                                    48000
-                                );
+                                this.player.get().unwrap()
+                                    .set_volume(this.settings_manager.get().unwrap().double(Key::PlaybackVolume) as f32)
+                                    .set_dot_duration(
+                                        calculate_dot_duration(
+                                            speed as f64,
+                                            speed_system,
+                                            None
+                                        )
+                                    )
+                                    .set_delay(3)
+                                    .set_frequency(frequency)
+                                    .set_wave_type(wave_type)
+                                    .set_sample_rate(48000)
+                                    .play(&char_str);
+
+                                let duration = this.player.get().unwrap().timings(&char_str).0;
 
                                 glib::timeout_add_local_once(duration, clone!(
                                     #[weak] this,

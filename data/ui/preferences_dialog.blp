@@ -31,7 +31,7 @@ template $MorsePreferencesDialog: Adw.PreferencesDialog {
       }
       Adw.SwitchRow adapted_switch {
         title: _("Adapt Speed");
-        subtitle: _("Adjusts speed to a 1-minute duration based on the selected text type.\nAvailable only for the CODEX speed system.");
+        subtitle: _("Adjusts speed to a 1-minute duration (default word count) based on the selected text type. Available only for the CODEX speed system.");
       }
       Adw.SpinRow default_speed_spin {
         title: _("Default Speed");
@@ -43,6 +43,7 @@ template $MorsePreferencesDialog: Adw.PreferencesDialog {
       title: _("Playback");
       Adw.ComboRow additions_combo {
         title: _("Additions");
+        subtitle: _("Controls the start and end of the text. “Default” plays “VVV =”. “Competitions” plays five groups of “OOO” or “00000” (depending on text type), then current speed, and “VVV =”.");
         model: StringList {
           strings [
             _("None"),
@@ -53,6 +54,7 @@ template $MorsePreferencesDialog: Adw.PreferencesDialog {
       }
       Adw.SpinRow start_delay_spin {
         title: _("Start Delay");
+        subtitle: _("Delay in seconds before the text starts playing");
         adjustment: start_delay_adjustment;
       }
     }

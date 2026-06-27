@@ -46,6 +46,9 @@ pub const START_TEXT: &str = "VVV = ";
 pub const END_TEXT: &str = " +";
 pub const START_TEXT_COMPETITIONS_LETTERS: &str = "OOOOO ";
 pub const START_TEXT_COMPETITIONS_DIGITS: &str = "00000 ";
+pub const CODEX_DURATION: f64 = 0.05;
+pub const PARIS_DURATION: f64 = 0.06;
+pub const DIGITS_DURATION: f64 = 0.034;
 
 // VISUALIZATION
 pub const DEFAULT_TEXT: &str = "HELLO MORSE";

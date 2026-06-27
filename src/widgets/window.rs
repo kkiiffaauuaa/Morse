@@ -32,7 +32,8 @@ use crate::application::MorseApplication;
 use crate::widgets::volume_control::MorseVolumeControl;
 use crate::backend::text_generator::generate_text;
 use crate::backend::settings::{Key, settings_manager::SettingsManager};
-use morse_player::{TextType, WaveType, Alphabet, SpeedSystem, MorsePlayer};
+use crate::backend::{SpeedSystem, TextType, calculate_dot_duration};
+use morse_player::{WaveType, Alphabet, MorsePlayer};
 
 use adw::{
     ActionRow, 
@@ -219,6 +220,8 @@ mod imp {
                         }
                     }
 
+                    let player = this.player.get().unwrap();
+
                     let frequency = this.settings_manager.get().unwrap().integer(Key::Frequency) as f32;
                     let start_delay = this.settings_manager.get().unwrap().integer(Key::StartDelay);
                     let mut start_text_duration = Duration::from_secs(0);
@@ -246,13 +249,26 @@ mod imp {
                         0 => SpeedSystem::CODEX,
                         _ => SpeedSystem::PARIS
                     };
-                    this.player.get().unwrap().set_speed_system(speed_system);
-                    this.player.get().unwrap().set_alphabet(this.get_selected_alphabet().2);
+                    let adapt_speed: bool = this.settings_manager.get().unwrap().boolean(Key::AdaptSpeed);
+
+                    player
+                        .set_volume(this.volume_control.volume() as f32)
+                        .set_alphabet(this.get_selected_alphabet().2)
+                        .set_dot_duration(calculate_dot_duration(
+                            speed as f64,
+                            speed_system,
+                            if speed_system == SpeedSystem::CODEX && adapt_speed { Some(text_type) } else { None }
+                        ))
+                        .set_delay(delay)
+                        .set_frequency(frequency)
+                        .set_wave_type(wave_type)
+                        .set_sample_rate(48000);
+
                     let text: String = match this.settings_manager.get().unwrap().integer(Key::Additions) {
                         0 => base_text.clone(),
                         1 => {
-                            start_text_duration = this.player.get().unwrap().timings(START_TEXT, text_type, speed, delay).0;
-                            end_text_duration = this.player.get().unwrap().timings(END_TEXT, text_type, speed, delay).0;
+                            start_text_duration = player.timings(START_TEXT).0;
+                            end_text_duration = player.timings(END_TEXT).0;
                             START_TEXT.to_string() + &base_text + &END_TEXT
                         }
                         _ => {
@@ -264,26 +280,19 @@ mod imp {
                                 start_string = START_TEXT_COMPETITIONS_DIGITS.to_string();
                             }
                             start_string += &(speed.to_string() + " " + START_TEXT);
-                            start_text_duration = this.player.get().unwrap().timings(
+                            start_text_duration = player.timings(
                                 &start_string,
-                                text_type,
-                                speed,
-                                delay,
                             ).0;
-                            end_text_duration = this.player.get().unwrap().timings(
+                            end_text_duration = player.timings(
                                 END_TEXT,
-                                text_type,
-                                speed,
-                                delay,
                             ).0;
                             start_string + &base_text + &END_TEXT
                         },
                     };
 
-                    let (base_duration, timings) = this.player.get().unwrap().timings(&base_text, text_type, speed, delay);
+                    let (base_duration, timings) = player.timings(&base_text);
 
                     // Interface changes
-                    this.player.get().unwrap().set_volume(this.volume_control.volume() as f32);
                     this.set_timer_label(base_duration);
                     play_button.set_visible(false);
                     this.stop_button.set_visible(true);
@@ -298,7 +307,7 @@ mod imp {
                     let start_delay_timeout = glib::timeout_add_local_once(Duration::from_secs(start_delay as u64), clone!(
                         #[weak] this,
                         move || {
-                            this.player.get().unwrap().play(&text, text_type, speed, delay, frequency, wave_type, 48000);
+                            this.player.get().unwrap().play(&text);
                             let text_start_instant = Instant::now();
                                 
                             let timer_timeout = glib::timeout_add_local(Duration::from_millis(250), clone!(

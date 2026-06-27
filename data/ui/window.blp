@@ -78,7 +78,6 @@ template $MorseApplicationWindow: Adw.ApplicationWindow {
                       title: _("General");
                       Adw.ComboRow text_type_combo {
                         title: _("Text Type");
-                        subtitle: _("This option will affect the dot duration");
                         model: StringList {
                           strings [
                             _("Letters"),
@@ -119,11 +118,12 @@ template $MorseApplicationWindow: Adw.ApplicationWindow {
                       title: _("Speed");
                       Adw.SpinRow speed_spin {
                         title: _("Speed");
+                        subtitle: _("The speed of the text in CPM");
                         adjustment: speed_adjustment;
                       }
                       Adw.SpinRow delay_spin {
                         title: _("Delay between characters");
-                        subtitle: _("The delay between words is calculated automatically.\nThe default value is 3.");
+                        subtitle: _("The delay between words is calculated automatically.The default value is 3.");
                         adjustment: characters_delay_adjustment;
                       }
                     }
