@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ '**' ]
     tags: [ 'v*' ]
   pull_request:
     branches: [ main ]
@@ -38,7 +38,9 @@ jobs:
   
   windows:
     name: Windows
-    if: github.ref_type == 'tag'
+    if: |
+      github.ref_type == 'tag' || 
+      contains(github.event.head_commit.message, '[force windows]')
     env:
       PYTHONUTF8: "1"
     strategy:
@@ -90,7 +92,9 @@ jobs:
   macos:
     name: MacOS
     runs-on: macos-26
-    if: github.ref_type == 'tag'
+    if: |
+      github.ref_type == 'tag' || 
+      contains(github.event.head_commit.message, '[force macos]')
     steps:
       - uses: actions/checkout@v6
       - name: "Install System Packages"
@@ -109,7 +113,9 @@ jobs:
   debian:
     name: "Debian"
     continue-on-error: true
-    if: github.ref_type == 'tag'
+    if: |
+      github.ref_type == 'tag' || 
+      contains(github.event.head_commit.message, '[force debian]')
     strategy:
       matrix:
         include:
