@@ -20,4 +20,4 @@ codesign --force --deep -s - Morse.app
 
 create-dmg --volname "Morse" --volicon "morse.icns" --window-pos 200 120 \
 --window-size 800 400 --icon-size 100 --icon "Morse.app" 200 190 --hide-extension "Morse.app" \
---app-drop-link 600 185 --skip-jenkins "morse-aarch64.dmg" "./Morse.app"
+--app-drop-link 600 185 --skip-jenkins "morse-macos-aarch64.dmg" "./Morse.app"

@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: morse-${{matrix.arch}}.flatpak
+          bundle: morse-linux-${{matrix.arch}}.flatpak
           manifest-path: build-aux/flatpak/io.github.teacond.Morse.Devel.json
           cache-key: flatpak-builder-${{github.sha}}
           arch: ${{matrix.arch}}
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/upload-artifact@v6
         with:
           name: morse-flatpak-${{matrix.arch}}
-          path: morse-${{matrix.arch}}.flatpak
+          path: morse-linux-${{matrix.arch}}.flatpak
   
   windows:
     name: Windows
@@ -83,10 +83,10 @@ jobs:
       - name: Build Installer
         shell: powershell
         run: |
-          iscc /DCPUType=${{matrix.arch}} /DOutputFilename=morse-{{matrix.arch-name}} /DVersion="$((meson introspect --projectinfo build | ConvertFrom-Json).version)" build-aux/windows/morse_inno.iss
+          iscc /DCPUType=${{matrix.arch}} /DOutputFilename=morse-windows-{{matrix.arch-name}} /DVersion="$((meson introspect --projectinfo build | ConvertFrom-Json).version)" build-aux/windows/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
-          name: morse-win-${{matrix.arch-name}}
+          name: morse-windows-${{matrix.arch-name}}
           path: Output/*.exe
   
   macos:
@@ -108,7 +108,7 @@ jobs:
       - uses: actions/upload-artifact@v6
         with:
           name: morse-macos-aarch64
-          path: morse-aarch64.dmg
+          path: morse-macos-aarch64.dmg
   
   debian:
     name: "Debian"
@@ -133,11 +133,11 @@ jobs:
           apt install -y debhelper devscripts
           apt build-dep -y .
           dpkg-buildpackage -b -uc -us
-          mv ../morse-gtk_*.deb ./
+          mv ../morse-gtk_*.deb ./morse-linux-${{matrix.arch}}.deb
       - uses: actions/upload-artifact@v6
         with:
-          name: morse-deb-${{matrix.arch}}
-          path: morse-gtk_*.deb
+          name: morse-debian-${{matrix.arch}}
+          path: morse-*.deb
   
   publish:
     name: Publish Release
