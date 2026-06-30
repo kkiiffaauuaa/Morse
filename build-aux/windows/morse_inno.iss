@@ -3,7 +3,6 @@
 ; Non-commercial use only
 
 #define MyAppName "Morse"
-#define MyAppVersion "1.4.0"
 #define MyAppPublisher "Jaŭhien Lavonćjeŭ"
 #define MyAppURL "https://github.com/teacond/Morse"
 #define MyAppExeName "morse.exe"
@@ -13,7 +12,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{AD837812-E74D-4A9E-99A1-2382EC3FB27D}
 AppName={#MyAppName}
-AppVersion={#MyAppVersion}
+AppVersion={#Version}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
@@ -24,12 +23,12 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
 ArchitecturesAllowed={#CPUType}
 ArchitecturesInstallIn64BitMode={#CPUType}
 DisableProgramGroupPage=yes
-SourceDir=..
+SourceDir=..\..
 LicenseFile=COPYING.md
 ; Remove the following line to run in administrative install mode (install for all users).
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=commandline
-OutputBaseFilename=morse-win-installer-{#CPUType}
+OutputBaseFilename={#OutputFilename}
 SetupIconFile=data\icons\morse.ico
 SolidCompression=yes
 WizardStyle=modern dynamic windows11

@@ -47,11 +47,13 @@ jobs:
           - sys: clang64
             env: clang-x86_64
             runner: windows-latest
-            arch: x64
+            arch: x64compatible
+            arch-name: x86_64
           - sys: clangarm64
             env: clang-aarch64
             runner: windows-11-arm
             arch: arm64
+            arch-name: aarch64
     runs-on: ${{matrix.runner}}
     defaults:
       run:
@@ -79,10 +81,10 @@ jobs:
       - name: Build Installer
         shell: powershell
         run: |
-          iscc /DCPUType=${{matrix.arch}} build-aux/windows/morse_inno.iss
+          iscc /DCPUType=${{matrix.arch}} /DOutputFilename=morse-{{matrix.arch-name}} /DVersion="$((meson introspect --projectinfo build | ConvertFrom-Json).version)" build-aux/windows/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
-          name: morse-win-${{matrix.arch}}
+          name: morse-win-${{matrix.arch-name}}
           path: Output/*.exe
   
   macos:
