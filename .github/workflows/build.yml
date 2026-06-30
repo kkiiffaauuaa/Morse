@@ -26,15 +26,16 @@ jobs:
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: morse-${{matrix.arch}}.flatpak
-          manifest-path: build-aux/io.github.teacond.Morse.Devel.json
+          manifest-path: build-aux/flatpak/io.github.teacond.Morse.Devel.json
           cache-key: flatpak-builder-${{github.sha}}
           arch: ${{matrix.arch}}
           verbose: true
           upload-artifact: false
       - uses: actions/upload-artifact@v6
         with:
-          name: morse-${{matrix.arch}}.flatpak
+          name: morse-flatpak-${{matrix.arch}}
           path: morse-${{matrix.arch}}.flatpak
+  
   windows:
     name: Windows
     if: github.ref_type == 'tag'
@@ -78,11 +79,12 @@ jobs:
       - name: Build Installer
         shell: powershell
         run: |
-          iscc /DCPUType=${{matrix.arch}} build-aux/morse_inno.iss
+          iscc /DCPUType=${{matrix.arch}} build-aux/windows/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
-          name: morse-win-installer-${{matrix.arch}}.exe
+          name: morse-win-${{matrix.arch}}
           path: Output/*.exe
+  
   macos:
     name: MacOS
     runs-on: macos-26
@@ -94,30 +96,14 @@ jobs:
           brew update
           brew install meson gettext rust gtk4 libadwaita blueprint-compiler create-dmg dylibbundler librsvg
       - name: Build Package
+        shell: zsh {0}
         run: |
-          meson setup build -Dprefix=$(pwd)/Morse.app -Ddatadir=Contents/Resources -Dbindir=Contents/MacOS -Dlocaledir=Contents/Resources/locale -Dprofile=default
-          meson install -C build
-          dylibbundler -od -b -x Morse.app/Contents/MacOS/morse -d Morse.app/Contents/Frameworks/ -p @executable_path/../Frameworks/
-          mkdir morse.iconset
-          for size in 16 32 128 256 512; do
-              rsvg-convert -w $size -h $size data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}.png
-              rsvg-convert -w $((size*2)) -h $((size*2)) data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}@2x.png
-          done
-          iconutil -c icns morse.iconset
-          cp morse.icns Morse.app/Contents/Resources
-          cp build-aux/morse_run.sh Morse.app/Contents/MacOS/morse_run.sh
-          cp build-aux/Info.plist Morse.app/Contents/Info.plist
-      - name: Sign Package
-        run: codesign --force --deep -s - Morse.app
-      - name: Build Installer
-        run: |
-          create-dmg --volname "Morse Installer" --volicon "morse.icns" --window-pos 200 120 \
-          --window-size 800 400 --icon-size 100 --icon "Morse.app" 200 190 --hide-extension "Morse.app" \
-          --app-drop-link 600 185 --skip-jenkins "morse-macos-installer-arm64.dmg" "./Morse.app"
+          ./build-aux/macos/build.sh
       - uses: actions/upload-artifact@v6
         with:
-          name: morse-macos-installer-arm64.dmg
-          path: morse-macos-installer-arm64.dmg
+          name: morse-macos-aarch64
+          path: morse-aarch64.dmg
+  
   debian:
     name: "Debian"
     continue-on-error: true
@@ -142,8 +128,9 @@ jobs:
           mv ../morse-gtk_*.deb ./
       - uses: actions/upload-artifact@v6
         with:
-          name: morse-${{matrix.arch}}.deb
+          name: morse-deb-${{matrix.arch}}
           path: morse-gtk_*.deb
+  
   publish:
     name: Publish Release
     needs: [flatpak, windows, macos, debian]
@@ -157,7 +144,6 @@ jobs:
         with:
           path: ./binaries
           merge-multiple: true
-
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
