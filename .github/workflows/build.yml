@@ -83,6 +83,7 @@ jobs:
       - name: Build Installer
         shell: powershell
         run: |
+          pip install meson
           iscc /DCPUType=${{matrix.arch}} /DOutputFilename=morse-windows-{{matrix.arch-name}} /DVersion="$((meson introspect --projectinfo build | ConvertFrom-Json).version)" build-aux/windows/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
