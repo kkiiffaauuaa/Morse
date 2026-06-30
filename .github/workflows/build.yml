@@ -80,14 +80,12 @@ jobs:
           cp /${{matrix.sys}}/bin/gdbus.exe dist/bin
           mkdir -p dist/lib/gdk-pixbuf-2.0
           cp -r /${{matrix.sys}}/lib/gdk-pixbuf-2.0/* dist/lib/gdk-pixbuf-2.0
-      - name: Install Meson
-        shell: powershell
-        run: |
-          pip install meson
       - name: Build Installer
         shell: powershell
         run: |
-          iscc /DCPUType=${{matrix.arch}} /DOutputFilename=morse-windows-{{matrix.arch-name}} /DVersion="$((meson introspect --projectinfo build | ConvertFrom-Json).version)" build-aux/windows/morse_inno.iss
+          pip install meson
+          $AppVersion = (meson introspect --projectinfo build | ConvertFrom-Json).version
+          iscc /DCPUType=${{matrix.arch}} /DOutputFilename=morse-windows-${{matrix.arch-name}} /DVersion="$AppVersion" build-aux/windows/morse_inno.iss
       - uses: actions/upload-artifact@v6
         with:
           name: morse-windows-${{matrix.arch-name}}
