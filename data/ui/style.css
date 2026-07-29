@@ -15,3 +15,12 @@
 #volume>scale trough slider {
   opacity: 0;
 }
+
+#receiving_text_view.hidden-text {
+  filter: blur(8px);
+}
+
+#receiving_text_view.hidden-text selection {
+  background-color: transparent;
+  color: transparent;
+}
