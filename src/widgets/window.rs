@@ -38,7 +38,7 @@ use adw::{
     Toast, ToastOverlay, prelude::*, subclass::prelude::*,
 };
 use gtk::{
-    Button, CheckButton, Grid, Label, Popover, TextBuffer, TextTag, TextView, gdk::Display, gio,
+    Button, CheckButton, Grid, Label, Popover, TextBuffer, TextTag, TextView, ToggleButton, gdk::Display, gio,
     glib,
 };
 
@@ -101,6 +101,8 @@ mod imp {
         copy_text_button: TemplateChild<Button>,
         #[template_child]
         generate_text_button: TemplateChild<Button>,
+        #[template_child]
+        toggle_text_button: TemplateChild<ToggleButton>,
         #[template_child]
         volume_control: TemplateChild<MorseVolumeControl>,
         pref_action: OnceCell<SimpleAction>,
@@ -568,7 +570,19 @@ mod imp {
                     }
                 }
             ));
-
+            self.toggle_text_button.connect_toggled(clone!(
+                #[weak(rename_to = this)]
+                self,
+                move |button| {
+                    if button.is_active() {
+                        button.set_icon_name("view-reveal-symbolic");
+                        this.text_view.add_css_class("hidden-text");
+                    } else {
+                        button.set_icon_name("view-conceal-symbolic");
+                        this.text_view.remove_css_class("hidden-text");
+                    }
+                }
+            ));
             // To change color of tag dependings on the accent color
             style_manager.connect_accent_color_rgba_notify(clone!(
                 #[weak]
