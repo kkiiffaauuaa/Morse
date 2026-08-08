@@ -5,6 +5,7 @@
 #receiving_text_view {
   font-size: 22pt;
   font-weight: bold;
+  transition: filter .2s ease-in-out;
 }
 
 #volume>scale trough highlight {
