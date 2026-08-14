@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ '**' ]
     tags: [ 'v*' ]
   pull_request:
     branches: [ main ]
@@ -22,22 +22,25 @@ jobs:
             arch: aarch64
     runs-on: ${{matrix.runner}}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: morse-${{matrix.arch}}.flatpak
-          manifest-path: build-aux/io.github.teacond.Morse.Devel.json
+          bundle: morse-linux-${{matrix.arch}}.flatpak
+          manifest-path: build-aux/flatpak/io.github.teacond.Morse.json
           cache-key: flatpak-builder-${{github.sha}}
           arch: ${{matrix.arch}}
           verbose: true
           upload-artifact: false
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
-          name: morse-${{matrix.arch}}.flatpak
-          path: morse-${{matrix.arch}}.flatpak
+          name: morse-flatpak-${{matrix.arch}}
+          path: morse-linux-${{matrix.arch}}.flatpak
+  
   windows:
     name: Windows
-    if: github.ref_type == 'tag'
+    if: |
+      github.ref_type == 'tag' || 
+      contains(github.event.head_commit.message, '[force windows]')
     env:
       PYTHONUTF8: "1"
     strategy:
@@ -46,17 +49,19 @@ jobs:
           - sys: clang64
             env: clang-x86_64
             runner: windows-latest
-            arch: x64
+            arch: x64compatible
+            arch-name: x86_64
           - sys: clangarm64
             env: clang-aarch64
             runner: windows-11-arm
             arch: arm64
+            arch-name: aarch64
     runs-on: ${{matrix.runner}}
     defaults:
       run:
         shell: msys2 {0}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: "Setup MSYS2"
         uses: msys2/setup-msys2@v2
         with:
@@ -78,50 +83,41 @@ jobs:
       - name: Build Installer
         shell: powershell
         run: |
-          iscc /DCPUType=${{matrix.arch}} build-aux/morse_inno.iss
-      - uses: actions/upload-artifact@v6
+          pip install meson
+          $AppVersion = (meson introspect --projectinfo build | ConvertFrom-Json).version
+          iscc /DCPUType=${{matrix.arch}} /DOutputFilename=morse-windows-${{matrix.arch-name}} /DVersion="$AppVersion" build-aux/windows/morse_inno.iss
+      - uses: actions/upload-artifact@v7
         with:
-          name: morse-win-installer-${{matrix.arch}}.exe
+          name: morse-windows-${{matrix.arch-name}}
           path: Output/*.exe
+  
   macos:
     name: MacOS
     runs-on: macos-26
-    if: github.ref_type == 'tag'
+    if: |
+      github.ref_type == 'tag' || 
+      contains(github.event.head_commit.message, '[force macos]')
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: "Install System Packages"
         run: |
           brew update
           brew install meson gettext rust gtk4 libadwaita blueprint-compiler create-dmg dylibbundler librsvg
       - name: Build Package
+        shell: zsh {0}
         run: |
-          meson setup build -Dprefix=$(pwd)/Morse.app -Ddatadir=Contents/Resources -Dbindir=Contents/MacOS -Dlocaledir=Contents/Resources/locale -Dprofile=default
-          meson install -C build
-          dylibbundler -od -b -x Morse.app/Contents/MacOS/morse -d Morse.app/Contents/Frameworks/ -p @executable_path/../Frameworks/
-          mkdir morse.iconset
-          for size in 16 32 128 256 512; do
-              rsvg-convert -w $size -h $size data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}.png
-              rsvg-convert -w $((size*2)) -h $((size*2)) data/icons/hicolor/scalable/apps/io.github.teacond.Morse.svg -o morse.iconset/icon_${size}x${size}@2x.png
-          done
-          iconutil -c icns morse.iconset
-          cp morse.icns Morse.app/Contents/Resources
-          cp build-aux/morse_run.sh Morse.app/Contents/MacOS/morse_run.sh
-          cp build-aux/Info.plist Morse.app/Contents/Info.plist
-      - name: Sign Package
-        run: codesign --force --deep -s - Morse.app
-      - name: Build Installer
-        run: |
-          create-dmg --volname "Morse Installer" --volicon "morse.icns" --window-pos 200 120 \
-          --window-size 800 400 --icon-size 100 --icon "Morse.app" 200 190 --hide-extension "Morse.app" \
-          --app-drop-link 600 185 --skip-jenkins "morse-macos-installer-arm64.dmg" "./Morse.app"
-      - uses: actions/upload-artifact@v6
+          ./build-aux/macos/build.sh
+      - uses: actions/upload-artifact@v7
         with:
-          name: morse-macos-installer-arm64.dmg
-          path: morse-macos-installer-arm64.dmg
+          name: morse-macos-aarch64
+          path: morse-macos-aarch64.dmg
+  
   debian:
     name: "Debian"
     continue-on-error: true
-    if: github.ref_type == 'tag'
+    if: |
+      github.ref_type == 'tag' || 
+      contains(github.event.head_commit.message, '[force debian]')
     strategy:
       matrix:
         include:
@@ -132,18 +128,19 @@ jobs:
     runs-on: ${{matrix.runner}}
     container: debian:sid
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Build Package
         run: |
           apt update
           apt install -y debhelper devscripts
           apt build-dep -y .
           dpkg-buildpackage -b -uc -us
-          mv ../morse-gtk_*.deb ./
-      - uses: actions/upload-artifact@v6
+          mv ../morse-gtk_*.deb ./morse-linux-${{matrix.arch}}.deb
+      - uses: actions/upload-artifact@v7
         with:
-          name: morse-${{matrix.arch}}.deb
-          path: morse-gtk_*.deb
+          name: morse-debian-${{matrix.arch}}
+          path: morse-*.deb
+  
   publish:
     name: Publish Release
     needs: [flatpak, windows, macos, debian]
@@ -157,9 +154,8 @@ jobs:
         with:
           path: ./binaries
           merge-multiple: true
-
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: ./binaries/*
           generate_release_notes: true

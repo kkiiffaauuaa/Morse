@@ -1,5 +1,5 @@
 {
-    "id" : "io.github.teacond.Morse.Devel",
+    "id" : "io.github.teacond.Morse",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "50",
     "sdk" : "org.gnome.Sdk",
@@ -30,12 +30,12 @@
             "builddir" : true,
             "buildsystem" : "meson",
             "config-opts": [
-                "-Dprofile=development"
+                "-Dprofile=default"
             ],
             "sources": [
                 {
                     "type": "dir",
-                    "path": "../"
+                    "path": "../../"
                 }
             ]
         }
