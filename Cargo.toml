@@ -11,15 +11,15 @@ edition = "2024"
 winresource = "0.1.31"
 
 [dependencies]
-anyhow = { version = "1.0.103", default-features = false }
-rand = { version = "0.10.1", features = ["std_rng"] }
-gettext-rs = { version = "0.7.7", features = ["gettext-system"] }
-gtk = { package = "gtk4", version = "0.11.3", features = ["gnome_50"] }
-adw = { package = "libadwaita", version = "0.9.1", features = ["v1_9"] }
+anyhow = { version = "1.0.104", default-features = false }
+rand = { version = "0.10.2", features = ["std_rng"] }
+gettext-rs = { version = "0.8.0", features = ["gettext-system"] }
+gtk = { package = "gtk4", version = "0.11.4", features = ["gnome_50"] }
+adw = { package = "libadwaita", version = "0.9.2", features = ["v1_9"] }
 strum = "0.28.0"
 strum_macros = "0.28.0"
-regex = "1.12.4"
-serde = { version = "1.0.228", features = ["derive"] }
-serde_json = "1.0.150"
+regex = "1.13.1"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
 
-morse_player = { git = "https://github.com/teacond/morse_player", tag="v0.3.3" }
+morse_player = { git = "https://github.com/teacond/morse_player", tag="v0.3.4" }
