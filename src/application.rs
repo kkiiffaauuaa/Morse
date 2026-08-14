@@ -140,7 +140,10 @@ impl MorseApplication {
             .application_name(&i18n("Morse"))
             .developer_name("Jaŭhien Lavonćjeŭ")
             .version(VERSION)
-            .developers(vec!["Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>"])
+            .developers(vec![
+                "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>",
+                "Iñaki https://github.com/igonzalezb",
+            ])
             .copyright("© 2025-2026 Jaŭhien Lavonćjeŭ")
             .issue_url("https://github.com/teacond/Morse/issues")
             .license_type(gtk::License::Gpl30)
