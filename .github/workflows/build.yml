@@ -22,7 +22,7 @@ jobs:
             arch: aarch64
     runs-on: ${{matrix.runner}}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: morse-linux-${{matrix.arch}}.flatpak
@@ -31,7 +31,7 @@ jobs:
           arch: ${{matrix.arch}}
           verbose: true
           upload-artifact: false
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: morse-flatpak-${{matrix.arch}}
           path: morse-linux-${{matrix.arch}}.flatpak
@@ -61,7 +61,7 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: "Setup MSYS2"
         uses: msys2/setup-msys2@v2
         with:
@@ -86,7 +86,7 @@ jobs:
           pip install meson
           $AppVersion = (meson introspect --projectinfo build | ConvertFrom-Json).version
           iscc /DCPUType=${{matrix.arch}} /DOutputFilename=morse-windows-${{matrix.arch-name}} /DVersion="$AppVersion" build-aux/windows/morse_inno.iss
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: morse-windows-${{matrix.arch-name}}
           path: Output/*.exe
@@ -98,7 +98,7 @@ jobs:
       github.ref_type == 'tag' || 
       contains(github.event.head_commit.message, '[force macos]')
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: "Install System Packages"
         run: |
           brew update
@@ -107,7 +107,7 @@ jobs:
         shell: zsh {0}
         run: |
           ./build-aux/macos/build.sh
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: morse-macos-aarch64
           path: morse-macos-aarch64.dmg
@@ -128,7 +128,7 @@ jobs:
     runs-on: ${{matrix.runner}}
     container: debian:sid
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Build Package
         run: |
           apt update
@@ -136,7 +136,7 @@ jobs:
           apt build-dep -y .
           dpkg-buildpackage -b -uc -us
           mv ../morse-gtk_*.deb ./morse-linux-${{matrix.arch}}.deb
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: morse-debian-${{matrix.arch}}
           path: morse-*.deb
@@ -155,7 +155,7 @@ jobs:
           path: ./binaries
           merge-multiple: true
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: ./binaries/*
           generate_release_notes: true
