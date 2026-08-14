@@ -38,8 +38,8 @@ use adw::{
     Toast, ToastOverlay, prelude::*, subclass::prelude::*,
 };
 use gtk::{
-    Button, CheckButton, Grid, Label, Popover, TextBuffer, TextTag, TextView, ToggleButton, gdk::Display, gio,
-    glib,
+    Button, CheckButton, Grid, Label, Popover, TextBuffer, TextTag, TextView, ToggleButton,
+    gdk::Display, gio, glib,
 };
 
 use gio::SimpleAction;
