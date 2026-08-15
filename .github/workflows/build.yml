@@ -157,7 +157,7 @@ jobs:
     runs-on: ${{matrix.runner}}
     container:
       image: ${{matrix.image}}
-      options: --privileged
+      options: --privileged --user root
     steps:
       - uses: actions/checkout@v7
       - name: Build Package
