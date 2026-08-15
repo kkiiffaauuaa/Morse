@@ -70,3 +70,8 @@ summary({
   },
   section: 'Build options',
 )
+
+install_data(
+  'COPYING.md',
+  install_dir: datadir / 'licenses' / meson.project_name()
+)
