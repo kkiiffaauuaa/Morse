@@ -8,7 +8,7 @@ on:
     branches: [ main ]
 
 jobs:
-  flatpak:
+  build-flatpak:
     name: "Flatpak"
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
@@ -36,7 +36,7 @@ jobs:
           name: morse-flatpak-${{matrix.arch}}
           path: morse-linux-${{matrix.arch}}.flatpak
   
-  windows:
+  build-windows:
     name: Windows
     if: |
       github.ref_type == 'tag' || 
@@ -91,7 +91,7 @@ jobs:
           name: morse-windows-${{matrix.arch-name}}
           path: Output/*.exe
   
-  macos:
+  build-macos:
     name: MacOS
     runs-on: macos-26
     if: |
@@ -112,9 +112,8 @@ jobs:
           name: morse-macos-aarch64
           path: morse-macos-aarch64.dmg
   
-  debian:
+  build-debian:
     name: "Debian"
-    continue-on-error: true
     if: |
       github.ref_type == 'tag' || 
       contains(github.event.head_commit.message, '[force debian]')
@@ -141,9 +140,40 @@ jobs:
           name: morse-debian-${{matrix.arch}}
           path: morse-*.deb
   
+  build-binary:
+    name: "Linux Binary"
+    if: |
+      github.ref_type == 'tag' || 
+      contains(github.event.head_commit.message, '[force binary]')
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            image: quay.io/gnome_infrastructure/gnome-runtime-images:gnome-50
+            arch: x86_64
+          - runner: ubuntu-24.04-arm
+            image: quay.io/gnome_infrastructure/gnome-runtime-images:aarch64-gnome-50
+            arch: aarch64
+    runs-on: ${{matrix.runner}}
+    container:
+      image: ${{matrix.image}}
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build Package
+        run: |
+          meson setup build -Dprofile=default --prefix=/usr
+          meson compile -C build
+          meson install -C build --strip --destdir $(pwd)/morse
+          tar -czvf morse-v$(meson introspect --projectinfo build | jq -r .version)-${{matrix.arch}}.tar.gz -C morse .
+      - uses: actions/upload-artifact@v7
+        with:
+          name: morse-linux-${{matrix.arch}}
+          path: morse-*.tar.gz
+  
   publish:
     name: Publish Release
-    needs: [flatpak, windows, macos, debian]
+    needs: [build-flatpak, build-windows, build-macos, build-debian, build-binary]
     if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     permissions:
