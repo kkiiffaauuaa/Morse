@@ -16,10 +16,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - runner: ubuntu-24.04
-            arch: x86_64
-          - runner: ubuntu-24.04-arm
-            arch: aarch64
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
     runs-on: ${{matrix.runner}}
     steps:
       - uses: actions/checkout@v7
@@ -46,16 +46,16 @@ jobs:
     strategy:
       matrix:
         include:
-          - sys: clang64
+          - arch-name: x86_64
+            sys: clang64
             env: clang-x86_64
             runner: windows-latest
             arch: x64compatible
-            arch-name: x86_64
-          - sys: clangarm64
+          - arch-name: aarch64
+            sys: clangarm64
             env: clang-aarch64
             runner: windows-11-arm
             arch: arm64
-            arch-name: aarch64
     runs-on: ${{matrix.runner}}
     defaults:
       run:
@@ -120,10 +120,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - runner: ubuntu-24.04
-            arch: x86_64
-          - runner: ubuntu-24.04-arm
-            arch: aarch64
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
     runs-on: ${{matrix.runner}}
     container: debian:sid
     steps:
@@ -148,18 +148,20 @@ jobs:
     strategy:
       matrix:
         include:
-          - runner: ubuntu-24.04
-            image: quay.io/gnome_infrastructure/gnome-runtime-images:gnome-50
-            arch: x86_64
-          - runner: ubuntu-24.04-arm
-            image: quay.io/gnome_infrastructure/gnome-runtime-images:aarch64-gnome-50
-            arch: aarch64
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
     runs-on: ${{matrix.runner}}
     container:
-      image: ${{matrix.image}}
-      options: --privileged --user root
+      image: fedora:rawhide
     steps:
       - uses: actions/checkout@v7
+      - name: Install deps
+        run: |
+          dnf install -y --setopt=install_weak_deps=False \
+            meson git jq cargo gtk4-devel libadwaita-devel \
+            blueprint-compiler
       - name: Build Package
         run: |
           meson setup build -Dprofile=default --prefix=/usr
