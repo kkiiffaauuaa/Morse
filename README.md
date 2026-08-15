@@ -49,7 +49,7 @@ flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flath
 Build and install a Flatpak package:
 
 ```bash
-flatpak-builder --force-clean --user --install-deps-from=flathub --repo=repo --install builddir build-aux/io.github.teacond.Morse.json
+flatpak-builder --force-clean --user --install-deps-from=flathub --repo=repo --install builddir build-aux/flatpak/io.github.teacond.Morse.json
 ```
 
 Run the app:
