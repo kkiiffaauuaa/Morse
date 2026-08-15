@@ -161,7 +161,7 @@ jobs:
         run: |
           dnf install -y --setopt=install_weak_deps=False \
             meson git jq cargo gtk4-devel libadwaita-devel \
-            blueprint-compiler
+            blueprint-compiler alsa-lib-devel
       - name: Build Package
         run: |
           meson setup build -Dprofile=default --prefix=/usr
