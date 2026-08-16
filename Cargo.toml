@@ -4,7 +4,7 @@ license = "GPL-3.0-or-later"
 authors = [ "Jaŭhien Lavonćjeŭ <jauhien.lavoncjeu@gmail.com>" ]
 repository = "https://github.com/teacond/Morse"
 homepage = "https://github.com/teacond/Morse"
-version = "1.4.0"
+version = "1.5.0"
 edition = "2024"
 
 [build-dependencies]

@@ -1,5 +1,16 @@
 # Change Log
 
+## [1.5.0] - 2026-08-17
+
+### Added
+
+- Added a button to hide/reveal a Morse text
+
+### Changed
+
+- Updated dependencies
+- Updated translations
+
 ## [1.4.0] - 2026-06-27
 
 ### Added

@@ -62,6 +62,14 @@
   </recommends>
 
   <releases>
+    <release version="1.5.0" date="2026-08-17">
+      <description>
+        <p>Improvements:</p>
+        <ul>
+          <li>Added a button to hide/reveal a morse text</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.4.0" date="2026-06-27">
       <description translate="no">
         <p>
